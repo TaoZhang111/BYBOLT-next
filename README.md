@@ -1,4 +1,4 @@
-# VK Superalloys Website
+# BYBOLT Website
 
 Multilingual B2B website foundation for an international superalloy business.
 
@@ -63,7 +63,7 @@ src/
   without changing the route structure.
 - The RFQ route is separate from general contact and is reserved for structured
   material requirements and secure file uploads.
-- `VK Superalloys`, the email address and all current copy are working placeholders.
+- The sales email address and current product copy are working placeholders.
 
 ## Planned integrations
 

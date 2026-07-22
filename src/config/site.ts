@@ -1,7 +1,8 @@
 import type { Locale } from "@/i18n/config";
 
 export const siteConfig = {
-  workingName: "VK Superalloys",
+  workingName: "BYBOLT",
+  slogan: "built by bolt, made to endure",
   description:
     "High-performance superalloy materials for demanding industrial applications.",
   primaryLocale: "en" satisfies Locale,

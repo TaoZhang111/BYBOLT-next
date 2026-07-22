@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { Container } from "@/components/ui/container";
+import { siteConfig } from "@/config/site";
 import type { LocaleParams } from "@/i18n/routing";
 import { getRequestLocale } from "@/i18n/routing";
 
@@ -27,7 +28,7 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
         <div className="absolute inset-y-0 right-0 w-1/2 bg-[radial-gradient(circle_at_center,rgba(211,95,45,0.28),transparent_66%)]" />
         <Container className="relative">
           <p className="text-xs font-semibold tracking-[0.24em] text-orange-300 uppercase">
-            {isEnglish ? "Built for extreme environments" : "面向极端工况"}
+            {siteConfig.slogan}
           </p>
           <h1 className="mt-6 max-w-5xl text-5xl leading-[0.98] font-semibold tracking-[-0.05em] sm:text-7xl lg:text-8xl">
             {isEnglish

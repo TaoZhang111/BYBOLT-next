@@ -8,14 +8,14 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   const alternateLocale: Locale = locale === "en" ? "zh" : "en";
 
   return (
-    <header className="border-b border-white/10 bg-industrial text-white">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-industrial text-white shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
       <Container className="flex min-h-20 items-center justify-between gap-8 py-4">
         <Link href={`/${locale}`} className="shrink-0" aria-label="Home">
           <span className="block text-lg font-semibold tracking-[0.14em] uppercase">
             {siteConfig.workingName}
           </span>
-          <span className="block text-[0.65rem] tracking-[0.22em] text-white/55 uppercase">
-            High-performance materials
+          <span className="block text-[0.65rem] tracking-[0.12em] text-white/55">
+            {siteConfig.slogan}
           </span>
         </Link>
 
