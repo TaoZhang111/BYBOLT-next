@@ -21,11 +21,24 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: {
     default: siteConfig.workingName,
     template: `%s | ${siteConfig.workingName}`,
   },
   description: siteConfig.description,
+  openGraph: {
+    type: "website",
+    title: siteConfig.workingName,
+    description: siteConfig.slogan,
+    images: [{ url: "/og.jpg", width: 1731, height: 909, alt: "BYBOLT" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.workingName,
+    description: siteConfig.slogan,
+    images: ["/og.jpg"],
+  },
 };
 
 export function generateStaticParams() {
