@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "content:generate": "node scripts/generate-static-content.mjs",
     "build": "next build",
-    "preview": "opennextjs-cloudflare build && wrangler dev",
-    "deploy:preview": "opennextjs-cloudflare build && wrangler deploy",
+    "preview": "pnpm build && wrangler pages dev out",
+    "deploy:preview": "pnpm build && wrangler pages deploy out --project-name bybolt-next-preview --branch preview",
+    "deploy:production": "pnpm build && wrangler pages deploy out --project-name bybolt-next-preview --branch main",
     "start": "next start",
     "lint": "eslint"
   },
