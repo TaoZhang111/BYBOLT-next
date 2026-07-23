@@ -39,6 +39,7 @@ pnpm-debug.log*
 # Deployment platforms
 .vercel/
 .netlify/
+.open-next/
 
 # Editors and operating systems
 .DS_Store

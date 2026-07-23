@@ -1,6 +1,15 @@
 import { PageIntro } from "@/components/marketing/page-intro";
 import { getRequestLocale } from "@/i18n/routing";
 
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return [
+    { locale: "en", slug: "cms-ready" },
+    { locale: "zh", slug: "cms-ready" },
+  ];
+}
+
 export default async function NewsDetailPage({
   params,
 }: {

@@ -1,6 +1,15 @@
 import { PageIntro } from "@/components/marketing/page-intro";
 import { getRequestLocale } from "@/i18n/routing";
 
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return [
+    { locale: "en", slug: "inconel-625" },
+    { locale: "zh", slug: "inconel-625" },
+  ];
+}
+
 function formatSlug(slug: string) {
   return slug
     .split("-")

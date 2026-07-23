@@ -1,0 +1,315 @@
+﻿
+    <header class="site-header is-solid" data-header>
+      <a class="brand" href="/en" aria-label="BYBOLT home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" role="img">
+            <path d="M7.2 3.8 3.8 7.2v9.6l3.4 3.4h9.6l3.4-3.4V7.2l-3.4-3.4H7.2Zm.8 3h8l1.2 1.2v8l-1.2 1.2H8L6.8 16V8L8 6.8Zm1.8 3.4v3.6h4.4v-3.6H9.8Z" />
+          </svg>
+        </span>
+        <span>
+          <strong>BYBOLT</strong>
+          <small>built by bolt, made to endure</small>
+        </span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" data-nav-toggle>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="site-nav" data-nav aria-label="Primary navigation">
+        <a href="/en/products">Products</a>
+        <a href="/en/materials">Materials</a>
+        <a href="index.html#capabilities">Capabilities</a>
+        <a href="index.html#quality">Quality</a>
+        <a class="nav-cta" href="/en/request-a-quote" aria-current="page">Request a Quote</a>
+      </nav>
+    </header>
+
+    <main class="quote-main">
+      <section class="quote-hero" aria-labelledby="quote-title">
+        <div class="container quote-hero-grid">
+          <div>
+            <p class="eyebrow">STANDARD OR CUSTOM REQUIREMENTS</p>
+            <h1 id="quote-title">Request a Quote</h1>
+            <p>Submit a standard fastener requirement or upload drawings for a custom component review.</p>
+          </div>
+          <div class="response-promise" aria-label="Response commitment">
+            <span>Response target</span>
+            <strong>Within one business day</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="quote-workspace">
+        <div class="container quote-layout">
+          <aside class="quote-aside">
+            <div>
+              <p class="eyebrow dark">What to include</p>
+              <h2>Enough detail for a useful quotation.</h2>
+              <p>Material, size, quantity and destination are the essentials. Add the standard, testing and drawing where available.</p>
+            </div>
+            <ol class="quote-guide">
+              <li><span>01</span><div><strong>Contact details</strong><small>So the technical response reaches the right person.</small></div></li>
+              <li><span>02</span><div><strong>Product requirements</strong><small>Material, size, quantity, testing and destination.</small></div></li>
+              <li><span>03</span><div><strong>Drawing &amp; confidentiality</strong><small>Optional files with a clear confidentiality request.</small></div></li>
+            </ol>
+            <div class="aside-contact">
+              <span>Prefer email?</span>
+              <a href="mailto:sales@bybolt.com">sales@bybolt.com</a>
+            </div>
+          </aside>
+
+          <div class="rfq-panel">
+            <form class="rfq-form rfq-form-detailed" data-rfq-form novalidate>
+              <fieldset>
+                <legend><span>01</span>Contact Information</legend>
+                <div class="form-row">
+                  <label>
+                    <span>Name <b aria-hidden="true">*</b></span>
+                    <input name="name" type="text" autocomplete="name" required />
+                    <small class="field-error" data-error-for="name"></small>
+                  </label>
+                  <label>
+                    <span>Business Email <b aria-hidden="true">*</b></span>
+                    <input name="email" type="email" autocomplete="email" required />
+                    <small class="field-error" data-error-for="email"></small>
+                  </label>
+                </div>
+                <div class="form-row">
+                  <label>
+                    <span>Company <b aria-hidden="true">*</b></span>
+                    <input name="company" type="text" autocomplete="organization" required />
+                    <small class="field-error" data-error-for="company"></small>
+                  </label>
+                  <label>
+                    <span>Country / Region <b aria-hidden="true">*</b></span>
+                    <input name="country" type="text" list="country-options" autocomplete="country-name" required />
+                    <small class="field-error" data-error-for="country"></small>
+                  </label>
+                </div>
+                <datalist id="country-options">
+                  <option value="United States"></option>
+                  <option value="Canada"></option>
+                  <option value="Mexico"></option>
+                  <option value="United Kingdom"></option>
+                  <option value="Germany"></option>
+                  <option value="France"></option>
+                  <option value="Italy"></option>
+                  <option value="Netherlands"></option>
+                  <option value="Spain"></option>
+                  <option value="Poland"></option>
+                  <option value="Turkey"></option>
+                  <option value="United Arab Emirates"></option>
+                  <option value="Saudi Arabia"></option>
+                  <option value="India"></option>
+                  <option value="Singapore"></option>
+                  <option value="Malaysia"></option>
+                  <option value="Indonesia"></option>
+                  <option value="Japan"></option>
+                  <option value="South Korea"></option>
+                  <option value="Australia"></option>
+                  <option value="Brazil"></option>
+                  <option value="South Africa"></option>
+                </datalist>
+              </fieldset>
+
+              <fieldset>
+                <legend><span>02</span>Product Requirements</legend>
+                <div class="form-row">
+                  <label>
+                    <span>Product Type <b aria-hidden="true">*</b></span>
+                    <select name="product" required data-product-select>
+                      <option value="">Select product</option>
+                      <option>Bolts</option>
+                      <option>Nuts</option>
+                      <option>Studs</option>
+                      <option>Washers</option>
+                      <option>Screws</option>
+                      <option>Custom Products</option>
+                      <option>Other</option>
+                    </select>
+                    <small class="field-error" data-error-for="product"></small>
+                  </label>
+                  <label>
+                    <span>Material Grade <b aria-hidden="true">*</b></span>
+                    <input name="material" type="text" list="material-options" placeholder="e.g. Inconel 718" required />
+                    <small class="field-error" data-error-for="material"></small>
+                  </label>
+                </div>
+                <label class="conditional-field" data-product-other hidden>
+                  <span>Other Product Type <b aria-hidden="true">*</b></span>
+                  <input name="productOther" type="text" />
+                  <small class="field-error" data-error-for="productOther"></small>
+                </label>
+                <datalist id="material-options">
+                  <option value="Inconel 625"></option>
+                  <option value="Inconel 718"></option>
+                  <option value="Hastelloy C276"></option>
+                  <option value="Monel 400"></option>
+                  <option value="Titanium Grade 2"></option>
+                  <option value="Titanium Grade 5"></option>
+                  <option value="Duplex 2205"></option>
+                  <option value="Super Duplex 2507"></option>
+                </datalist>
+
+                <div class="form-row">
+                  <label>
+                    <span>Size / Drawing Number</span>
+                    <input name="size" type="text" placeholder="M16 脳 80 or DRW-1042" />
+                  </label>
+                  <div class="quantity-field">
+                    <label>
+                      <span>Quantity <b aria-hidden="true">*</b></span>
+                      <span class="quantity-control">
+                        <input name="quantity" type="number" inputmode="numeric" min="1" step="1" required />
+                        <select name="quantityUnit" aria-label="Quantity unit">
+                          <option>pcs</option>
+                          <option>sets</option>
+                          <option>kg</option>
+                        </select>
+                      </span>
+                      <small class="field-error" data-error-for="quantity"></small>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <label>
+                    <span>Required Standard</span>
+                    <input name="standard" type="text" placeholder="ASTM, ASME, DIN, ISO or project spec" />
+                  </label>
+                  <label>
+                    <span>Destination <b aria-hidden="true">*</b></span>
+                    <input name="destination" type="text" placeholder="City, country" required />
+                    <small class="field-error" data-error-for="destination"></small>
+                  </label>
+                </div>
+
+                <div class="control-group">
+                  <span class="control-label">Required Testing</span>
+                  <div class="checkbox-grid">
+                    <label class="check-control"><input type="checkbox" name="testing" value="MTC / EN 10204 3.1" /><span>MTC / EN 10204 3.1</span></label>
+                    <label class="check-control"><input type="checkbox" name="testing" value="PMI" /><span>PMI</span></label>
+                    <label class="check-control"><input type="checkbox" name="testing" value="Hardness" /><span>Hardness</span></label>
+                    <label class="check-control"><input type="checkbox" name="testing" value="Tensile" /><span>Tensile</span></label>
+                    <label class="check-control"><input type="checkbox" name="testing" value="Ultrasonic" /><span>Ultrasonic</span></label>
+                    <label class="check-control"><input type="checkbox" name="testing" value="Third-party inspection" /><span>Third-party inspection</span></label>
+                    <label class="check-control"><input type="checkbox" name="testing" value="Other" data-testing-other-toggle /><span>Other</span></label>
+                  </div>
+                  <label class="conditional-field compact" data-testing-other hidden>
+                    <span>Other Testing</span>
+                    <input name="testingOther" type="text" />
+                  </label>
+                </div>
+
+                <label>
+                  <span>Additional Notes</span>
+                  <textarea
+                    name="notes"
+                    rows="4"
+                    placeholder="Operating temperature, corrosion environment, tolerance, delivery target or packing requirement"
+                  ></textarea>
+                </label>
+              </fieldset>
+
+              <fieldset>
+                <legend><span>03</span>Drawing &amp; Confidentiality</legend>
+                <div
+                  class="upload-zone"
+                  data-upload-zone
+                  role="button"
+                  tabindex="0"
+                  aria-controls="drawing-upload"
+                  aria-describedby="upload-formats upload-error"
+                >
+                  <input
+                    id="drawing-upload"
+                    name="drawings"
+                    type="file"
+                    accept=".pdf,.dwg,.dxf,.step,.stp,.jpg,.jpeg,.png"
+                    multiple
+                    data-file-input
+                  />
+                  <span class="upload-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M11 16V7.8L8.4 10.4 7 9l5-5 5 5-1.4 1.4L13 7.8V16h-2Zm-5 4a3 3 0 0 1-3-3v-2h2v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2h2v2a3 3 0 0 1-3 3H6Z" />
+                    </svg>
+                  </span>
+                  <strong>Upload drawings or specifications</strong>
+                  <span>Drag files here or <u>browse files</u></span>
+                  <small id="upload-formats">Accepted formats: PDF, DWG, DXF, STEP, JPG, PNG. Maximum 10 MB per file.</small>
+                </div>
+                <p class="upload-error" id="upload-error" data-upload-error aria-live="polite"></p>
+                <ul class="file-list" data-file-list aria-label="Selected files"></ul>
+
+                <label class="confidentiality-control">
+                  <input type="checkbox" name="confidentiality" />
+                  <span>
+                    <strong>Please keep this inquiry and all uploaded drawings confidential.</strong>
+                    <small>Your confidentiality request will be included with the RFQ.</small>
+                  </span>
+                </label>
+              </fieldset>
+
+              <div class="submit-row">
+                <button class="button primary form-submit" type="submit" data-submit-button>
+                  <span data-submit-label>Submit RFQ</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M13.2 5.2 20 12l-6.8 6.8-1.2-1.2 4.8-4.8H4v-1.6h12.8L12 6.4l1.2-1.2Z" />
+                  </svg>
+                </button>
+                <p class="form-status" data-form-status aria-live="polite"></p>
+              </div>
+            </form>
+
+            <section class="rfq-success" data-rfq-success hidden aria-labelledby="success-title">
+              <span class="success-mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="m9.2 16.6-4.8-4.8 1.4-1.4 3.4 3.4 9-9 1.4 1.4-10.4 10.4Z" /></svg>
+              </span>
+              <p class="eyebrow dark">RFQ submitted</p>
+              <h2 id="success-title">Your request has been received.</h2>
+              <p>Our team will respond within one business day.</p>
+              <dl>
+                <div><dt>Inquiry number</dt><dd data-rfq-number>BYB-00000000-0000</dd></div>
+                <div><dt>Reply sent to</dt><dd data-rfq-email>鈥?/dd></div>
+              </dl>
+              <div class="success-actions">
+                <a class="button primary" href="/en">Return to Homepage</a>
+                <button class="button outline-dark" type="button" data-new-rfq>Start Another RFQ</button>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer light-footer">
+      <div class="container footer-grid">
+        <div>
+          <strong>BYBOLT</strong>
+          <p>High-temperature alloy fasteners for international industrial procurement.</p>
+        </div>
+        <div>
+          <span>Products</span>
+          <a href="/en/products">Product Range</a>
+          <a href="/en/products/bolts/hex-bolts/">Hex Bolts</a>
+        </div>
+        <div>
+          <span>Capabilities</span>
+          <a href="/en/materials">Materials</a>
+          <a href="index.html#capabilities">Custom Supply</a>
+          <a href="index.html#quality">Quality</a>
+        </div>
+        <div>
+          <span>Contact</span>
+          <a href="/en/request-a-quote">Request a Quote</a>
+          <a href="mailto:sales@bybolt.com">Email Sales</a>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <span>漏 2026 BYBOLT</span>
+        <span>built by bolt, made to endure</span>
+      </div>
+    </footer>
+  

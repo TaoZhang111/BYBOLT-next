@@ -1,7 +1,11 @@
-import { StructuredPage } from "@/components/marketing/structured-page";
-import type { LocaleParams } from "@/i18n/routing";
-import { getRequestLocale } from "@/i18n/routing";
+import { LegacySiteScript } from "@/components/legacy/legacy-site-script";
+import { quoteStaticHtml } from "@/content/quote-static";
 
-export default async function RequestQuotePage({ params }: { params: LocaleParams }) {
-  return <StructuredPage locale={await getRequestLocale(params)} page="requestQuote" />;
+export default function RequestQuotePage() {
+  return (
+    <>
+      <div className="page-quote prototype-page" dangerouslySetInnerHTML={{ __html: quoteStaticHtml }} />
+      <LegacySiteScript />
+    </>
+  );
 }
