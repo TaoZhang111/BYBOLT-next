@@ -1,1 +1,12 @@
 / /en/ 301
+/quote.html /en/request-a-quote/ 301
+/products /en/products/ 301
+/products/* /en/products/:splat 301
+/materials /en/alloys/ 301
+/materials/* /en/alloys/:splat 301
+/en/quote.html /en/request-a-quote/ 301
+/en/materials /en/alloys/ 301
+/en/materials/* /en/alloys/:splat 301
+/zh/quote.html /zh/request-a-quote/ 301
+/zh/materials /zh/alloys/ 301
+/zh/materials/* /zh/alloys/:splat 301

@@ -1,11 +1,17 @@
-import { LegacySiteScript } from "@/components/legacy/legacy-site-script";
-import { homeStaticHtml } from "@/content/home-static";
+import type { Metadata } from "next";
 
-export default function HomePage() {
-  return (
-    <>
-      <div className="page-home prototype-page" dangerouslySetInnerHTML={{ __html: homeStaticHtml }} />
-      <LegacySiteScript />
-    </>
-  );
+import { HomePage } from "@/components/home/home-page";
+import { isLocale } from "@/i18n/config";
+import { localizedAlternates } from "@/lib/seo";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  if (!isLocale(locale)) return {};
+  return { alternates: localizedAlternates(locale) };
+}
+
+export default async function LocaleHomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  if (!isLocale(locale)) return null;
+  return <HomePage locale={locale} />;
 }

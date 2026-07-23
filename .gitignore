@@ -40,6 +40,7 @@ pnpm-debug.log*
 .vercel/
 .netlify/
 .open-next/
+.wrangler/
 
 # Editors and operating systems
 .DS_Store

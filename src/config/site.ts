@@ -4,9 +4,10 @@ export const siteConfig = {
   workingName: "BYBOLT",
   slogan: "built by bolt, made to endure",
   description:
-    "High-performance superalloy materials for demanding industrial applications.",
+    "BYBOLT supplies high-temperature alloy bolts, studs, nuts, washers and custom fastener components for heat, pressure and corrosion-critical applications.",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://bybolt-next-preview.pages.dev",
   primaryLocale: "en" satisfies Locale,
-  contactEmail: "sales@example.com",
+  contactEmail: "sales@bybolt.com",
 } as const;
 
 export type NavigationItem = {

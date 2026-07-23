@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
@@ -6,27 +6,43 @@ import { siteConfig } from "@/config/site";
 import { isLocale, locales } from "@/i18n/config";
 
 import "../globals.css";
+import "../prototype.css";
+import "../react-overrides.css";
 
-export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
-  title: {
-    default: siteConfig.workingName,
-    template: `%s | ${siteConfig.workingName}`,
-  },
-  description: siteConfig.description,
-  openGraph: {
-    type: "website",
-    title: siteConfig.workingName,
-    description: siteConfig.slogan,
-    images: [{ url: "/og.jpg", width: 1731, height: 909, alt: "BYBOLT" }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.workingName,
-    description: siteConfig.slogan,
-    images: ["/og.jpg"],
-  },
-};
+export const viewport: Viewport = { themeColor: "#070a0c" };
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const currentLocale = isLocale(locale) ? locale : siteConfig.primaryLocale;
+  const title = "BYBOLT | High-Temperature Alloy Fasteners";
+
+  return {
+    metadataBase: new URL(siteConfig.url),
+    title: { default: title, template: `%s | ${siteConfig.workingName}` },
+    description: siteConfig.description,
+    icons: { icon: "/assets/favicon.svg" },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
+    },
+    openGraph: {
+      type: "website",
+      url: `/${currentLocale}`,
+      siteName: siteConfig.workingName,
+      locale: currentLocale === "zh" ? "zh_CN" : "en_US",
+      title,
+      description: "Engineered alloy fasteners for heat, pressure and corrosion-critical industrial applications.",
+      images: [{ url: "/assets/images/fastener-hero-poster.jpg", width: 1672, height: 941, alt: "BYBOLT high-temperature alloy fastener" }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: siteConfig.description,
+      images: ["/assets/images/fastener-hero-poster.jpg"],
+    },
+  };
+}
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -47,7 +63,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body>{children}</body>
+      <body className="prototype-page">{children}</body>
     </html>
   );
 }

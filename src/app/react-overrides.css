@@ -1,0 +1,51 @@
+html,
+body.prototype-page,
+.prototype-page .site-main {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+@media (min-width: 761px) and (prefers-reduced-motion: no-preference) {
+  .process-image-list {
+    position: sticky;
+    top: 104px;
+    height: 430px;
+    align-self: start;
+    grid-auto-rows: auto;
+    gap: 0;
+    padding-bottom: 0;
+  }
+
+  .process-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .process-image.is-active {
+    visibility: visible;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 761px) {
+  .process-image-list,
+  .process-card-list {
+    grid-auto-rows: 430px;
+    gap: 24px;
+    padding-bottom: 0;
+  }
+
+  .process-image,
+  .process-card {
+    position: relative;
+    top: auto;
+    z-index: auto;
+  }
+
+  .process-card {
+    min-height: 430px;
+  }
+}

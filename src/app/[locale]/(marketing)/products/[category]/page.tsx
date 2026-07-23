@@ -1,28 +1,43 @@
-import Link from "next/link";
+/* eslint-disable @next/next/no-img-element */
+
+import Link from "@/components/navigation/static-link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { HomeHeader } from "@/components/home/home-header";
 import { productCategories, sharedProductProperties } from "@/content/product-catalog";
+import { isLocale } from "@/i18n/config";
+import { localizedAlternates } from "@/lib/seo";
 
-type Props = { params: Promise<{ category: string }> };
+type Props = { params: Promise<{ locale: string; category: string }> };
 
 export function generateStaticParams() {
   return productCategories.map((category) => ({ category: category.slug }));
 }
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale, category: categorySlug } = await params;
+  const category = productCategories.find((item) => item.slug === categorySlug);
+  if (!isLocale(locale) || !category) return {};
+  return {
+    title: `${category.name} for Critical Service`,
+    description: category.summary,
+    alternates: localizedAlternates(locale, `products/${category.slug}`),
+  };
+}
+
 export default async function ProductCategoryPage({ params }: Props) {
-  const { category: categorySlug } = await params;
+  const { locale, category: categorySlug } = await params;
   const category = productCategories.find((item) => item.slug === categorySlug);
 
-  if (!category) {
+  if (!isLocale(locale) || !category) {
     notFound();
   }
+  const base = `/${locale}`;
 
   return (
     <main className="site-main">
-      <header className="site-header is-solid">
-        <Link className="brand" href="/en" aria-label="BYBOLT home"><span className="brand-copy"><strong>BYBOLT</strong><small>built by bolt, made to endure</small></span></Link>
-        <nav className="site-nav" aria-label="Primary navigation"><Link href="/en/products">Products</Link><Link className="nav-cta" href="/en/request-a-quote">Request a Quote</Link></nav>
-      </header>
+      <HomeHeader locale={locale} solid />
       <section className="quote-hero">
         <div className="container quote-hero-grid">
           <div>
@@ -38,7 +53,7 @@ export default async function ProductCategoryPage({ params }: Props) {
           <figure className="product-photo"><img src={category.image} alt={category.alt} /></figure>
           <div className="product-cards">
             {category.models.map((model) => (
-              <Link className="product-card" href={`/en/products/${category.slug}/${model.slug}`} key={model.slug}>
+              <Link className="product-card" href={`${base}/products/${category.slug}/${model.slug}`} key={model.slug}>
                 <span className="product-type">{model.eyebrow}</span>
                 <h2>{model.name}</h2>
                 <p>{model.description}</p>
@@ -50,7 +65,7 @@ export default async function ProductCategoryPage({ params }: Props) {
       </section>
       <section className="section certificate-section light-chapter">
         <div className="container">
-          <div className="section-heading split"><h2>Shared supply properties.</h2><Link className="button dark-button" href="/en/request-a-quote">Request this category</Link></div>
+          <div className="section-heading split"><h2>Shared supply properties.</h2><Link className="button dark-button" href={`${base}/request-a-quote`}>Request this category</Link></div>
           <div className="capability-rows">
             {Object.entries(sharedProductProperties).map(([label, value]) => <article key={label}><span>{label}</span><h3>{value}</h3></article>)}
           </div>

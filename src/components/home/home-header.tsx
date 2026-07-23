@@ -1,0 +1,52 @@
+"use client";
+
+import Link from "@/components/navigation/static-link";
+import { useEffect, useState } from "react";
+
+import type { Locale } from "@/i18n/config";
+
+export function HomeHeader({ locale, solid = false, quoteCurrent = false }: { locale: Locale; solid?: boolean; quoteCurrent?: boolean }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const base = `/${locale}`;
+
+  useEffect(() => {
+    const updateHeader = () => setIsScrolled(window.scrollY > 18);
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
+    return () => window.removeEventListener("scroll", updateHeader);
+  }, []);
+
+  return (
+    <header className={`site-header${solid ? " is-solid" : ""}${isScrolled ? " is-scrolled" : ""}`} data-header>
+      <Link className="brand" href={base} aria-label="BYBOLT home">
+        <span className="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M7.2 3.8 3.8 7.2v9.6l3.4 3.4h9.6l3.4-3.4V7.2l-3.4-3.4H7.2Zm.8 3h8l1.2 1.2v8l-1.2 1.2H8L6.8 16V8L8 6.8Zm1.8 3.4v3.6h4.4v-3.6H9.8Z" />
+          </svg>
+        </span>
+        <span className="brand-copy">
+          <strong>BYBOLT</strong>
+          <small>built by bolt, made to endure</small>
+        </span>
+      </Link>
+      <button
+        className="nav-toggle"
+        type="button"
+        aria-label={isOpen ? "Close menu" : "Open menu"}
+        aria-expanded={isOpen}
+        onClick={() => setIsOpen((open) => !open)}
+      >
+        <span />
+        <span />
+      </button>
+      <nav className={`site-nav${isOpen ? " is-open" : ""}`} aria-label="Primary navigation">
+        <Link href={`${base}/products`} onClick={() => setIsOpen(false)}>Products</Link>
+        <Link href={`${base}/alloys`} onClick={() => setIsOpen(false)}>Materials</Link>
+        <a href={`${base}/#capabilities`} onClick={() => setIsOpen(false)}>Capabilities</a>
+        <a href={`${base}/#quality`} onClick={() => setIsOpen(false)}>Quality</a>
+        <Link className="nav-cta" href={`${base}/request-a-quote`} aria-current={quoteCurrent ? "page" : undefined} onClick={() => setIsOpen(false)}>Request a Quote</Link>
+      </nav>
+    </header>
+  );
+}

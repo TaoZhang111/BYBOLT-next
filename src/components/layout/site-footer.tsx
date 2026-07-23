@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/navigation/static-link";
 
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";

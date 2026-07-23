@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://alloyforge-fasteners-site.tao1461248574.workers.dev/sitemap.xml

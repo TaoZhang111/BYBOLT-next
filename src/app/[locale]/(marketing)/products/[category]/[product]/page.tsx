@@ -1,9 +1,15 @@
-import Link from "next/link";
+/* eslint-disable @next/next/no-img-element */
+
+import Link from "@/components/navigation/static-link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { HomeHeader } from "@/components/home/home-header";
 import { productCategories, sharedProductProperties } from "@/content/product-catalog";
+import { isLocale } from "@/i18n/config";
+import { localizedAlternates } from "@/lib/seo";
 
-type Props = { params: Promise<{ category: string; product: string }> };
+type Props = { params: Promise<{ locale: string; category: string; product: string }> };
 
 export function generateStaticParams() {
   return productCategories.flatMap((category) =>
@@ -11,14 +17,28 @@ export function generateStaticParams() {
   );
 }
 
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale, category: categorySlug, product: productSlug } = await params;
+  const category = productCategories.find((item) => item.slug === categorySlug);
+  const product = category?.models.find((item) => item.slug === productSlug);
+  if (!isLocale(locale) || !category || !product) return {};
+  return {
+    title: product.name,
+    description: product.description,
+    alternates: localizedAlternates(locale, `products/${category.slug}/${product.slug}`),
+    openGraph: { images: [{ url: category.image, alt: category.alt }] },
+  };
+}
+
 export default async function ProductDetailPage({ params }: Props) {
-  const { category: categorySlug, product: productSlug } = await params;
+  const { locale, category: categorySlug, product: productSlug } = await params;
   const category = productCategories.find((item) => item.slug === categorySlug);
   const product = category?.models.find((item) => item.slug === productSlug);
 
-  if (!category || !product) {
+  if (!isLocale(locale) || !category || !product) {
     notFound();
   }
+  const base = `/${locale}`;
 
   const specs = [
     ["Size range", product.size],
@@ -33,10 +53,7 @@ export default async function ProductDetailPage({ params }: Props) {
 
   return (
     <main className="site-main">
-      <header className="site-header is-solid">
-        <Link className="brand" href="/en" aria-label="BYBOLT home"><span className="brand-copy"><strong>BYBOLT</strong><small>built by bolt, made to endure</small></span></Link>
-        <nav className="site-nav" aria-label="Primary navigation"><Link href="/en/products">Products</Link><Link className="nav-cta" href={`/en/request-a-quote?product=${encodeURIComponent(product.name)}`}>Request a Quote</Link></nav>
-      </header>
+      <HomeHeader locale={locale} solid />
       <section className="quote-hero">
         <div className="container quote-hero-grid">
           <div>
@@ -56,7 +73,7 @@ export default async function ProductDetailPage({ params }: Props) {
             <dl className="quote-guide">
               {specs.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
             </dl>
-            <Link className="button dark-button" href={`/en/request-a-quote?product=${encodeURIComponent(product.name)}`}>Request this product</Link>
+            <Link className="button dark-button" href={`${base}/request-a-quote?product=${encodeURIComponent(product.name)}`}>Request this product</Link>
           </div>
         </div>
       </section>
