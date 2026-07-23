@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-23T18:50:12.204Z",
+  "updatedAt": "2026-07-23T18:54:38.658Z",
   "categories": [
     {
       "slug": "bolts",
@@ -18,7 +18,7 @@
       "models": [
         {
           "slug": "hex-bolts",
-          "name": "Hex Bolt",
+          "name": "Hex Bolts",
           "eyebrow": "General-purpose alloy bolt",
           "description": "External hex-drive bolts for industrial assemblies and elevated-temperature service.",
           "size": "M6-M64; 1/4-2 1/2 in",
