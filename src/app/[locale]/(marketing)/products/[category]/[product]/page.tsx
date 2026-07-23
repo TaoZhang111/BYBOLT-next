@@ -4,7 +4,9 @@ import Link from "@/components/navigation/static-link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { HomeHeader } from "@/components/home/home-header";
+import { ProductReveal } from "@/components/products/product-reveal";
+import { ProductSiteShell } from "@/components/products/product-site-shell";
+import styles from "@/components/products/product-site.module.css";
 import { productCategories, sharedProductProperties } from "@/content/product-catalog";
 import { isLocale } from "@/i18n/config";
 import { localizedAlternates } from "@/lib/seo";
@@ -52,31 +54,40 @@ export default async function ProductDetailPage({ params }: Props) {
   ];
 
   return (
-    <main className="site-main">
-      <HomeHeader locale={locale} solid />
-      <section className="quote-hero">
-        <div className="container quote-hero-grid">
-          <div>
-            <p className="eyebrow">{category.name}</p>
-            <h1>{product.name}</h1>
-            <p>{product.description}</p>
-          </div>
-          <div className="response-promise"><span>Supply mode</span><strong>{product.eyebrow}</strong></div>
+    <ProductSiteShell locale={locale}>
+      <section className={styles.intro}>
+        <div className={`${styles.container} ${styles.introInner}`}>
+          <p className={styles.breadcrumb}>Products / {category.name} / {product.name}</p>
+          <h1>{product.name}</h1>
+          <p className={styles.introCopy}>{product.description}</p>
         </div>
       </section>
-      <section className="section technical-specs light-chapter">
-        <div className="container certificate-grid">
-          <figure className="certificate-media reveal-media"><img src={category.image} alt={category.alt} /></figure>
-          <div className="certificate-copy">
-            <p className="eyebrow dark">Technical specification</p>
-            <h2>Data prepared for RFQ and CMS workflows.</h2>
-            <dl className="quote-guide">
+      <section className={styles.detailSection}>
+        <div className={styles.container}>
+          <ProductReveal className={styles.detailGrid}>
+            <figure className={styles.detailMedia}>
+              <img data-reveal-image src={category.image} alt={`${product.name} - ${category.alt}`} decoding="async" />
+            </figure>
+            <div className={styles.detailPanel} data-reveal-copy>
+              <p className={styles.modelEyebrow}>{product.eyebrow}</p>
+              <h2>Technical specification</h2>
+              <dl className={styles.detailSpecs}>
               {specs.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
-            </dl>
-            <Link className="button dark-button" href={`${base}/request-a-quote?product=${encodeURIComponent(product.name)}`}>Request this product</Link>
-          </div>
+              </dl>
+              <div className={styles.detailActions}>
+                <Link className={styles.primaryButton} href={`${base}/request-a-quote?product=${encodeURIComponent(product.name)}`}>Request this product</Link>
+                <Link className={styles.outlineButton} href={`${base}/products/${category.slug}`}>Back to {category.name}</Link>
+              </div>
+            </div>
+          </ProductReveal>
         </div>
       </section>
-    </main>
+      <section className={styles.actionSection}>
+        <div className={`${styles.container} ${styles.actionInner}`}>
+          <h2>Send the drawing. We will review the route.</h2>
+          <Link className={styles.primaryButton} href={`${base}/request-a-quote?product=${encodeURIComponent(product.name)}`}>Upload RFQ Details</Link>
+        </div>
+      </section>
+    </ProductSiteShell>
   );
 }

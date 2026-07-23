@@ -3,7 +3,8 @@
 import Link from "@/components/navigation/static-link";
 import type { Metadata } from "next";
 
-import { HomeHeader } from "@/components/home/home-header";
+import { ProductSiteShell } from "@/components/products/product-site-shell";
+import styles from "@/components/products/product-site.module.css";
 import { productCategories } from "@/content/product-catalog";
 import { isLocale } from "@/i18n/config";
 import { localizedAlternates } from "@/lib/seo";
@@ -24,34 +25,39 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
   const base = `/${locale}`;
 
   return (
-    <main className="site-main page-products">
-      <HomeHeader locale={locale} solid />
-      <section className="section product-gallery-section light-chapter">
-        <div className="container">
-          <div className="section-heading split">
-            <div>
-              <p className="eyebrow dark">Product range</p>
-              <h1>High-temperature alloy fasteners by category.</h1>
-            </div>
-            <Link className="button dark-button" href={`${base}/request-a-quote`}>
-              Request a Quote
-            </Link>
-          </div>
-          <div className="product-image-grid" aria-label="BYBOLT fastener categories">
+    <ProductSiteShell locale={locale}>
+      <section className={styles.intro}>
+        <div className={`${styles.container} ${styles.introInner}`}>
+          <p className={styles.kicker}>Product Overview</p>
+          <h1>Fastener Categories</h1>
+          <p className={styles.introCopy}>Six entry points keep the product architecture clear. Each category opens into a dedicated page where individual models are displayed in large half-screen modules.</p>
+        </div>
+      </section>
+      <section className={styles.categorySection}>
+        <div className={styles.container}>
+          <div className={styles.categoryGrid} aria-label="BYBOLT fastener categories">
             {productCategories.map((category) => (
-              <Link className="image-product-card" href={`${base}/products/${category.slug}`} key={category.slug}>
-                <img src={category.image} alt={category.alt} loading="lazy" decoding="async" />
+              <Link className={styles.categoryCard} href={`${base}/products/${category.slug}`} key={category.slug}>
+                <span className={styles.categoryMedia} aria-hidden="true">
+                  <img src={category.image} alt="" loading="eager" decoding="async" />
+                </span>
                 <div>
-                  <span>{category.index}</span>
+                  <span className={styles.categoryIndex}>{category.index}</span>
                   <h2>{category.name}</h2>
                   <p>{category.summary}</p>
-                  <b aria-hidden="true">&rarr;</b>
+                  <span className={styles.categoryLink}>View {category.name.toLowerCase()} range <b aria-hidden="true">&rarr;</b></span>
                 </div>
               </Link>
             ))}
           </div>
         </div>
       </section>
-    </main>
+      <section className={styles.actionSection}>
+        <div className={`${styles.container} ${styles.actionInner}`}>
+          <h2>Have a drawing or special requirement?</h2>
+          <Link className={styles.primaryButton} href={`${base}/request-a-quote`}>Upload RFQ Details</Link>
+        </div>
+      </section>
+    </ProductSiteShell>
   );
 }
