@@ -1,0 +1,13 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "bybolt-admin-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-23",
+  "vars": {
+    "ADMIN_ORIGIN": "https://bybolt-next-preview.pages.dev",
+    "GITHUB_OWNER": "TaoZhang111",
+    "GITHUB_REPO": "BYBOLT-next",
+    "GITHUB_BRANCH": "main",
+    "ALLOWED_GITHUB_LOGIN": "TaoZhang111"
+  }
+}

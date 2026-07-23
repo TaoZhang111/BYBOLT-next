@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 
 import { ProductSiteShell } from "@/components/products/product-site-shell";
 import styles from "@/components/products/product-site.module.css";
-import { productCategories } from "@/content/product-catalog";
+import { localizeProductCategory, productCategories } from "@/content/product-catalog";
 import { isLocale } from "@/i18n/config";
 import { localizedAlternates } from "@/lib/seo";
 
@@ -23,6 +23,7 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
   const { locale } = await params;
   if (!isLocale(locale)) return null;
   const base = `/${locale}`;
+  const categories = productCategories.map((category) => localizeProductCategory(category, locale));
 
   return (
     <ProductSiteShell locale={locale}>
@@ -36,7 +37,7 @@ export default async function ProductsPage({ params }: { params: Promise<{ local
       <section className={styles.categorySection}>
         <div className={styles.container}>
           <div className={styles.categoryGrid} aria-label="BYBOLT fastener categories">
-            {productCategories.map((category) => (
+            {categories.map((category) => (
               <Link className={styles.categoryCard} href={`${base}/products/${category.slug}`} key={category.slug}>
                 <span className={styles.categoryMedia} aria-hidden="true">
                   <img src={category.image} alt="" loading="eager" decoding="async" />

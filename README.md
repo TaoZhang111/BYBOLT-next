@@ -10,16 +10,21 @@ Multilingual B2B website foundation for an international superalloy business.
 - Tailwind CSS 4
 - English-first localized routes with Chinese support
 - CMS adapter boundary ready for Sanity, Payload or another provider
+- Git-backed product admin with no traditional database
 
 ## Local development
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 Open `http://localhost:3000`. The root route redirects to `/en`; `/zh` is the
 Chinese entry point.
+
+The product administration workspace is available at `/admin/`. See
+[`docs/ADMIN_SETUP.md`](docs/ADMIN_SETUP.md) for the one-time GitHub App and
+Cloudflare Worker setup.
 
 ## Route structure
 

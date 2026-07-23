@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 import { ProductReveal } from "@/components/products/product-reveal";
 import { ProductSiteShell } from "@/components/products/product-site-shell";
 import styles from "@/components/products/product-site.module.css";
-import { productCategories, sharedProductProperties } from "@/content/product-catalog";
+import { localizeProductCategory, productCategories, sharedProductProperties } from "@/content/product-catalog";
 import { isLocale } from "@/i18n/config";
 import { localizedAlternates } from "@/lib/seo";
 
@@ -19,7 +19,8 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, category: categorySlug } = await params;
-  const category = productCategories.find((item) => item.slug === categorySlug);
+  const sourceCategory = productCategories.find((item) => item.slug === categorySlug);
+  const category = sourceCategory && isLocale(locale) ? localizeProductCategory(sourceCategory, locale) : sourceCategory;
   if (!isLocale(locale) || !category) return {};
   return {
     title: `${category.name} for Critical Service`,
@@ -30,7 +31,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductCategoryPage({ params }: Props) {
   const { locale, category: categorySlug } = await params;
-  const category = productCategories.find((item) => item.slug === categorySlug);
+  const sourceCategory = productCategories.find((item) => item.slug === categorySlug);
+  const category = sourceCategory && isLocale(locale) ? localizeProductCategory(sourceCategory, locale) : sourceCategory;
 
   if (!isLocale(locale) || !category) {
     notFound();
@@ -52,7 +54,7 @@ export default async function ProductCategoryPage({ params }: Props) {
             {category.models.map((model) => (
               <ProductReveal className={styles.modelModule} key={model.slug}>
                 <figure className={styles.modelMedia}>
-                  <img data-reveal-image src={category.image} alt={`${model.name} - ${category.alt}`} loading="lazy" decoding="async" />
+                  <img data-reveal-image src={model.image || category.image} alt={model.alt || `${model.name} - ${category.alt}`} loading="lazy" decoding="async" />
                 </figure>
                 <dl className={styles.specRail}>
                   <div><dt>Standard</dt><dd>{model.standard}</dd></div>

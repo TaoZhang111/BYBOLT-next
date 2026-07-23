@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 import { ProductReveal } from "@/components/products/product-reveal";
 import { ProductSiteShell } from "@/components/products/product-site-shell";
 import styles from "@/components/products/product-site.module.css";
-import { productCategories, sharedProductProperties } from "@/content/product-catalog";
+import { localizeProductCategory, productCategories, sharedProductProperties } from "@/content/product-catalog";
 import { isLocale } from "@/i18n/config";
 import { localizedAlternates } from "@/lib/seo";
 
@@ -21,20 +21,22 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, category: categorySlug, product: productSlug } = await params;
-  const category = productCategories.find((item) => item.slug === categorySlug);
+  const sourceCategory = productCategories.find((item) => item.slug === categorySlug);
+  const category = sourceCategory && isLocale(locale) ? localizeProductCategory(sourceCategory, locale) : sourceCategory;
   const product = category?.models.find((item) => item.slug === productSlug);
   if (!isLocale(locale) || !category || !product) return {};
   return {
-    title: product.name,
-    description: product.description,
+    title: product.seoTitle || product.name,
+    description: product.seoDescription || product.description,
     alternates: localizedAlternates(locale, `products/${category.slug}/${product.slug}`),
-    openGraph: { images: [{ url: category.image, alt: category.alt }] },
+    openGraph: { images: [{ url: product.image || category.image, alt: product.alt || category.alt }] },
   };
 }
 
 export default async function ProductDetailPage({ params }: Props) {
   const { locale, category: categorySlug, product: productSlug } = await params;
-  const category = productCategories.find((item) => item.slug === categorySlug);
+  const sourceCategory = productCategories.find((item) => item.slug === categorySlug);
+  const category = sourceCategory && isLocale(locale) ? localizeProductCategory(sourceCategory, locale) : sourceCategory;
   const product = category?.models.find((item) => item.slug === productSlug);
 
   if (!isLocale(locale) || !category || !product) {
@@ -66,7 +68,7 @@ export default async function ProductDetailPage({ params }: Props) {
         <div className={styles.container}>
           <ProductReveal className={styles.detailGrid}>
             <figure className={styles.detailMedia}>
-              <img data-reveal-image src={category.image} alt={`${product.name} - ${category.alt}`} decoding="async" />
+              <img data-reveal-image src={product.image || category.image} alt={product.alt || `${product.name} - ${category.alt}`} decoding="async" />
             </figure>
             <div className={styles.detailPanel} data-reveal-copy>
               <p className={styles.modelEyebrow}>{product.eyebrow}</p>
