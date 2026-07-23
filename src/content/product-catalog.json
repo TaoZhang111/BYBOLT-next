@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-23T17:24:54.682Z",
+  "updatedAt": "2026-07-23T18:50:12.204Z",
   "categories": [
     {
       "slug": "bolts",
@@ -10,10 +10,15 @@
       "alt": "Nickel-alloy industrial bolts with precision machined threads",
       "summary": "External-thread fasteners for structural, pressure and high-temperature assemblies.",
       "intro": "Hex, heavy-hex, flange and drawing-based bolts reviewed around the joint, the alloy and the required inspection scope.",
+      "status": "published",
+      "sortOrder": 1,
+      "translation": {
+        "zh": {}
+      },
       "models": [
         {
           "slug": "hex-bolts",
-          "name": "Hex Bolts",
+          "name": "Hex Bolt",
           "eyebrow": "General-purpose alloy bolt",
           "description": "External hex-drive bolts for industrial assemblies and elevated-temperature service.",
           "size": "M6-M64; 1/4-2 1/2 in",
@@ -83,12 +88,7 @@
             "zh": {}
           }
         }
-      ],
-      "status": "published",
-      "sortOrder": 1,
-      "translation": {
-        "zh": {}
-      }
+      ]
     },
     {
       "slug": "nuts",
@@ -98,6 +98,11 @@
       "alt": "Nickel-alloy industrial nuts with internal threads",
       "summary": "Matched internal-thread components for controlled preload and critical service.",
       "intro": "Nut geometry, material pairing, thread class and proof requirements are reviewed against the mating fastener and assembly conditions.",
+      "status": "published",
+      "sortOrder": 2,
+      "translation": {
+        "zh": {}
+      },
       "models": [
         {
           "slug": "hex-nuts",
@@ -171,12 +176,7 @@
             "zh": {}
           }
         }
-      ],
-      "status": "published",
-      "sortOrder": 2,
-      "translation": {
-        "zh": {}
-      }
+      ]
     },
     {
       "slug": "studs",
@@ -186,6 +186,11 @@
       "alt": "Nickel-alloy threaded studs for industrial flange connections",
       "summary": "Stud bolts and threaded rods for flanges, pressure equipment and loaded joints.",
       "intro": "Thread engagement, unthreaded body length, end configuration and traceability are controlled around the connected equipment.",
+      "status": "published",
+      "sortOrder": 3,
+      "translation": {
+        "zh": {}
+      },
       "models": [
         {
           "slug": "stud-bolts",
@@ -295,12 +300,7 @@
             "zh": {}
           }
         }
-      ],
-      "status": "published",
-      "sortOrder": 3,
-      "translation": {
-        "zh": {}
-      }
+      ]
     },
     {
       "slug": "washers",
@@ -310,6 +310,11 @@
       "alt": "Precision nickel-alloy washers for load distribution",
       "summary": "Flat, hardened and spring washer forms for load distribution and joint control.",
       "intro": "Inside diameter, outside diameter, thickness, hardness and flatness are selected around the fastener and bearing surface.",
+      "status": "published",
+      "sortOrder": 4,
+      "translation": {
+        "zh": {}
+      },
       "models": [
         {
           "slug": "flat-washers",
@@ -383,12 +388,7 @@
             "zh": {}
           }
         }
-      ],
-      "status": "published",
-      "sortOrder": 4,
-      "translation": {
-        "zh": {}
-      }
+      ]
     },
     {
       "slug": "screws",
@@ -398,6 +398,11 @@
       "alt": "Precision threaded screw fasteners in a clean inspection setting",
       "summary": "Socket, machine and set screw forms for compact and precision assemblies.",
       "intro": "Drive form, head envelope, engagement length and point geometry are reviewed with the assembly drawing and service condition.",
+      "status": "published",
+      "sortOrder": 5,
+      "translation": {
+        "zh": {}
+      },
       "models": [
         {
           "slug": "socket-head-cap-screws",
@@ -471,12 +476,7 @@
             "zh": {}
           }
         }
-      ],
-      "status": "published",
-      "sortOrder": 5,
-      "translation": {
-        "zh": {}
-      }
+      ]
     },
     {
       "slug": "custom-products",
@@ -486,6 +486,11 @@
       "alt": "Custom machined alloy fastener components produced from technical drawings",
       "summary": "Drawing-based threaded parts and machined components outside standard catalogues.",
       "intro": "The route begins with the drawing, service condition, alloy requirement, quantity and verification plan rather than a fixed catalogue assumption.",
+      "status": "published",
+      "sortOrder": 6,
+      "translation": {
+        "zh": {}
+      },
       "models": [
         {
           "slug": "drawing-based-fasteners",
@@ -559,12 +564,7 @@
             "zh": {}
           }
         }
-      ],
-      "status": "published",
-      "sortOrder": 6,
-      "translation": {
-        "zh": {}
-      }
+      ]
     }
   ],
   "sharedProductProperties": {
