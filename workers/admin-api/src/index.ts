@@ -5,7 +5,7 @@ type Env = {
   GITHUB_OWNER: string;
   GITHUB_REPO: string;
   GITHUB_BRANCH: string;
-  ALLOWED_GITHUB_LOGIN: string;
+  ALLOWED_GITHUB_LOGINS: string;
   GITHUB_CLIENT_ID: string;
   GITHUB_CLIENT_SECRET: string;
   SESSION_SECRET: string;
@@ -91,7 +91,7 @@ async function completeLogin(request: Request, env: Env): Promise<Response> {
   if (!tokenResponse.ok || !tokenPayload.access_token) throw new ApiError(401, tokenPayload.error_description || "GitHub did not issue an access token.");
 
   const user = await github<GitHubUser>(env, tokenPayload.access_token, "/user");
-  if (user.login.toLowerCase() !== env.ALLOWED_GITHUB_LOGIN.toLowerCase()) throw new ApiError(403, "This GitHub account is not authorized for BYBOLT Admin.");
+  if (!isAllowedGitHubLogin(user.login, env)) throw new ApiError(403, "This GitHub account is not authorized for BYBOLT Admin.");
   const repository = await github<GitHubRepository>(env, tokenPayload.access_token, `/repos/${env.GITHUB_OWNER}/${env.GITHUB_REPO}`);
   if (repository.permissions && !repository.permissions.push) throw new ApiError(403, "The GitHub App does not have write access to the BYBOLT repository.");
 
@@ -215,8 +215,15 @@ async function readSession(request: Request, env: Env): Promise<Session | null> 
   const encrypted = authorization?.startsWith("Bearer ") ? authorization.slice(7) : readCookie(request, SESSION_COOKIE);
   if (!encrypted) return null;
   const session = await decryptToken<Session>(encrypted, env.SESSION_SECRET);
-  if (!session || session.exp < Date.now() || session.login.toLowerCase() !== env.ALLOWED_GITHUB_LOGIN.toLowerCase()) return null;
+  if (!session || session.exp < Date.now() || !isAllowedGitHubLogin(session.login, env)) return null;
   return session;
+}
+
+function isAllowedGitHubLogin(login: string, env: Env): boolean {
+  const normalizedLogin = login.trim().toLowerCase();
+  return env.ALLOWED_GITHUB_LOGINS
+    .split(",")
+    .some((allowedLogin) => allowedLogin.trim().toLowerCase() === normalizedLogin);
 }
 
 async function encryptToken(payload: object, secret: string): Promise<string> {

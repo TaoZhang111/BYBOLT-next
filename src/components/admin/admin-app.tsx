@@ -35,6 +35,7 @@ import {
   captureAdminSession,
   clearAdminSession,
   getLoginUrl,
+  getLogoutUrl,
   getRepositoryCatalog,
   getSession,
   publishRepositoryCatalog,
@@ -157,9 +158,7 @@ export function AdminApp() {
 
   function disconnect() {
     clearAdminSession();
-    setSession({ authenticated: false });
-    setConnection("offline");
-    setNotice({ type: "success", text: "GitHub session cleared from this browser tab." });
+    window.location.assign(getLogoutUrl(windowLocation()));
   }
 
   async function publish() {
