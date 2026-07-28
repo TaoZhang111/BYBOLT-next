@@ -99,6 +99,18 @@ export const industries = [
     description: "Fasteners for thermal equipment and engineered plant assemblies.",
     image: "/assets/products/nickel-alloy-stud-bolts.jpg",
   },
+  {
+    context: "Weight and reliability",
+    name: "Aerospace Systems",
+    description: "Precision threaded components for tightly controlled thermal and structural assemblies.",
+    image: "/assets/products/custom-alloy-fastener-components.jpg",
+  },
+  {
+    context: "Thermal cycling",
+    name: "Industrial Furnaces",
+    description: "Alloy bolting for heat-treatment lines, furnace fixtures and high-temperature equipment.",
+    image: "/assets/products/nickel-alloy-flat-washers.jpg",
+  },
 ] as const;
 
 export const processSteps = [

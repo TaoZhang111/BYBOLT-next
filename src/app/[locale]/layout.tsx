@@ -8,6 +8,7 @@ import { isLocale, locales } from "@/i18n/config";
 import "../globals.css";
 import "../prototype.css";
 import "../react-overrides.css";
+import "../home-refresh.css";
 
 export const viewport: Viewport = { themeColor: "#070a0c" };
 

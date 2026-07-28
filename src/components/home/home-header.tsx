@@ -8,17 +8,29 @@ import type { Locale } from "@/i18n/config";
 export function HomeHeader({ locale, solid = false, quoteCurrent = false }: { locale: Locale; solid?: boolean; quoteCurrent?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isLight, setIsLight] = useState(false);
   const base = `/${locale}`;
 
   useEffect(() => {
-    const updateHeader = () => setIsScrolled(window.scrollY > 18);
+    const updateHeader = () => {
+      setIsScrolled(window.scrollY > 18);
+
+      const lightChapter = document.querySelector<HTMLElement>("#story");
+      const transitionLead = Math.min(260, window.innerHeight * 0.25);
+      setIsLight(!solid && Boolean(lightChapter) && window.scrollY >= (lightChapter?.offsetTop ?? 0) - transitionLead);
+    };
+
     updateHeader();
     window.addEventListener("scroll", updateHeader, { passive: true });
-    return () => window.removeEventListener("scroll", updateHeader);
-  }, []);
+    window.addEventListener("resize", updateHeader);
+    return () => {
+      window.removeEventListener("scroll", updateHeader);
+      window.removeEventListener("resize", updateHeader);
+    };
+  }, [solid]);
 
   return (
-    <header className={`site-header${solid ? " is-solid" : ""}${isScrolled ? " is-scrolled" : ""}`} data-header>
+    <header className={`site-header${solid ? " is-solid" : ""}${isScrolled ? " is-scrolled" : ""}${isLight ? " is-light" : ""}`} data-header>
       <Link className="brand" href={base} aria-label="BYBOLT home">
         <span className="brand-mark" aria-hidden="true">
           <svg viewBox="0 0 24 24">

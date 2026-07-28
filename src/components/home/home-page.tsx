@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import Link from "@/components/navigation/static-link";
-import { Fragment } from "react";
+import { ArrowUpRight, FileUp } from "lucide-react";
 
 import { HomeHeader } from "@/components/home/home-header";
 import { IndustryAccordion } from "@/components/home/industry-accordion";
@@ -37,22 +37,18 @@ export function HomePage({ locale }: { locale: Locale }) {
               <h1 id="hero-title">High-Temperature Fasteners. Built to Endure.</h1>
               <p className="hero-copy">Bolts, studs, nuts, washers and custom components for heat, pressure and corrosion-critical equipment.</p>
               <div className="hero-actions">
-                <Link className="button primary" href={`${base}/request-a-quote`}>Request a Quote <span aria-hidden="true">&rarr;</span></Link>
-                <Link className="button secondary" href={`${base}/products`}>Explore Products</Link>
+                <Link className="button primary hero-primary-action" href={`${base}/request-a-quote`}>Request a Quote <ArrowUpRight aria-hidden="true" /></Link>
+                <Link className="hero-secondary-action" href={`${base}/products`}>Explore Products <span aria-hidden="true">&rarr;</span></Link>
               </div>
             </div>
-            <p className="hero-slogan">built by bolt,<br />made to endure</p>
           </div>
-          <a className="scroll-cue" href="#story" aria-label="Scroll to the BYBOLT story"><span>Scroll</span><i /></a>
         </section>
 
         <div className="dark-light-transition" aria-hidden="true">
-          <div className="transition-marquee">
-            <div className="transition-track">
-              {[...transitionItems, ...transitionItems].map((item, index) => (
-                <Fragment key={`${item}-${index}`}><span>{item}</span><i /></Fragment>
-              ))}
-            </div>
+          <div className="container transition-rail">
+            {transitionItems.slice(0, 3).map((item, index) => (
+              <span key={item}><b>0{index + 1}</b>{item}</span>
+            ))}
           </div>
         </div>
 
@@ -73,20 +69,19 @@ export function HomePage({ locale }: { locale: Locale }) {
           <div className="container">
             <div className="section-heading split">
               <div>
-                <p className="eyebrow dark">Product range</p>
-                <h2 id="products-title">Fasteners shaped for <span className="inline-heading-image" aria-hidden="true" /> demanding assemblies.</h2>
+                <p className="eyebrow dark">Engineered fasteners</p>
+                <h2 id="products-title">Product range</h2>
               </div>
-              <Link className="text-link" href={`${base}/products`}>View the product range <span aria-hidden="true">&rarr;</span></Link>
+              <Link className="text-link product-view-link" href={`${base}/products`}>View products <ArrowUpRight aria-hidden="true" /></Link>
             </div>
             <div className="product-image-grid" aria-label="BYBOLT fastener categories">
               {homeProducts.map((product) => (
                 <Link className={`image-product-card${product.wide ? " image-product-card-wide" : ""}`} href={`${base}${product.href}`} key={product.name}>
                   <img src={product.image} alt={product.alt} width="1536" height="1024" loading="lazy" decoding="async" />
                   <div>
-                    <span>{product.context}</span>
                     <h3>{product.name}</h3>
                     <p>{product.description}</p>
-                    <b aria-hidden="true">&rarr;</b>
+                    <b aria-hidden="true"><ArrowUpRight /></b>
                   </div>
                 </Link>
               ))}
@@ -135,16 +130,25 @@ export function HomePage({ locale }: { locale: Locale }) {
         <SupplyProcess />
 
         <section className="section final-action light-chapter" id="rfq" aria-labelledby="rfq-title">
-          <div className="container final-action-grid">
-            <div>
+          <div className="container final-action-intro">
+            <div className="final-action-copy">
               <p className="eyebrow dark">Ready for technical review</p>
-              <h2 id="rfq-title">Send the requirement. Expect a response within one business day.</h2>
-              <p>Upload a drawing or enter the standard, material, size, quantity and required testing.</p>
+              <h2 id="rfq-title">Put the requirement in front of an engineer.</h2>
+              <p>Enter the standard and quantity or send the drawing directly. Both routes open the same technical RFQ workspace.</p>
             </div>
-            <div className="final-action-links">
-              <Link className="button dark-button" href={`${base}/request-a-quote`}>Request a Quote <span aria-hidden="true">&rarr;</span></Link>
-              <a href="mailto:sales@bybolt.com">sales@bybolt.com</a>
-            </div>
+            <a className="final-action-email" href="mailto:sales@bybolt.com">sales@bybolt.com</a>
+          </div>
+          <div className="container final-action-links">
+            <Link className="final-action-tile" href={`${base}/request-a-quote`}>
+              <span>Start with specifications</span>
+              <strong>Request a Quote</strong>
+              <ArrowUpRight aria-hidden="true" />
+            </Link>
+            <Link className="final-action-tile final-action-tile-drawing" href={`${base}/request-a-quote`}>
+              <span>Start with a technical file</span>
+              <strong>Upload a Drawing</strong>
+              <FileUp aria-hidden="true" />
+            </Link>
           </div>
         </section>
       </main>
