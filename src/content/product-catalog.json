@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-01T08:09:00.023Z",
+  "updatedAt": "2026-08-01T08:10:52.736Z",
   "categories": [
     {
       "slug": "bolts",
@@ -91,6 +91,24 @@
         {
           "slug": "new-product-238330",
           "name": "hheel",
+          "eyebrow": "Drawing-based fastener",
+          "description": "Add a concise description of this product and its intended industrial service.",
+          "size": "Drawing-defined",
+          "length": "Drawing-defined",
+          "standard": "Customer drawing and agreed specification",
+          "configuration": "Project-specific",
+          "threads": "Standard or special thread forms",
+          "image": "/assets/products/nickel-alloy-hex-bolts.jpg",
+          "alt": "New BYBOLT alloy fastener product",
+          "status": "published",
+          "sortOrder": 999,
+          "translation": {
+            "zh": {}
+          }
+        },
+        {
+          "slug": "new-product-845204",
+          "name": "ddddd",
           "eyebrow": "Drawing-based fastener",
           "description": "Add a concise description of this product and its intended industrial service.",
           "size": "Drawing-defined",
