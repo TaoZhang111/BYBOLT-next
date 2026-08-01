@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-07-23T18:54:38.658Z",
+  "updatedAt": "2026-08-01T08:01:19.158Z",
   "categories": [
     {
       "slug": "bolts",
@@ -84,6 +84,24 @@
           "alt": "Custom Bolts - Nickel-alloy industrial bolts with precision machined threads",
           "status": "published",
           "sortOrder": 4,
+          "translation": {
+            "zh": {}
+          }
+        },
+        {
+          "slug": "new-product-238330",
+          "name": "hheel",
+          "eyebrow": "Drawing-based fastener",
+          "description": "Add a concise description of this product and its intended industrial service.",
+          "size": "Drawing-defined",
+          "length": "Drawing-defined",
+          "standard": "Customer drawing and agreed specification",
+          "configuration": "Project-specific",
+          "threads": "Standard or special thread forms",
+          "image": "/assets/products/nickel-alloy-hex-bolts.jpg",
+          "alt": "New BYBOLT alloy fastener product",
+          "status": "draft",
+          "sortOrder": 999,
           "translation": {
             "zh": {}
           }
