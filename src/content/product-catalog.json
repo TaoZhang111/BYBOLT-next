@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-01T08:10:52.736Z",
+  "updatedAt": "2026-08-01T08:12:36.601Z",
   "categories": [
     {
       "slug": "bolts",
@@ -119,6 +119,24 @@
           "image": "/assets/products/nickel-alloy-hex-bolts.jpg",
           "alt": "New BYBOLT alloy fastener product",
           "status": "published",
+          "sortOrder": 999,
+          "translation": {
+            "zh": {}
+          }
+        },
+        {
+          "slug": "new-product-949265",
+          "name": "adlqd",
+          "eyebrow": "Drawing-based fastener",
+          "description": "Add a concise description of this product and its intended industrial service.",
+          "size": "Drawing-defined",
+          "length": "Drawing-defined",
+          "standard": "Customer drawing and agreed specification",
+          "configuration": "Project-specific",
+          "threads": "Standard or special thread forms",
+          "image": "/assets/products/nickel-alloy-hex-bolts.jpg",
+          "alt": "New BYBOLT alloy fastener product",
+          "status": "draft",
           "sortOrder": 999,
           "translation": {
             "zh": {}
