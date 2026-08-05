@@ -55,19 +55,6 @@ export function HomePage({ locale }: { locale: Locale }) {
 
         <RequirementRoutes locale={locale} />
 
-        <section className="section story-section light-chapter" id="story" aria-labelledby="story-title">
-          <div className="container story-grid">
-            <div className="story-copy">
-              <p className="eyebrow dark">The BYBOLT approach</p>
-              <h2 id="story-title">built by bolt, <em>made to endure</em></h2>
-              <p className="story-lead">BYBOLT is being shaped around a simple principle: critical assemblies deserve fasteners that are clearly specified, carefully reviewed and supplied with the documentation the order requires.</p>
-              <p>From alloy selection to drawing review and export preparation, every conversation begins with the real operating condition rather than a generic catalogue assumption.</p>
-              <a className="text-link" href="#capabilities">How we support a requirement <span aria-hidden="true">&rarr;</span></a>
-            </div>
-            <ScrollMedia className="story-media" src="/assets/hero-fasteners.jpg" alt="Nickel-alloy fasteners arranged in a precision manufacturing environment" width={1774} height={887} />
-          </div>
-        </section>
-
         <section className="section product-gallery-section light-chapter" id="products" aria-labelledby="products-title">
           <div className="container">
             <div className="section-heading split">
