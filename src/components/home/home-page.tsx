@@ -5,6 +5,7 @@ import { ArrowUpRight, FileUp } from "lucide-react";
 
 import { HomeHeader } from "@/components/home/home-header";
 import { IndustryAccordion } from "@/components/home/industry-accordion";
+import { RequirementRoutes } from "@/components/home/requirement-routes";
 import { ScrollMedia } from "@/components/home/scroll-media";
 import { SupplyProcess } from "@/components/home/supply-process";
 import { capabilities, homeProducts, qualityPoints, transitionItems } from "@/content/home-content";
@@ -51,6 +52,8 @@ export function HomePage({ locale }: { locale: Locale }) {
             ))}
           </div>
         </div>
+
+        <RequirementRoutes locale={locale} />
 
         <section className="section story-section light-chapter" id="story" aria-labelledby="story-title">
           <div className="container story-grid">

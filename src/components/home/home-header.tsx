@@ -15,7 +15,7 @@ export function HomeHeader({ locale, solid = false, quoteCurrent = false }: { lo
     const updateHeader = () => {
       setIsScrolled(window.scrollY > 18);
 
-      const lightChapter = document.querySelector<HTMLElement>("#story");
+      const lightChapter = document.querySelector<HTMLElement>("[data-light-header-start]");
       const transitionLead = Math.min(260, window.innerHeight * 0.25);
       setIsLight(!solid && Boolean(lightChapter) && window.scrollY >= (lightChapter?.offsetTop ?? 0) - transitionLead);
     };

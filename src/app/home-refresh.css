@@ -181,6 +181,131 @@
   font-size: 10px;
 }
 
+.page-home .requirement-routes {
+  min-height: 760px;
+  display: flex;
+  align-items: center;
+  padding: 100px 0 118px !important;
+  background: #f7f7f4 !important;
+}
+
+.page-home .requirement-routes-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(330px, 0.52fr);
+  gap: 96px;
+  align-items: end;
+  margin-bottom: 58px;
+}
+
+.page-home .requirement-routes-heading .eyebrow {
+  color: #7a303b;
+}
+
+.page-home .requirement-routes-heading h2 {
+  max-width: 790px;
+  margin: 0;
+  color: var(--home-ink);
+  font-size: clamp(52px, 5vw, 76px);
+  font-weight: 500;
+  line-height: 0.98;
+}
+
+.page-home .requirement-routes-heading > p {
+  max-width: 430px;
+  margin: 0 0 4px;
+  color: #5f686d;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.page-home .requirement-route-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--home-line);
+}
+
+.page-home .requirement-route {
+  min-width: 0;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 36px 32px;
+  color: var(--home-ink);
+  border-left: 1px solid var(--home-line);
+  transition: color 220ms ease, background 220ms ease;
+}
+
+.page-home .requirement-route:first-child {
+  border-left: 0;
+}
+
+.page-home .requirement-route:hover,
+.page-home .requirement-route:focus-visible {
+  color: #fff;
+  background: var(--home-steel);
+  outline: 0;
+}
+
+.page-home .requirement-route:focus-visible {
+  box-shadow: inset 0 0 0 3px #dfe683;
+}
+
+.page-home .requirement-route-number {
+  color: #7a303b;
+  font-size: 10px;
+  font-weight: 700;
+  transition: color 220ms ease;
+}
+
+.page-home .requirement-route > div {
+  margin: auto 0 26px;
+}
+
+.page-home .requirement-route h3 {
+  margin: 0 0 12px;
+  color: inherit;
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.page-home .requirement-route p {
+  max-width: 350px;
+  margin: 0;
+  color: #687277;
+  font-size: 16px;
+  line-height: 1.5;
+  transition: color 220ms ease;
+}
+
+.page-home .requirement-route-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.page-home .requirement-route-action svg {
+  width: 15px;
+  height: 15px;
+  transition: transform 220ms ease;
+}
+
+.page-home .requirement-route:hover .requirement-route-number,
+.page-home .requirement-route:focus-visible .requirement-route-number {
+  color: #dfe683;
+}
+
+.page-home .requirement-route:hover p,
+.page-home .requirement-route:focus-visible p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.page-home .requirement-route:hover .requirement-route-action svg,
+.page-home .requirement-route:focus-visible .requirement-route-action svg {
+  transform: translate(2px, -2px);
+}
+
 .page-home .story-section {
   min-height: 0;
   padding: 68px 0 82px !important;
@@ -474,6 +599,16 @@
     gap: 40px;
   }
 
+  .page-home .requirement-routes-heading {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.5fr);
+    gap: 48px;
+  }
+
+  .page-home .requirement-route {
+    padding-right: 26px;
+    padding-left: 26px;
+  }
+
   .page-home .story-media {
     height: 420px;
   }
@@ -560,6 +695,45 @@
     line-height: 1.25;
   }
 
+  .page-home .requirement-routes {
+    min-height: 0;
+    padding: 74px 0 88px !important;
+  }
+
+  .page-home .requirement-routes-heading {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 38px;
+  }
+
+  .page-home .requirement-routes-heading h2 {
+    max-width: 560px;
+    font-size: 44px;
+  }
+
+  .page-home .requirement-routes-heading > p {
+    font-size: 16px;
+  }
+
+  .page-home .requirement-route-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-home .requirement-route {
+    min-height: 238px;
+    padding: 26px 24px 28px;
+    border-top: 1px solid var(--home-line);
+    border-left: 0;
+  }
+
+  .page-home .requirement-route:first-child {
+    border-top: 0;
+  }
+
+  .page-home .requirement-route h3 {
+    font-size: 28px;
+  }
+
   .page-home .story-section {
     padding: 54px 0 64px !important;
   }
@@ -637,6 +811,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .page-home .requirement-route,
+  .page-home .requirement-route p,
+  .page-home .requirement-route-number,
+  .page-home .requirement-route-action svg,
   .page-home .industry-panel::before,
   .page-home .final-action-tile,
   .page-home .hero-secondary-action,

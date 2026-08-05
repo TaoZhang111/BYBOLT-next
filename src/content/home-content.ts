@@ -16,6 +16,30 @@ export const transitionItems = [
   "Export ready",
 ] as const;
 
+export const requirementRoutes = [
+  {
+    number: "01",
+    title: "Find a fastener",
+    description: "Browse bolts, studs, nuts, washers and special parts, then narrow by material and standard.",
+    action: "Browse fasteners",
+    href: "/products",
+  },
+  {
+    number: "02",
+    title: "Select a material",
+    description: "Compare corrosion, strength and temperature positioning before reviewing a specific grade.",
+    action: "Compare alloys",
+    href: "/alloys",
+  },
+  {
+    number: "03",
+    title: "Build to drawing",
+    description: "Send dimensions, service conditions, testing requirements and a drawing for technical review.",
+    action: "Start technical RFQ",
+    href: "/request-a-quote",
+  },
+] as const;
+
 export const homeProducts: HomeProduct[] = [
   {
     href: "/products/bolts/hex-bolts/",
