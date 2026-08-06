@@ -7,7 +7,13 @@ import type { Locale } from "@/i18n/config";
 
 import styles from "./product-site.module.css";
 
-export function ProductHeader({ locale }: { locale: Locale }) {
+export function ProductHeader({
+  locale,
+  current = "products",
+}: {
+  locale: Locale;
+  current?: "products" | "materials" | "custom" | "quality" | "resources" | "about";
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const base = `/${locale}`;
 
@@ -28,10 +34,12 @@ export function ProductHeader({ locale }: { locale: Locale }) {
           <span />
         </button>
         <nav className={`${styles.navigation}${isOpen ? ` ${styles.navigationOpen}` : ""}`} aria-label="Product navigation">
-          <Link href={base} onClick={() => setIsOpen(false)}>Home</Link>
-          <Link href={`${base}/products`} aria-current="page" onClick={() => setIsOpen(false)}>Products</Link>
-          <Link href={`${base}/alloys`} onClick={() => setIsOpen(false)}>Materials</Link>
-          <Link href={`${base}/contact`} onClick={() => setIsOpen(false)}>Contact</Link>
+          <Link href={`${base}/products`} aria-current={current === "products" ? "page" : undefined} onClick={() => setIsOpen(false)}>Products</Link>
+          <Link href={`${base}/alloys`} aria-current={current === "materials" ? "page" : undefined} onClick={() => setIsOpen(false)}>Materials</Link>
+          <Link href={`${base}/capabilities`} aria-current={current === "custom" ? "page" : undefined} onClick={() => setIsOpen(false)}>Custom</Link>
+          <Link href={`${base}/quality`} aria-current={current === "quality" ? "page" : undefined} onClick={() => setIsOpen(false)}>Quality</Link>
+          <Link href={`${base}/resources`} aria-current={current === "resources" ? "page" : undefined} onClick={() => setIsOpen(false)}>Resources</Link>
+          <Link href={`${base}/about`} aria-current={current === "about" ? "page" : undefined} onClick={() => setIsOpen(false)}>About</Link>
         </nav>
         <Link className={styles.headerCta} href={`${base}/request-a-quote`}>Request a Quote</Link>
       </div>

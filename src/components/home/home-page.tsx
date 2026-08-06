@@ -5,10 +5,13 @@ import { ArrowUpRight, FileUp } from "lucide-react";
 
 import { HomeHeader } from "@/components/home/home-header";
 import { IndustryAccordion } from "@/components/home/industry-accordion";
+import { MaterialSelector } from "@/components/home/material-selector";
+import { ProductRangeGrid } from "@/components/home/product-range-grid";
 import { RequirementRoutes } from "@/components/home/requirement-routes";
 import { ScrollMedia } from "@/components/home/scroll-media";
 import { SupplyProcess } from "@/components/home/supply-process";
-import { capabilities, homeProducts, qualityPoints, transitionItems } from "@/content/home-content";
+import { capabilities, qualityPoints, transitionItems } from "@/content/home-content";
+import { localizeProductCategory, productCategories } from "@/content/product-catalog";
 import type { Locale } from "@/i18n/config";
 
 const organizationJsonLd = {
@@ -21,6 +24,16 @@ const organizationJsonLd = {
 
 export function HomePage({ locale }: { locale: Locale }) {
   const base = `/${locale}`;
+  const sourceBarCategory = productCategories.find((category) => category.slug === "alloy-round-bars");
+  const barCategory = sourceBarCategory ? localizeProductCategory(sourceBarCategory, locale) : undefined;
+  const roundBarProducts = barCategory?.models.map((model) => ({
+    href: `/products/${barCategory.slug}/${model.slug}/`,
+    image: model.image,
+    alt: model.alt,
+    context: model.eyebrow,
+    name: model.name,
+    description: model.description,
+  })) ?? [];
 
   return (
     <div className="page-home">
@@ -40,6 +53,7 @@ export function HomePage({ locale }: { locale: Locale }) {
               <div className="hero-actions">
                 <Link className="button primary hero-primary-action" href={`${base}/request-a-quote`}>Request a Quote <ArrowUpRight aria-hidden="true" /></Link>
                 <Link className="hero-secondary-action" href={`${base}/products`}>Explore Products <span aria-hidden="true">&rarr;</span></Link>
+                <Link className="hero-secondary-action hero-quality-action" href={`${base}/quality`}>View Quality <span aria-hidden="true">&rarr;</span></Link>
               </div>
             </div>
           </div>
@@ -55,29 +69,35 @@ export function HomePage({ locale }: { locale: Locale }) {
 
         <RequirementRoutes locale={locale} />
 
-        <section className="section product-gallery-section light-chapter" id="products" aria-labelledby="products-title">
+        <section className="section product-gallery-section product-gallery-primary light-chapter" id="products" aria-labelledby="products-title">
           <div className="container">
             <div className="section-heading split">
               <div>
                 <p className="eyebrow dark">Engineered fasteners</p>
-                <h2 id="products-title">Product range</h2>
+                <h2 id="products-title">Product range1</h2>
               </div>
               <Link className="text-link product-view-link" href={`${base}/products`}>View products <ArrowUpRight aria-hidden="true" /></Link>
             </div>
-            <div className="product-image-grid" aria-label="BYBOLT fastener categories">
-              {homeProducts.map((product) => (
-                <Link className={`image-product-card${product.wide ? " image-product-card-wide" : ""}`} href={`${base}${product.href}`} key={product.name}>
-                  <img src={product.image} alt={product.alt} width="1536" height="1024" loading="lazy" decoding="async" />
-                  <div>
-                    <h3>{product.name}</h3>
-                    <p>{product.description}</p>
-                    <b aria-hidden="true"><ArrowUpRight /></b>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            <ProductRangeGrid locale={locale} />
           </div>
         </section>
+
+        {roundBarProducts.length > 0 && (
+          <section className="section product-gallery-section product-gallery-secondary light-chapter" id="round-bars" aria-labelledby="round-bars-title">
+            <div className="container">
+              <div className="section-heading split">
+                <div>
+                  <p className="eyebrow dark">High-temperature alloy bars</p>
+                  <h2 id="round-bars-title">Product range2</h2>
+                </div>
+                <Link className="text-link product-view-link" href={`${base}/products#alloy-round-bars`}>View products <ArrowUpRight aria-hidden="true" /></Link>
+              </div>
+              <ProductRangeGrid locale={locale} products={roundBarProducts} ariaLabel="BYBOLT alloy round bar products" />
+            </div>
+          </section>
+        )}
+
+        <MaterialSelector locale={locale} />
 
         <section className="section capability-light light-chapter" id="capabilities" aria-labelledby="capabilities-title">
           <div className="container capability-light-grid">
@@ -95,18 +115,6 @@ export function HomePage({ locale }: { locale: Locale }) {
           </div>
         </section>
 
-        <section className="section certificate-section light-chapter" id="quality" aria-labelledby="quality-title">
-          <div className="container certificate-grid">
-            <div className="certificate-copy">
-              <p className="eyebrow dark">Quality and traceability</p>
-              <h2 id="quality-title">Evidence presented clearly.</h2>
-              <p>Certificate and inspection requirements are agreed with the order. Available documentation can include material certification, dimensional records and specified test reports.</p>
-              <ul className="plain-list">{qualityPoints.map((point) => <li key={point}>{point}</li>)}</ul>
-            </div>
-            <ScrollMedia className="certificate-media" src="/assets/certificates/alloy-fastener-quality-certificates.jpg" alt="Open alloy fastener quality certificates and material test reports" width={1536} height={1024} />
-          </div>
-        </section>
-
         <section className="section industries-section light-chapter" id="industries" aria-labelledby="industries-title">
           <div className="container">
             <div className="section-heading split">
@@ -118,6 +126,18 @@ export function HomePage({ locale }: { locale: Locale }) {
         </section>
 
         <SupplyProcess />
+
+        <section className="section certificate-section light-chapter" id="quality" aria-labelledby="quality-title">
+          <div className="container certificate-grid">
+            <div className="certificate-copy">
+              <p className="eyebrow dark">Quality and traceability</p>
+              <h2 id="quality-title">Evidence presented clearly.</h2>
+              <p>Certificate and inspection requirements are agreed with the order. Available documentation can include material certification, dimensional records and specified test reports.</p>
+              <ul className="plain-list">{qualityPoints.map((point) => <li key={point}>{point}</li>)}</ul>
+            </div>
+            <ScrollMedia className="certificate-media" src="/assets/certificates/alloy-fastener-quality-certificates.jpg" alt="Open alloy fastener quality certificates and material test reports" width={1536} height={1024} />
+          </div>
+        </section>
 
         <section className="section final-action light-chapter" id="rfq" aria-labelledby="rfq-title">
           <div className="container final-action-intro">
@@ -147,8 +167,8 @@ export function HomePage({ locale }: { locale: Locale }) {
         <div className="container footer-grid">
           <div><strong>BYBOLT</strong><p>High-temperature alloy fasteners for international industrial procurement.</p></div>
           <div><span>Products</span><Link href={`${base}/products`}>Product Range</Link><Link href={`${base}/products/bolts/hex-bolts/`}>Sample Product</Link></div>
-          <div><span>Materials</span><Link href={`${base}/alloys`}>Material Range</Link><Link href={`${base}/alloys/inconel-625`}>Inconel 625</Link></div>
-          <div><span>Contact</span><Link href={`${base}/request-a-quote`}>Request a Quote</Link><a href="mailto:sales@bybolt.com">Email Sales</a></div>
+          <div><span>Company</span><Link href={`${base}/quality`}>Quality</Link><Link href={`${base}/resources`}>Resources</Link><Link href={`${base}/about`}>About BYBOLT</Link></div>
+          <div><span>Contact</span><Link href={`${base}/capabilities`}>Custom Supply</Link><Link href={`${base}/request-a-quote`}>Request a Quote</Link><a href="mailto:sales@bybolt.com">Email Sales</a></div>
         </div>
         <div className="container footer-bottom"><span>&copy; 2026 BYBOLT</span><span>built by bolt, made to endure</span></div>
       </footer>

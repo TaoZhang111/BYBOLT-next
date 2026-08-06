@@ -43,14 +43,15 @@ export default async function ProductDetailPage({ params }: Props) {
     notFound();
   }
   const base = `/${locale}`;
+  const isRoundBarProduct = category.slug === "alloy-round-bars";
 
   const specs = [
     ["Size range", product.size],
     ["Length / thickness", product.length],
     ["Standard", product.standard],
     ["Configuration", product.configuration],
-    ["Threads", product.threads],
-    ["Materials", sharedProductProperties.materials],
+    [isRoundBarProduct ? "Surface / tolerance" : "Threads", product.threads],
+    [isRoundBarProduct ? "Material grade" : "Materials", isRoundBarProduct ? product.name.replace(/ Round Bar$/, "") : sharedProductProperties.materials],
     ["Inspection", sharedProductProperties.inspection],
     ["Documentation", sharedProductProperties.documentation],
   ];

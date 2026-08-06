@@ -1,13 +1,14 @@
 import type { MetadataRoute } from "next";
 
 import { siteConfig } from "@/config/site";
+import { alloyMaterials } from "@/content/materials";
 import { productCategories } from "@/content/product-catalog";
 import { locales } from "@/i18n/config";
 
 export const dynamic = "force-static";
 
 const lastModified = new Date("2026-07-23T00:00:00.000Z");
-const pages = ["", "products", "alloys", "capabilities", "quality", "industries", "request-a-quote", "about", "contact", "resources", "news"];
+const pages = ["", "products", "alloys", "alloys/compare", "capabilities", "quality", "industries", "request-a-quote", "about", "contact", "resources", "news"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = locales.flatMap((locale) => pages.map((page) => ({
@@ -30,6 +31,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     })),
   ]));
+  const materialPages = locales.flatMap((locale) => alloyMaterials.map((material) => ({
+    url: `${siteConfig.url}/${locale}/alloys/${material.slug}/`,
+    lastModified,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  })));
 
-  return [...staticPages, ...productPages];
+  return [...staticPages, ...productPages, ...materialPages];
 }

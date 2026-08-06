@@ -17,6 +17,9 @@ export const productCategories = productCatalogDocument.categories
   }))
   .sort((left, right) => left.sortOrder - right.sortOrder);
 
+export const fastenerCategories = productCategories.filter((category) => category.slug !== "alloy-round-bars");
+export const roundBarCategory = productCategories.find((category) => category.slug === "alloy-round-bars");
+
 export const sharedProductProperties = productCatalogDocument.sharedProductProperties;
 
 export function localizeProductCategory(category: ProductCategory, locale: string): ProductCategory {

@@ -20,6 +20,7 @@ type CatalogResponse = {
   catalog: ProductCatalogDocument;
   commitSha: string;
   repository: string;
+  capabilities?: string[];
 };
 
 type PublishResponse = {

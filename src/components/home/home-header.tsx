@@ -55,8 +55,10 @@ export function HomeHeader({ locale, solid = false, quoteCurrent = false }: { lo
       <nav className={`site-nav${isOpen ? " is-open" : ""}`} aria-label="Primary navigation">
         <Link href={`${base}/products`} onClick={() => setIsOpen(false)}>Products</Link>
         <Link href={`${base}/alloys`} onClick={() => setIsOpen(false)}>Materials</Link>
-        <a href={`${base}/#capabilities`} onClick={() => setIsOpen(false)}>Capabilities</a>
-        <a href={`${base}/#quality`} onClick={() => setIsOpen(false)}>Quality</a>
+        <Link href={`${base}/capabilities`} onClick={() => setIsOpen(false)}>Custom</Link>
+        <Link href={`${base}/quality`} onClick={() => setIsOpen(false)}>Quality</Link>
+        <Link href={`${base}/resources`} onClick={() => setIsOpen(false)}>Resources</Link>
+        <Link href={`${base}/about`} onClick={() => setIsOpen(false)}>About</Link>
         <Link className="nav-cta" href={`${base}/request-a-quote`} aria-current={quoteCurrent ? "page" : undefined} onClick={() => setIsOpen(false)}>Request a Quote</Link>
       </nav>
     </header>

@@ -131,7 +131,12 @@ async function readCatalog(env: Env, session: Session): Promise<Response> {
   if (result.encoding !== "base64") throw new ApiError(502, "GitHub returned an unsupported catalog encoding.");
   const catalog = productCatalogSchema.parse(JSON.parse(decodeUtf8(result.content.replace(/\s/g, ""))));
   const ref = await getHead(env, session.token);
-  return json({ catalog, commitSha: ref.object.sha, repository: `${env.GITHUB_OWNER}/${env.GITHUB_REPO}` });
+  return json({
+    catalog,
+    commitSha: ref.object.sha,
+    repository: `${env.GITHUB_OWNER}/${env.GITHUB_REPO}`,
+    capabilities: ["materials"],
+  });
 }
 
 async function publishCatalog(request: Request, env: Env, session: Session): Promise<Response> {
@@ -141,7 +146,7 @@ async function publishCatalog(request: Request, env: Env, session: Session): Pro
   if (new TextEncoder().encode(raw).byteLength > MAX_BODY_BYTES) throw new ApiError(413, "Publish payload is too large.");
   const body = JSON.parse(raw) as { catalog?: unknown; files?: unknown; message?: unknown; expectedCommitSha?: unknown };
   const catalog = productCatalogSchema.parse(body.catalog);
-  const message = typeof body.message === "string" && body.message.trim() ? body.message.trim().slice(0, 72) : "Update product catalog";
+  const message = typeof body.message === "string" && body.message.trim() ? body.message.trim().slice(0, 72) : "Update site catalog";
   const expectedCommitSha = typeof body.expectedCommitSha === "string" ? body.expectedCommitSha : "";
   const files = parseFiles(body.files);
   const head = await getHead(env, session.token);

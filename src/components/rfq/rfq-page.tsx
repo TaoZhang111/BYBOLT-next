@@ -46,7 +46,7 @@ export function RfqPage({ locale }: { locale: Locale }) {
         <div className="container footer-grid">
           <div><strong>BYBOLT</strong><p>High-temperature alloy fasteners for international industrial procurement.</p></div>
           <div><span>Products</span><Link href={`${base}/products`}>Product Range</Link><Link href={`${base}/products/bolts/hex-bolts/`}>Hex Bolts</Link></div>
-          <div><span>Capabilities</span><Link href={`${base}/alloys`}>Materials</Link><Link href={`${base}/#capabilities`}>Custom Supply</Link><Link href={`${base}/#quality`}>Quality</Link></div>
+          <div><span>Capabilities</span><Link href={`${base}/alloys`}>Materials</Link><Link href={`${base}/capabilities`}>Custom Supply</Link><Link href={`${base}/quality`}>Quality</Link></div>
           <div><span>Contact</span><Link href={`${base}/request-a-quote`}>Request a Quote</Link><a href="mailto:sales@bybolt.com">Email Sales</a></div>
         </div>
         <div className="container footer-bottom"><span>&copy; 2026 BYBOLT</span><span>built by bolt, made to endure</span></div>

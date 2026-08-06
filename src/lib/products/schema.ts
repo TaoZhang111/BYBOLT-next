@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { materialCatalogSchema } from "@/lib/materials/schema";
+
 const slugSchema = z
   .string()
   .min(2, "Slug must contain at least 2 characters")
@@ -86,6 +88,7 @@ export const productCatalogSchema = z
     version: z.literal(1),
     updatedAt: z.iso.datetime(),
     categories: z.array(productCategorySchema).min(1).max(40),
+    materials: materialCatalogSchema,
     sharedProductProperties: sharedProductPropertiesSchema,
   })
   .superRefine((catalog, context) => {

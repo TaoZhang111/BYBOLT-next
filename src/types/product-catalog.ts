@@ -1,3 +1,5 @@
+import type { AlloyMaterial } from "./material-catalog";
+
 export type PublicationStatus = "draft" | "published" | "archived";
 
 export type ProductTranslation = Partial<{
@@ -71,5 +73,6 @@ export type ProductCatalogDocument = {
   version: 1;
   updatedAt: string;
   categories: ProductCategory[];
+  materials: AlloyMaterial[];
   sharedProductProperties: SharedProductProperties;
 };

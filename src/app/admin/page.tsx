@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { AdminApp } from "@/components/admin/admin-app";
 
 export const metadata: Metadata = {
-  title: "Product Admin | BYBOLT",
-  description: "Private BYBOLT product catalog administration.",
+  title: "Catalog Admin | BYBOLT",
+  description: "Private BYBOLT product and material catalog administration.",
   robots: { index: false, follow: false, nocache: true },
 };
 

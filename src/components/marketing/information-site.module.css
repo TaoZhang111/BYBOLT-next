@@ -1,0 +1,460 @@
+.informationSite {
+  --product-ink: #f4f7f5;
+  --product-muted: #aab9c9;
+  --product-cyan: #a9e9f2;
+  --product-lime: #e7f59a;
+  --product-line: rgba(153, 197, 226, 0.28);
+  --info-ink: #12191d;
+  --info-muted: #637078;
+  --info-line: #d4dbdc;
+  --info-paper: #f2f4f1;
+  --info-wine: #702a37;
+  --info-teal: #176b80;
+  width: 100%;
+  min-height: 100svh;
+  overflow-x: clip;
+  color: var(--info-ink);
+  background: #fff;
+  font-family: "Satoshi", "Outfit", "Segoe UI", sans-serif;
+}
+
+.informationSite *,
+.informationSite *::before,
+.informationSite *::after {
+  box-sizing: border-box;
+}
+
+.informationSite a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container,
+.footerInner {
+  width: min(calc(100% - 64px), 1440px);
+  margin-inline: auto;
+}
+
+.hero {
+  padding: 108px 0 88px;
+  border-bottom: 1px solid var(--info-line);
+  background: #fff;
+}
+
+.heroGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.65fr);
+  gap: 78px;
+  align-items: end;
+}
+
+.kicker {
+  margin: 0 0 22px;
+  color: var(--info-teal);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 990px;
+  margin: 0;
+  font-size: clamp(58px, 6vw, 84px);
+  font-weight: 500;
+  line-height: 0.97;
+}
+
+.heroCopy {
+  margin: 0 0 5px;
+  color: var(--info-muted);
+  font-size: 18px;
+  line-height: 1.62;
+}
+
+.section {
+  padding: 92px 0 112px;
+  background: var(--info-paper);
+}
+
+.sectionWhite {
+  background: #fff;
+}
+
+.sectionHeading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.55fr);
+  gap: 70px;
+  align-items: end;
+  margin-bottom: 48px;
+}
+
+.sectionHeading h2 {
+  max-width: 820px;
+  margin: 0;
+  font-size: clamp(44px, 5vw, 68px);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.sectionHeading > p {
+  margin: 0;
+  color: var(--info-muted);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.qualityFeature {
+  position: relative;
+  min-height: 560px;
+  overflow: hidden;
+  border: 1px solid var(--info-line);
+  background: #dfe3e2;
+}
+
+.qualityFeature img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+}
+
+.qualityFeatureCopy {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: min(520px, 48%);
+  padding: 32px 34px;
+  color: #fff;
+  background: rgba(17, 25, 29, 0.94);
+}
+
+.qualityFeatureCopy h2 {
+  margin: 0 0 12px;
+  font-size: 34px;
+  font-weight: 500;
+}
+
+.qualityFeatureCopy p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.55;
+}
+
+.credentialGrid,
+.stepGrid,
+.articleGrid,
+.valueGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--info-line);
+  border-left: 1px solid var(--info-line);
+}
+
+.credentialCard,
+.stepCard,
+.articleCard,
+.valueCard {
+  min-width: 0;
+  border-right: 1px solid var(--info-line);
+  border-bottom: 1px solid var(--info-line);
+  background: #fff;
+}
+
+.credentialMedia {
+  min-height: 330px;
+  background-color: #e5e8e7;
+  background-image: url("/assets/certificates/alloy-fastener-quality-certificates.jpg");
+  background-repeat: no-repeat;
+  background-size: 205% 205%;
+  border-bottom: 1px solid var(--info-line);
+}
+
+.cropOne { background-position: 0% 0%; }
+.cropTwo { background-position: 50% 0%; }
+.cropThree { background-position: 100% 0%; }
+.cropFour { background-position: 0% 100%; }
+.cropFive { background-position: 50% 100%; }
+.cropSix { background-position: 100% 100%; }
+
+.credentialCopy {
+  min-height: 150px;
+  padding: 24px 26px 28px;
+}
+
+.credentialCopy span,
+.stepCard > span,
+.articleCard > span,
+.valueCard > span {
+  color: var(--info-teal);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.credentialCopy h3,
+.stepCard h2,
+.articleCard h2,
+.valueCard h2 {
+  margin: 15px 0 0;
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.notice {
+  margin: 30px 0 0;
+  padding-left: 18px;
+  color: var(--info-muted);
+  border-left: 2px solid var(--info-wine);
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.stepCard,
+.articleCard,
+.valueCard {
+  min-height: 300px;
+  padding: 30px;
+}
+
+.stepCard p,
+.articleCard p,
+.valueCard p {
+  margin: 18px 0 0;
+  color: var(--info-muted);
+  font-size: 15px;
+  line-height: 1.58;
+}
+
+.articleCard {
+  min-height: 330px;
+  display: flex;
+  flex-direction: column;
+}
+
+.articleCard time {
+  margin-top: auto;
+  padding-top: 32px;
+  color: var(--info-muted);
+  font-size: 13px;
+}
+
+.faqList {
+  border-top: 1px solid var(--info-line);
+}
+
+.faqList details {
+  border-bottom: 1px solid var(--info-line);
+}
+
+.faqList summary {
+  position: relative;
+  padding: 28px 52px 28px 0;
+  cursor: pointer;
+  font-size: 22px;
+  font-weight: 600;
+  list-style: none;
+}
+
+.faqList summary::-webkit-details-marker {
+  display: none;
+}
+
+.faqList summary::after {
+  content: "+";
+  position: absolute;
+  top: 24px;
+  right: 4px;
+  color: var(--info-wine);
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.faqList details[open] summary::after {
+  content: "-";
+}
+
+.faqList details p {
+  max-width: 900px;
+  margin: 0;
+  padding: 0 52px 30px 0;
+  color: var(--info-muted);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.storyGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(420px, 1.22fr);
+  gap: 90px;
+  align-items: start;
+}
+
+.storyGrid h2 {
+  margin: 0;
+  color: var(--info-wine);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(48px, 5vw, 70px);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.storyCopy p {
+  margin: 0 0 24px;
+  color: var(--info-muted);
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+.ctaBand {
+  padding: 72px 0;
+  color: #fff;
+  background: var(--info-wine);
+}
+
+.ctaInner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: center;
+}
+
+.ctaInner h2 {
+  max-width: 850px;
+  margin: 0;
+  font-size: clamp(38px, 4.5vw, 60px);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.ctaButton {
+  min-height: 54px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  color: var(--info-ink) !important;
+  background: #fff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.footer {
+  padding: 38px 0;
+  border-top: 1px solid var(--info-line);
+  background: #fff;
+}
+
+.footerInner {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 38px;
+  align-items: center;
+}
+
+.footerBrand {
+  color: var(--info-wine) !important;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.footerBrand span {
+  color: var(--info-teal);
+}
+
+.footerInner p {
+  margin: 0;
+  color: var(--info-muted);
+  font-size: 13px;
+}
+
+.footerInner nav {
+  display: flex;
+  gap: 26px;
+  font-size: 13px;
+}
+
+@media (max-width: 980px) {
+  .heroGrid,
+  .sectionHeading,
+  .storyGrid {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .credentialGrid,
+  .stepGrid,
+  .articleGrid,
+  .valueGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .container,
+  .footerInner {
+    width: min(calc(100% - 32px), 1440px);
+  }
+
+  .hero {
+    padding: 64px 0 58px;
+  }
+
+  .hero h1 {
+    font-size: 48px;
+  }
+
+  .heroCopy {
+    font-size: 16px;
+  }
+
+  .section {
+    padding: 64px 0 78px;
+  }
+
+  .sectionHeading h2 {
+    font-size: 42px;
+  }
+
+  .qualityFeature {
+    min-height: 520px;
+  }
+
+  .qualityFeatureCopy {
+    width: 100%;
+    padding: 26px 24px;
+  }
+
+  .credentialGrid,
+  .stepGrid,
+  .articleGrid,
+  .valueGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .credentialMedia {
+    min-height: 360px;
+  }
+
+  .storyGrid {
+    gap: 38px;
+  }
+
+  .storyCopy p {
+    font-size: 16px;
+  }
+
+  .ctaInner,
+  .footerInner {
+    grid-template-columns: 1fr;
+  }
+
+  .ctaButton {
+    justify-self: start;
+  }
+
+  .footerInner nav {
+    flex-wrap: wrap;
+  }
+}

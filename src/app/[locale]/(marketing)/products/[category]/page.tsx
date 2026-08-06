@@ -39,6 +39,7 @@ export default async function ProductCategoryPage({ params }: Props) {
   }
   const base = `/${locale}`;
   const singularCategory = category.name === "Custom Products" ? "Custom Product" : category.name.replace(/s$/, "");
+  const isRoundBarCategory = category.slug === "alloy-round-bars";
 
   return (
     <ProductSiteShell locale={locale}>
@@ -59,7 +60,7 @@ export default async function ProductCategoryPage({ params }: Props) {
                 <dl className={styles.specRail}>
                   <div><dt>Standard</dt><dd>{model.standard}</dd></div>
                   <div><dt>Configuration</dt><dd>{model.configuration}</dd></div>
-                  <div><dt>Materials</dt><dd>{sharedProductProperties.materials}</dd></div>
+                  <div><dt>{isRoundBarCategory ? "Material grade" : "Materials"}</dt><dd>{isRoundBarCategory ? model.name.replace(/ Round Bar$/, "") : sharedProductProperties.materials}</dd></div>
                   <div><dt>Testing</dt><dd>{sharedProductProperties.inspection}</dd></div>
                 </dl>
                 <div className={styles.modelCopy} data-reveal-copy>

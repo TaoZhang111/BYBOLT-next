@@ -276,6 +276,43 @@
 
 .previewHeader svg { width: 15px; height: 15px; }
 
+.catalogTabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin: 10px 12px 0;
+  padding: 4px;
+  background: var(--admin-soft);
+  border: 1px solid var(--admin-line);
+  border-radius: 5px;
+}
+
+.catalogTabs button {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 8px;
+  color: var(--admin-muted);
+  background: transparent;
+  border: 0;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.catalogTabs button svg {
+  width: 14px;
+  height: 14px;
+}
+
+.catalogTabs .activeCatalogTab {
+  color: var(--admin-navy);
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(16, 25, 30, 0.12);
+}
+
 .search {
   height: 54px;
   display: grid;
@@ -364,6 +401,35 @@
 .statusMark svg { width: 8px; height: 8px; color: #fff; }
 .statusMark.published { width: 15px; height: 15px; background: #4d9563; }
 .statusMark.archived { width: 15px; height: 15px; background: #9aa1a5; }
+
+.materialNav {
+  display: grid;
+  gap: 3px;
+  padding-top: 4px;
+}
+
+.materialNav .productRow {
+  min-height: 52px;
+  grid-template-columns: 18px minmax(0, 1fr) 18px;
+  padding-inline: 12px;
+}
+
+.materialNav .productRow span {
+  display: grid;
+  gap: 2px;
+}
+
+.materialNav .productRow b {
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+}
+
+.materialNav .productRow small {
+  color: var(--admin-muted);
+  font-size: 9px;
+}
 
 .addCategory {
   position: fixed;
@@ -515,6 +581,26 @@
 .dangerActions { display: flex; justify-content: flex-end; gap: 10px; padding-top: 30px; }
 .dangerActions .deleteButton { color: var(--admin-error); border-color: #dbb8b8; }
 
+.enableComparison {
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 16px;
+  color: #fff;
+  background: var(--admin-blue);
+  border: 0;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.enableComparison svg {
+  width: 16px;
+  height: 16px;
+}
+
 .previewCard {
   margin: 14px;
   color: #edf4f4;
@@ -535,6 +621,60 @@
 .previewCopy dl div { padding: 9px 0; border-top: 1px solid rgba(185, 232, 239, 0.15); }
 .previewCopy dt { margin-bottom: 3px; color: #839da8; font-size: 9px; }
 .previewCopy dd { margin: 0; color: #edf4f4; font-size: 10px; line-height: 1.35; overflow-wrap: anywhere; }
+
+.materialPreview {
+  border-color: rgba(111, 41, 54, 0.62);
+  background: #fff;
+}
+
+.materialPreview .previewCopy {
+  padding: 26px 22px;
+}
+
+.materialPreview .previewCopy > span {
+  color: #176b80;
+}
+
+.materialPreview .previewCopy h2 {
+  color: #151a1d;
+  font-size: 29px;
+}
+
+.materialPreview .previewCopy > p,
+.materialPreview .previewCopy dt {
+  color: #657078;
+}
+
+.materialPreview .previewCopy dd {
+  color: #151a1d;
+}
+
+.materialPreview .previewCopy dl div {
+  border-color: #d8dddf;
+}
+
+.previewScores {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin-top: 20px;
+  background: #d8dddf;
+  border: 1px solid #d8dddf;
+}
+
+.previewScores span {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 9px;
+  color: #657078;
+  background: #f5f7f6;
+  font-size: 9px;
+}
+
+.previewScores b {
+  color: #6f2936;
+}
 
 .validationPanel { display: grid; gap: 16px; margin: 20px 14px 50px; padding-top: 20px; border-top: 1px solid var(--admin-line); }
 .validationHeading { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; }
