@@ -798,8 +798,8 @@
 }
 
 .page-home .process-journey.process-flow-section {
-  padding: 132px 0 148px !important;
-  background: var(--home-paper) !important;
+  padding: 126px 0 132px !important;
+  background: #fff !important;
   border-top: 1px solid var(--home-line);
   border-bottom: 1px solid var(--home-line);
 }
@@ -813,7 +813,7 @@
   grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.55fr);
   gap: 72px;
   align-items: end;
-  margin-bottom: 64px;
+  margin-bottom: 54px;
 }
 
 .page-home .process-flow-heading h2 {
@@ -832,82 +832,33 @@
   line-height: 1.6;
 }
 
-.page-home .process-flow-list {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 30px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.page-home .process-flow-step {
+.page-home .manufacturing-process-figure {
   position: relative;
-  min-width: 0;
-}
-
-.page-home .process-flow-node {
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-  padding: 28px 26px 30px;
-  color: var(--home-ink);
-  background: rgba(255, 255, 255, 0.64);
-  border: 1px solid #aeb9bc;
-}
-
-.page-home .process-flow-number {
-  width: 52px;
-  height: 52px;
-  display: grid;
-  place-items: center;
-  margin-bottom: 48px;
-  color: #fff;
-  background: var(--home-ink);
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.page-home .process-flow-node h3 {
   margin: 0;
-  color: var(--home-ink);
-  font-size: 28px;
-  font-weight: 500;
-  line-height: 1.08;
+  overflow: hidden;
+  background: #fff;
 }
 
-.page-home .process-flow-node p {
-  margin: 18px 0 0;
-  color: var(--home-muted);
-  font-size: 15px;
-  line-height: 1.55;
+.page-home .manufacturing-process-image {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
-.page-home .process-flow-connector {
+.page-home .manufacturing-process-figure figcaption {
   position: absolute;
-  top: 38px;
-  right: -30px;
-  z-index: 2;
-  width: 30px;
-  height: 30px;
-  display: grid;
-  place-items: center;
-  color: var(--home-orange);
-  background: var(--home-paper);
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-.page-home .process-flow-connector::before {
-  content: "";
-  position: absolute;
-  right: 100%;
-  width: 15px;
-  border-top: 1px solid #8e999d;
-}
-
-.page-home .process-flow-connector svg {
-  width: 20px;
-  height: 20px;
-  stroke-width: 1.7;
+.page-home .manufacturing-process-mobile {
+  display: none;
 }
 
 @media (max-width: 1060px) {
@@ -954,39 +905,6 @@
 
   .page-home .process-flow-heading > p {
     max-width: 680px;
-  }
-
-  .page-home .process-flow-list {
-    grid-template-columns: 1fr;
-    gap: 38px;
-  }
-
-  .page-home .process-flow-node {
-    min-height: 0;
-    display: grid;
-    grid-template-columns: 70px minmax(180px, 0.45fr) minmax(260px, 1fr);
-    gap: 24px;
-    align-items: center;
-  }
-
-  .page-home .process-flow-number {
-    margin: 0;
-  }
-
-  .page-home .process-flow-node p {
-    margin: 0;
-  }
-
-  .page-home .process-flow-connector {
-    top: auto;
-    right: auto;
-    bottom: -34px;
-    left: 37px;
-    transform: rotate(90deg);
-  }
-
-  .page-home .process-flow-connector::before {
-    display: none;
   }
 
   .page-home .product-range-layout {
@@ -1219,7 +1137,7 @@
   }
 
   .page-home .process-journey.process-flow-section {
-    padding: 88px 0 96px !important;
+    padding: 84px 0 92px !important;
   }
 
   .page-home .process-flow-heading {
@@ -1234,27 +1152,43 @@
     font-size: 16px;
   }
 
-  .page-home .process-flow-node {
-    display: block;
-    padding: 24px;
+  .page-home .manufacturing-process-figure {
+    display: none;
   }
 
-  .page-home .process-flow-number {
-    width: 46px;
-    height: 46px;
-    margin-bottom: 26px;
+  .page-home .manufacturing-process-mobile {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid #b8c2c5;
+    border-left: 1px solid #b8c2c5;
+    list-style: none;
   }
 
-  .page-home .process-flow-node h3 {
-    font-size: 27px;
+  .page-home .manufacturing-process-mobile li {
+    min-height: 126px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 26px;
+    padding: 18px;
+    color: var(--home-ink);
+    background: #fff;
+    border-right: 1px solid #b8c2c5;
+    border-bottom: 1px solid #b8c2c5;
   }
 
-  .page-home .process-flow-node p {
-    margin-top: 12px;
+  .page-home .manufacturing-process-mobile span {
+    color: var(--home-orange);
+    font-size: 12px;
+    font-weight: 700;
   }
 
-  .page-home .process-flow-connector {
-    left: 32px;
+  .page-home .manufacturing-process-mobile strong {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.16;
   }
 
   .page-home .industry-accordion {

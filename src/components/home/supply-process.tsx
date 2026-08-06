@@ -1,6 +1,15 @@
-import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
-import { processSteps } from "@/content/home-content";
+const manufacturingSteps = [
+  "Material Verification",
+  "Cutting",
+  "Forming",
+  "Heat Treatment",
+  "CNC Turning",
+  "Cleaning",
+  "Inspection",
+  "Marking & Packaging",
+];
 
 export function SupplyProcess() {
   return (
@@ -8,25 +17,30 @@ export function SupplyProcess() {
       <div className="container process-flow-layout">
         <div className="process-flow-heading">
           <div>
-            <p className="eyebrow dark">From RFQ to shipment</p>
-            <h2 id="process-title">A predictable supply workflow.</h2>
+            <p className="eyebrow dark">Manufacturing sequence</p>
+            <h2 id="process-title">From verified material to packed fasteners.</h2>
           </div>
-          <p>Five connected stages keep the technical requirement, commercial scope, production records and delivery preparation aligned.</p>
+          <p>Eight controlled stages connect incoming material records with forming, machining, inspection and shipment-ready identification.</p>
         </div>
 
-        <ol className="process-flow-list" aria-label="BYBOLT supply workflow">
-          {processSteps.map((step, index) => (
-            <li className="process-flow-step" key={step.number}>
-              <article className="process-flow-node">
-                <span className="process-flow-number">{step.number}</span>
-                <h3>{step.title}</h3>
-                <p>{step.description}</p>
-              </article>
-              {index < processSteps.length - 1 && (
-                <span className="process-flow-connector" aria-hidden="true">
-                  <ArrowRight />
-                </span>
-              )}
+        <figure className="manufacturing-process-figure">
+          <Image
+            className="manufacturing-process-image"
+            src="/assets/manufacturing-process-white.png"
+            width={1672}
+            height={941}
+            unoptimized
+            sizes="(max-width: 760px) 100vw, 1440px"
+            alt="Eight-stage BYBOLT fastener manufacturing sequence from material verification to marking and packaging"
+          />
+          <figcaption>BYBOLT manufacturing and quality-control sequence.</figcaption>
+        </figure>
+
+        <ol className="manufacturing-process-mobile" aria-label="BYBOLT manufacturing sequence">
+          {manufacturingSteps.map((step, index) => (
+            <li key={step}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <strong>{step}</strong>
             </li>
           ))}
         </ol>
