@@ -1,38 +1,38 @@
-"use client";
-
 import { ArrowUpRight } from "lucide-react";
-import { useState } from "react";
 
 import Link from "@/components/navigation/static-link";
-import { homeProducts } from "@/content/home-content";
 import type { Locale } from "@/i18n/config";
+
+export type ProductRangeItem = {
+  href: string;
+  image: string;
+  alt: string;
+  name: string;
+  description: string;
+};
 
 type ProductRangeGridProps = {
   locale: Locale;
-  products?: typeof homeProducts;
+  products: ProductRangeItem[];
   ariaLabel?: string;
 };
 
 export function ProductRangeGrid({
   locale,
-  products = homeProducts,
+  products,
   ariaLabel = "BYBOLT fastener categories",
 }: ProductRangeGridProps) {
-  const [activeProduct, setActiveProduct] = useState<string | null>(null);
   const base = `/${locale}`;
   const rows = Array.from(
     { length: Math.ceil(products.length / 3) },
     (_, index) => products.slice(index * 3, index * 3 + 3),
   );
 
-  const renderCard = (product: (typeof homeProducts)[number]) => (
+  const renderCard = (product: ProductRangeItem) => (
     <Link
       className="image-product-card"
       href={`${base}${product.href}`}
-      key={product.name}
-      onMouseEnter={() => setActiveProduct(product.href)}
-      onFocus={() => setActiveProduct(product.href)}
-      onBlur={() => setActiveProduct(null)}
+      key={product.href}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={product.image} alt={product.alt} width="1536" height="1024" loading="lazy" decoding="async" />
@@ -50,20 +50,16 @@ export function ProductRangeGrid({
       aria-label={ariaLabel}
     >
       <div className="product-range-rows">
-        {rows.map((row, index) => (
-          <div
-            className={`product-range-row${row.length > 2 ? " is-compact" : ""}`}
-            key={`row-${index}`}
-            onMouseLeave={() => setActiveProduct(null)}
-            style={{
-              gridTemplateColumns: row
-                .map((product) => `minmax(0, ${activeProduct === product.href ? 1.3 : 1}fr)`)
-                .join(" "),
-            }}
-          >
-            {row.map((product) => renderCard(product))}
-          </div>
-        ))}
+        {rows.map((row, index) => {
+          return (
+            <div
+              className={`product-range-row has-${row.length}-cards${row.length > 2 ? " is-compact" : ""}`}
+              key={`row-${index}`}
+            >
+              {row.map((product) => renderCard(product))}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

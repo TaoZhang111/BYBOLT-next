@@ -11,7 +11,7 @@ import { RequirementRoutes } from "@/components/home/requirement-routes";
 import { ScrollMedia } from "@/components/home/scroll-media";
 import { SupplyProcess } from "@/components/home/supply-process";
 import { capabilities, qualityPoints, transitionItems } from "@/content/home-content";
-import { localizeProductCategory, productCategories } from "@/content/product-catalog";
+import { fastenerCategories, localizeProductCategory, roundBarCategory } from "@/content/product-catalog";
 import type { Locale } from "@/i18n/config";
 
 const organizationJsonLd = {
@@ -24,8 +24,17 @@ const organizationJsonLd = {
 
 export function HomePage({ locale }: { locale: Locale }) {
   const base = `/${locale}`;
-  const sourceBarCategory = productCategories.find((category) => category.slug === "alloy-round-bars");
-  const barCategory = sourceBarCategory ? localizeProductCategory(sourceBarCategory, locale) : undefined;
+  const fastenerProducts = fastenerCategories.map((category) => {
+    const localizedCategory = localizeProductCategory(category, locale);
+    return {
+      href: `/products/${localizedCategory.slug}/`,
+      image: localizedCategory.image,
+      alt: localizedCategory.alt,
+      name: localizedCategory.name,
+      description: localizedCategory.summary,
+    };
+  });
+  const barCategory = roundBarCategory ? localizeProductCategory(roundBarCategory, locale) : undefined;
   const roundBarProducts = barCategory?.models.map((model) => ({
     href: `/products/${barCategory.slug}/${model.slug}/`,
     image: model.image,
@@ -78,7 +87,7 @@ export function HomePage({ locale }: { locale: Locale }) {
               </div>
               <Link className="text-link product-view-link" href={`${base}/products`}>View products <ArrowUpRight aria-hidden="true" /></Link>
             </div>
-            <ProductRangeGrid locale={locale} />
+            <ProductRangeGrid locale={locale} products={fastenerProducts} />
           </div>
         </section>
 

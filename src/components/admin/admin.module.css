@@ -332,7 +332,79 @@
 .search input { min-width: 0; color: var(--admin-ink); background: transparent; border: 0; outline: 0; font-size: 13px; }
 
 .catalogNav { padding: 2px 8px 84px; }
+.rangeGroup {
+  margin-bottom: 8px;
+  border: 1px solid #e3e8e9;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.rangeRow {
+  min-height: 54px;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) 30px;
+  align-items: center;
+  color: var(--admin-navy);
+  background: #f5f7f7;
+}
+
+.rangeRow:hover { background: #eef3f4; }
+.rangeRow:hover .addInline { opacity: 1; }
+
+.rangeSelect {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  align-items: center;
+  gap: 9px;
+  padding: 5px 3px;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  text-align: left;
+}
+
+.rangeSelect > svg {
+  width: 16px;
+  height: 16px;
+  color: var(--admin-blue);
+}
+
+.rangeSelect span {
+  min-width: 0;
+  display: grid;
+  gap: 1px;
+}
+
+.rangeSelect b,
+.rangeSelect small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rangeSelect b { font-size: 13px; }
+.rangeSelect small { color: var(--admin-muted); font-size: 9px; }
+
+.rangeCategories {
+  padding-left: 5px;
+  margin-left: 14px;
+  border-left: 1px solid #d9e1e3;
+}
+
 .categoryGroup { border-bottom: 1px solid #edf0f1; }
+.rangeCategories .categoryGroup:last-child { border-bottom: 0; }
+
+.hiddenCategory {
+  color: #858d91;
+  background: #f1f3f3;
+}
+
+.hiddenCategory .categoryRow { color: #858d91; }
+.hiddenCategory .categoryRow:hover,
+.hiddenCategory .activeRow { background: #e6e9ea; }
+.hiddenCategory .categorySelect svg { color: #9ba2a5; }
+.hiddenCategory .productRows { opacity: 0.62; }
 
 .categoryRow {
   min-height: 48px;
@@ -560,7 +632,8 @@
 .imagePath > svg { width: 17px; height: 17px; }
 .imagePath > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11px; }
 .imagePath button,
-.dangerActions button {
+.dangerActions button,
+.folderActions button {
   min-height: 34px;
   display: inline-flex;
   align-items: center;
@@ -576,10 +649,15 @@
 }
 
 .imagePath button svg,
-.dangerActions button svg { width: 14px; height: 14px; }
+.dangerActions button svg,
+.folderActions button svg { width: 14px; height: 14px; }
 
 .dangerActions { display: flex; justify-content: flex-end; gap: 10px; padding-top: 30px; }
-.dangerActions .deleteButton { color: var(--admin-error); border-color: #dbb8b8; }
+.folderActions { display: flex; justify-content: flex-start; gap: 10px; }
+.dangerActions .deleteButton,
+.folderActions .deleteButton { color: var(--admin-error); border-color: #dbb8b8; }
+.folderActions button:disabled { color: #939a9e; background: #eef0f0; border-color: #d9dddf; cursor: not-allowed; }
+.folderActionNote { margin: -6px 0 0; color: var(--admin-muted); font-size: 10px; line-height: 1.5; }
 
 .enableComparison {
   min-height: 46px;
@@ -748,7 +826,9 @@
   .previewCard { display: block; }
   .previewCard figure { height: 230px; min-height: 0; }
   .dangerActions { align-items: stretch; flex-direction: column; }
-  .dangerActions button { min-height: 42px; }
+  .folderActions { align-items: stretch; flex-direction: column; }
+  .dangerActions button,
+  .folderActions button { min-height: 42px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

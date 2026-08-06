@@ -1,13 +1,3 @@
-export type HomeProduct = {
-  href: string;
-  image: string;
-  alt: string;
-  context: string;
-  name: string;
-  description: string;
-  wide?: boolean;
-};
-
 export const transitionItems = [
   "Nickel alloys",
   "Drawing-based supply",
@@ -39,50 +29,6 @@ export const requirementRoutes = [
     href: "/request-a-quote",
   },
 ] as const;
-
-export const homeProducts: HomeProduct[] = [
-  {
-    href: "/products/bolts/hex-bolts/",
-    image: "/assets/products/nickel-alloy-hex-bolts.jpg",
-    alt: "High-temperature nickel-alloy hex bolts",
-    context: "Heat and pressure",
-    name: "Hex Bolts",
-    description: "Machined and threaded to the applicable drawing or fastener standard.",
-  },
-  {
-    href: "/products/studs/stud-bolts/",
-    image: "/assets/products/nickel-alloy-stud-bolts.jpg",
-    alt: "High-temperature nickel-alloy stud bolts",
-    context: "Loaded joints",
-    name: "Stud Bolts",
-    description: "Full-thread and double-end configurations for engineered assemblies.",
-  },
-  {
-    href: "/products/nuts/heavy-hex-nuts/",
-    image: "/assets/products/nickel-alloy-hex-nuts.jpg",
-    alt: "Precision nickel-alloy heavy hex nuts",
-    context: "Matched threads",
-    name: "Heavy Hex Nuts",
-    description: "Thread and material combinations reviewed against the mating component.",
-  },
-  {
-    href: "/products/washers/flat-washers/",
-    image: "/assets/products/nickel-alloy-flat-washers.jpg",
-    alt: "Precision nickel-alloy flat washers",
-    context: "Load distribution",
-    name: "Precision Washers",
-    description: "Flat and drawing-based profiles in corrosion-resistant alloy grades.",
-  },
-  {
-    href: "/products/custom-products/",
-    image: "/assets/products/custom-alloy-fastener-components.jpg",
-    alt: "Custom nickel-alloy fastener components and special threaded parts",
-    context: "Drawing based",
-    name: "Other & Custom",
-    description: "Special heads, shoulders, threads and machined components developed from your requirement.",
-    wide: true,
-  },
-];
 
 export const capabilities = [
   ["Drawing review", "Dimensions, tolerances and thread form", "Technical inputs are checked before commercial quotation."],

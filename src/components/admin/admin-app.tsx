@@ -11,6 +11,8 @@ import {
   CircleAlert,
   CloudUpload,
   Copy,
+  Eye,
+  EyeOff,
   ExternalLink,
   FileImage,
   Folder,
@@ -52,10 +54,26 @@ import styles from "./admin.module.css";
 
 const DRAFT_KEY = "bybolt-admin-product-draft-v1";
 const cloneCatalog = (value: ProductCatalogDocument): ProductCatalogDocument => structuredClone(value);
+
+function toggleSetValue<T>(current: Set<T>, value: T) {
+  const next = new Set(current);
+  if (next.has(value)) next.delete(value);
+  else next.add(value);
+  return next;
+}
+
 type Selection = { kind: "category"; categorySlug: string } | { kind: "product"; categorySlug: string; productSlug: string };
 type LocaleTab = "en" | "zh";
 type CatalogMode = "products" | "materials";
+type ProductRangeKey = "range1" | "range2";
 type MaterialFieldValue = string | number | string[] | AlloyComparison | undefined;
+
+const ROUND_BAR_CATEGORY_SLUG = "alloy-round-bars";
+
+function compareProductCategories(left: ProductCategory, right: ProductCategory) {
+  const archivedDifference = Number(left.status === "archived") - Number(right.status === "archived");
+  return archivedDifference || left.sortOrder - right.sortOrder;
+}
 
 export function AdminApp() {
   const [catalog, setCatalog] = useState(() => cloneCatalog(productCatalogDocument));
@@ -69,7 +87,8 @@ export function AdminApp() {
   const [catalogMode, setCatalogMode] = useState<CatalogMode>("products");
   const [selectedMaterialSlug, setSelectedMaterialSlug] = useState(productCatalogDocument.materials[0].slug);
   const [query, setQuery] = useState("");
-  const [expanded, setExpanded] = useState(() => new Set(productCatalogDocument.categories.map((category) => category.slug)));
+  const [expanded, setExpanded] = useState<Set<string>>(() => new Set());
+  const [expandedRanges, setExpandedRanges] = useState<Set<ProductRangeKey>>(() => new Set(["range1", "range2"]));
   const [session, setSession] = useState<AdminSession>({ authenticated: false });
   const [connection, setConnection] = useState<"loading" | "offline" | "ready" | "error">("loading");
   const [repositorySha, setRepositorySha] = useState("");
@@ -80,11 +99,15 @@ export function AdminApp() {
   const [notice, setNotice] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [mobileMenu, setMobileMenu] = useState(false);
   const initialized = useRef(false);
+  const categoryStatusBeforeHide = useRef(new Map<string, PublicationStatus>());
 
   const validation = useMemo(() => productCatalogSchema.safeParse(catalog), [catalog]);
   const isDirty = useMemo(() => JSON.stringify(catalog) !== JSON.stringify(baseline) || pendingAssets.length > 0, [baseline, catalog, pendingAssets.length]);
   const publishedCount = useMemo(
-    () => catalog.categories.flatMap((category) => category.models).filter((product) => product.status === "published").length,
+    () => catalog.categories
+      .filter((category) => category.status === "published")
+      .flatMap((category) => category.models)
+      .filter((product) => product.status === "published").length,
     [catalog],
   );
   const publishedMaterialCount = useMemo(
@@ -256,6 +279,64 @@ export function AdminApp() {
     select({ kind: "category", categorySlug });
   }
 
+  function hideCategory(categorySlug: string) {
+    const category = catalog.categories.find((item) => item.slug === categorySlug);
+    if (!category || category.status === "archived") return;
+    categoryStatusBeforeHide.current.set(categorySlug, category.status);
+    mutateCatalog((draft) => {
+      const target = draft.categories.find((item) => item.slug === categorySlug);
+      if (target) target.status = "archived";
+    });
+    setExpanded((current) => {
+      const next = new Set(current);
+      next.delete(categorySlug);
+      return next;
+    });
+    setNotice({ type: "success", text: `${category.name} marked hidden and moved to the bottom. Publish to remove it from public pages.` });
+  }
+
+  function restoreCategory(categorySlug: string) {
+    const category = catalog.categories.find((item) => item.slug === categorySlug);
+    if (!category || category.status !== "archived") return;
+    const repositoryStatus = baseline.categories.find((item) => item.slug === categorySlug)?.status;
+    const previousStatus = categoryStatusBeforeHide.current.get(categorySlug);
+    const restoredStatus = previousStatus && previousStatus !== "archived"
+      ? previousStatus
+      : repositoryStatus && repositoryStatus !== "archived"
+        ? repositoryStatus
+        : "draft";
+    mutateCatalog((draft) => {
+      const target = draft.categories.find((item) => item.slug === categorySlug);
+      if (target) target.status = restoredStatus;
+    });
+    categoryStatusBeforeHide.current.delete(categorySlug);
+    setNotice({ type: "success", text: `${category.name} restored as ${restoredStatus}.` });
+  }
+
+  function deleteCategory(categorySlug: string) {
+    const category = catalog.categories.find((item) => item.slug === categorySlug);
+    if (!category) return;
+    if (category.models.length > 0) {
+      setNotice({ type: "error", text: `Delete all ${category.models.length} products in ${category.name} before deleting the folder.` });
+      return;
+    }
+    if (!window.confirm(`Delete the empty ${category.name} folder? The change is not permanent until published.`)) return;
+    mutateCatalog((draft) => {
+      draft.categories = draft.categories.filter((item) => item.slug !== categorySlug);
+    });
+    setExpanded((current) => {
+      const next = new Set(current);
+      next.delete(categorySlug);
+      return next;
+    });
+    categoryStatusBeforeHide.current.delete(categorySlug);
+    const fallback = catalog.categories
+      .filter((item) => item.slug !== categorySlug)
+      .sort(compareProductCategories)[0];
+    if (fallback) select({ kind: "category", categorySlug: fallback.slug });
+    setNotice({ type: "success", text: `${category.name} folder deleted from the local draft.` });
+  }
+
   function addCategory() {
     const suffix = Date.now().toString().slice(-6);
     const category: ProductCategory = {
@@ -273,6 +354,7 @@ export function AdminApp() {
     };
     mutateCatalog((draft) => { draft.categories.push(category); });
     setExpanded((current) => new Set(current).add(category.slug));
+    setExpandedRanges((current) => new Set(current).add("range1"));
     select({ kind: "category", categorySlug: category.slug });
   }
 
@@ -363,6 +445,12 @@ export function AdminApp() {
   const selectedCategory = catalog.categories.find((category) => category.slug === selection.categorySlug);
   const selectedProduct = selection.kind === "product" ? selectedCategory?.models.find((product) => product.slug === selection.productSlug) : undefined;
   const selectedMaterial = catalog.materials.find((material) => material.slug === selectedMaterialSlug) ?? catalog.materials[0];
+  const productRange1Categories = catalog.categories
+    .filter((category) => category.slug !== ROUND_BAR_CATEGORY_SLUG)
+    .sort(compareProductCategories);
+  const productRange2Categories = catalog.categories
+    .filter((category) => category.slug === ROUND_BAR_CATEGORY_SLUG)
+    .sort(compareProductCategories);
 
   return (
     <main className={styles.admin}>
@@ -398,23 +486,33 @@ export function AdminApp() {
           </div>
           <label className={styles.search}><Search /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={catalogMode === "products" ? "Search products" : "Search materials"} /></label>
           {catalogMode === "products" ? <nav className={styles.catalogNav} aria-label="Product catalog editor">
-            {catalog.categories.map((category) => {
-              const products = category.models.filter((product) => `${product.name} ${product.slug}`.toLowerCase().includes(query.toLowerCase()));
-              if (query && products.length === 0 && !category.name.toLowerCase().includes(query.toLowerCase())) return null;
-              const isExpanded = expanded.has(category.slug);
-              return <div className={styles.categoryGroup} key={category.slug}>
-                <div className={`${styles.categoryRow} ${selection.kind === "category" && selection.categorySlug === category.slug ? styles.activeRow : ""}`}>
-                  <button className={styles.expandButton} type="button" aria-label={`${isExpanded ? "Collapse" : "Expand"} ${category.name}`} onClick={() => setExpanded((current) => { const next = new Set(current); if (isExpanded) next.delete(category.slug); else next.add(category.slug); return next; })}>{isExpanded ? <ChevronDown /> : <ChevronRight />}</button>
-                  <button className={styles.categorySelect} type="button" onClick={() => select({ kind: "category", categorySlug: category.slug })}><Folder /><span>{category.name}</span><small>{category.models.length}</small></button>
-                  <button className={styles.addInline} type="button" title={`Add product to ${category.name}`} onClick={() => addProduct(category.slug)}><Plus /></button>
-                </div>
-                {isExpanded && <div className={styles.productRows}>
-                  {products.sort((a, b) => a.sortOrder - b.sortOrder).map((product) => <button className={`${styles.productRow} ${selection.kind === "product" && selection.productSlug === product.slug ? styles.activeRow : ""}`} type="button" key={product.slug} onClick={() => select({ kind: "product", categorySlug: category.slug, productSlug: product.slug })}>
-                    <Package /><span>{product.name}</span><StatusMark status={product.status} />
-                  </button>)}
-                </div>}
-              </div>;
-            })}
+            <ProductRangeGroup
+              id="range1"
+              label="Product range1"
+              categories={productRange1Categories}
+              query={query}
+              expanded={expandedRanges.has("range1")}
+              expandedCategories={expanded}
+              selection={selection}
+              onToggle={() => setExpandedRanges((current) => toggleSetValue(current, "range1"))}
+              onToggleCategory={(categorySlug) => setExpanded((current) => toggleSetValue(current, categorySlug))}
+              onSelect={select}
+              onAddProduct={addProduct}
+              onAddCategory={addCategory}
+            />
+            <ProductRangeGroup
+              id="range2"
+              label="Product range2"
+              categories={productRange2Categories}
+              query={query}
+              expanded={expandedRanges.has("range2")}
+              expandedCategories={expanded}
+              selection={selection}
+              onToggle={() => setExpandedRanges((current) => toggleSetValue(current, "range2"))}
+              onToggleCategory={(categorySlug) => setExpanded((current) => toggleSetValue(current, categorySlug))}
+              onSelect={select}
+              onAddProduct={addProduct}
+            />
           </nav> : <nav className={`${styles.catalogNav} ${styles.materialNav}`} aria-label="Material catalog editor">
             {catalog.materials
               .filter((material) => `${material.name} ${material.uns} ${material.slug}`.toLowerCase().includes(query.toLowerCase()))
@@ -425,7 +523,7 @@ export function AdminApp() {
                 </button>
               ))}
           </nav>}
-          <button className={styles.addCategory} type="button" onClick={catalogMode === "products" ? addCategory : addMaterial}><Plus /> {catalogMode === "products" ? "Add category" : "Add material"}</button>
+          <button className={styles.addCategory} type="button" onClick={catalogMode === "products" ? addCategory : addMaterial}><Plus /> {catalogMode === "products" ? "Add Product range1 category" : "Add material"}</button>
         </aside>
 
         <section className={styles.editorArea}>
@@ -439,7 +537,7 @@ export function AdminApp() {
               <button className={localeTab === "zh" ? styles.activeLocale : ""} type="button" onClick={() => setLocaleTab("zh")}>中文</button>
             </div>
           </div>
-          {catalogMode === "products" && selectedCategory && selection.kind === "category" && <CategoryEditor category={selectedCategory} locale={localeTab} lockedSlug={productCatalogDocument.categories.some((item) => item.slug === selectedCategory.slug && item.status === "published")} update={updateSelectedCategory} upload={(file) => void uploadImage(file, selectedCategory.slug, (path) => mutateCatalog((draft) => updateCategory(draft, selectedCategory.slug, "en", "image", path)))} />}
+          {catalogMode === "products" && selectedCategory && selection.kind === "category" && <CategoryEditor category={selectedCategory} locale={localeTab} lockedSlug={productCatalogDocument.categories.some((item) => item.slug === selectedCategory.slug && item.status === "published")} update={updateSelectedCategory} upload={(file) => void uploadImage(file, selectedCategory.slug, (path) => mutateCatalog((draft) => updateCategory(draft, selectedCategory.slug, "en", "image", path)))} hide={() => hideCategory(selectedCategory.slug)} restore={() => restoreCategory(selectedCategory.slug)} remove={() => deleteCategory(selectedCategory.slug)} />}
           {catalogMode === "products" && selectedCategory && selectedProduct && selection.kind === "product" && <ProductEditor product={selectedProduct} locale={localeTab} lockedSlug={productCatalogDocument.categories.some((category) => category.slug === selectedCategory.slug && category.models.some((item) => item.slug === selectedProduct.slug && item.status === "published"))} update={updateSelectedProduct} upload={(file) => void uploadImage(file, selectedProduct.slug, (path) => mutateCatalog((draft) => updateProduct(draft, selectedCategory.slug, selectedProduct.slug, "en", "image", path)))} duplicate={() => duplicateProduct(selectedCategory.slug, selectedProduct.slug)} remove={() => deleteProduct(selectedCategory.slug, selectedProduct.slug)} />}
           {catalogMode === "materials" && selectedMaterial && <MaterialEditor material={selectedMaterial} locale={localeTab} lockedSlug={productCatalogDocument.materials.some((item) => item.slug === selectedMaterial.slug && item.status === "published")} update={updateSelectedMaterial} duplicate={() => duplicateMaterial(selectedMaterial.slug)} remove={() => deleteMaterial(selectedMaterial.slug)} />}
         </section>
@@ -461,8 +559,81 @@ export function AdminApp() {
   );
 }
 
-function CategoryEditor({ category, locale, lockedSlug, update, upload }: { category: ProductCategory; locale: LocaleTab; lockedSlug: boolean; update: (field: string, value: string | number) => void; upload: (file: File) => void }) {
+function ProductRangeGroup({
+  id,
+  label,
+  categories,
+  query,
+  expanded,
+  expandedCategories,
+  selection,
+  onToggle,
+  onToggleCategory,
+  onSelect,
+  onAddProduct,
+  onAddCategory,
+}: {
+  id: ProductRangeKey;
+  label: string;
+  categories: ProductCategory[];
+  query: string;
+  expanded: boolean;
+  expandedCategories: Set<string>;
+  selection: Selection;
+  onToggle: () => void;
+  onToggleCategory: (categorySlug: string) => void;
+  onSelect: (selection: Selection) => void;
+  onAddProduct: (categorySlug: string) => void;
+  onAddCategory?: () => void;
+}) {
+  const normalizedQuery = query.trim().toLowerCase();
+  const visibleCategories = categories
+    .map((category) => {
+      const products = category.models
+        .filter((product) => `${product.name} ${product.slug}`.toLowerCase().includes(normalizedQuery))
+        .sort((left, right) => left.sortOrder - right.sortOrder);
+      const categoryMatches = `${category.name} ${category.slug}`.toLowerCase().includes(normalizedQuery);
+      return normalizedQuery && products.length === 0 && !categoryMatches ? null : { category, products };
+    })
+    .filter((entry): entry is { category: ProductCategory; products: ProductModel[] } => entry !== null);
+
+  if (normalizedQuery && visibleCategories.length === 0) return null;
+  const isRangeExpanded = expanded || Boolean(normalizedQuery);
+
+  return <div className={styles.rangeGroup} data-product-range={id}>
+    <div className={styles.rangeRow}>
+      <button className={styles.expandButton} type="button" aria-label={`${isRangeExpanded ? "Collapse" : "Expand"} ${label}`} onClick={onToggle}>{isRangeExpanded ? <ChevronDown /> : <ChevronRight />}</button>
+      <button className={styles.rangeSelect} type="button" onClick={onToggle}>
+        <Folder />
+        <span><b>{label}</b><small>{categories.length} categor{categories.length === 1 ? "y" : "ies"}</small></span>
+      </button>
+      {onAddCategory ? <button className={styles.addInline} type="button" title={`Add category to ${label}`} aria-label={`Add category to ${label}`} onClick={onAddCategory}><Plus /></button> : <span />}
+    </div>
+    {isRangeExpanded && <div className={styles.rangeCategories}>
+      {visibleCategories.map(({ category, products }) => {
+        const isCategoryExpanded = expandedCategories.has(category.slug) || Boolean(normalizedQuery);
+        const isHidden = category.status === "archived";
+        return <div className={`${styles.categoryGroup} ${isHidden ? styles.hiddenCategory : ""}`} data-category-slug={category.slug} data-category-status={category.status} key={category.slug}>
+          <div className={`${styles.categoryRow} ${selection.kind === "category" && selection.categorySlug === category.slug ? styles.activeRow : ""}`}>
+            <button className={styles.expandButton} type="button" aria-label={`${isCategoryExpanded ? "Collapse" : "Expand"} ${category.name}`} onClick={() => onToggleCategory(category.slug)}>{isCategoryExpanded ? <ChevronDown /> : <ChevronRight />}</button>
+            <button className={styles.categorySelect} type="button" aria-label={`Edit ${category.name} category`} onClick={() => onSelect({ kind: "category", categorySlug: category.slug })}><Folder /><span>{category.name}</span><small>{category.models.length}</small></button>
+            <button className={styles.addInline} type="button" title={`Add product to ${category.name}`} aria-label={`Add product to ${category.name}`} onClick={() => onAddProduct(category.slug)}><Plus /></button>
+          </div>
+          {isCategoryExpanded && <div className={styles.productRows}>
+            {products.map((product) => <button className={`${styles.productRow} ${selection.kind === "product" && selection.productSlug === product.slug ? styles.activeRow : ""}`} type="button" key={product.slug} onClick={() => onSelect({ kind: "product", categorySlug: category.slug, productSlug: product.slug })}>
+              <Package /><span>{product.name}</span><StatusMark status={product.status} />
+            </button>)}
+          </div>}
+        </div>;
+      })}
+    </div>}
+  </div>;
+}
+
+function CategoryEditor({ category, locale, lockedSlug, update, upload, hide, restore, remove }: { category: ProductCategory; locale: LocaleTab; lockedSlug: boolean; update: (field: string, value: string | number) => void; upload: (file: File) => void; hide: () => void; restore: () => void; remove: () => void }) {
   const copy = locale === "en" ? category : { ...category, ...category.translation.zh };
+  const canDelete = category.models.length === 0;
+  const isHidden = category.status === "archived";
   return <div className={styles.formSections}>
     <FormSection title="Category identity" description="Controls the category index page and its permanent route.">
       <div className={styles.twoColumns}><Field label="Category name" value={copy.name ?? ""} onChange={(value) => update("name", value)} /><Field label="URL slug" value={category.slug} disabled={lockedSlug} hint={lockedSlug ? "Locked to preserve the accepted URL." : undefined} onChange={(value) => update("slug", slugify(value))} /></div>
@@ -472,6 +643,13 @@ function CategoryEditor({ category, locale, lockedSlug, update, upload }: { cate
     </FormSection>
     {locale === "en" && <FormSection title="Category image" description="Used on the category card and as fallback media for products."><ImageField path={category.image} alt={category.alt} onAltChange={(value) => update("alt", value)} onUpload={upload} /></FormSection>}
     <FormSection title="Search appearance" description="Optional metadata overrides. Empty fields use the category name and summary."><Field label="SEO title" value={copy.seoTitle ?? ""} maxLength={70} onChange={(value) => update("seoTitle", value)} /><Field label="SEO description" multiline value={copy.seoDescription ?? ""} maxLength={180} onChange={(value) => update("seoDescription", value)} /></FormSection>
+    {locale === "en" && <FormSection title="Folder controls" description="Hidden folders stay editable here and are excluded from public pages after publishing.">
+      <div className={styles.folderActions}>
+        <button type="button" onClick={isHidden ? restore : hide}>{isHidden ? <Eye /> : <EyeOff />}{isHidden ? "Restore folder" : "Hide folder"}</button>
+        <button className={styles.deleteButton} type="button" disabled={!canDelete} title={canDelete ? "Delete this empty folder" : "Delete every product in this folder first"} onClick={remove}><Trash2 />Delete folder</button>
+      </div>
+      <p className={styles.folderActionNote}>{canDelete ? "This empty folder can be deleted after confirmation." : `Deletion is locked while this folder contains ${category.models.length} product${category.models.length === 1 ? "" : "s"}.`}</p>
+    </FormSection>}
   </div>;
 }
 
