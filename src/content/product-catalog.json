@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-01T08:12:36.601Z",
+  "updatedAt": "2026-08-07T02:15:54.293Z",
   "categories": [
     {
       "slug": "bolts",
@@ -648,7 +648,9 @@
           "alt": "Precision-ground Inconel 625 solid round bars",
           "status": "published",
           "sortOrder": 1,
-          "translation": { "zh": {} }
+          "translation": {
+            "zh": {}
+          }
         },
         {
           "slug": "inconel-718-round-bar",
@@ -664,7 +666,9 @@
           "alt": "Solid Inconel 718 round bars with precision-machined ends",
           "status": "published",
           "sortOrder": 2,
-          "translation": { "zh": {} }
+          "translation": {
+            "zh": {}
+          }
         },
         {
           "slug": "hastelloy-c276-round-bar",
@@ -680,7 +684,9 @@
           "alt": "Warehouse stock of Hastelloy C-276 solid round bars",
           "status": "published",
           "sortOrder": 3,
-          "translation": { "zh": {} }
+          "translation": {
+            "zh": {}
+          }
         },
         {
           "slug": "monel-400-round-bar",
@@ -696,7 +702,9 @@
           "alt": "Bright-finished Monel 400 solid round bars",
           "status": "published",
           "sortOrder": 4,
-          "translation": { "zh": {} }
+          "translation": {
+            "zh": {}
+          }
         },
         {
           "slug": "alloy-20-round-bar",
@@ -712,7 +720,9 @@
           "alt": "Alloy 20 solid round bars in multiple diameters",
           "status": "published",
           "sortOrder": 5,
-          "translation": { "zh": {} }
+          "translation": {
+            "zh": {}
+          }
         },
         {
           "slug": "nickel-200-round-bar",
@@ -728,9 +738,26 @@
           "alt": "Nickel 200 solid round bar warehouse stock",
           "status": "published",
           "sortOrder": 6,
-          "translation": { "zh": {} }
+          "translation": {
+            "zh": {}
+          }
         }
       ]
+    },
+    {
+      "slug": "new-category-628974",
+      "name": "category",
+      "index": "08",
+      "image": "/assets/product-fasteners.jpg",
+      "alt": "BYBOLT alloy fastener category",
+      "summary": "Add a concise summary for this product category.",
+      "intro": "Add the category introduction shown above its complete product range.",
+      "status": "published",
+      "sortOrder": 8,
+      "translation": {
+        "zh": {}
+      },
+      "models": []
     }
   ],
   "materials": [
@@ -750,11 +777,18 @@
       "service": "Marine, offshore, chemical processing and pollution-control equipment",
       "status": "published",
       "sortOrder": 1,
-      "translation": { "zh": {} },
+      "translation": {
+        "zh": {}
+      },
       "comparison": {
         "accent": "green",
         "symbol": "625",
-        "performance": { "corrosion": 92, "tensile": 76, "temperature": 84, "oxidation": 88 },
+        "performance": {
+          "corrosion": 92,
+          "tensile": 76,
+          "temperature": 84,
+          "oxidation": 88
+        },
         "mechanical": {
           "tensileStrength": "Typically 800-1,000 MPa, depending on product form and condition",
           "yieldStrength": "Typically 340-630 MPa, depending on product form and condition",
@@ -763,12 +797,31 @@
         },
         "temperatureCapability": "Broad cryogenic-to-elevated-temperature capability; the governing fastener specification and service environment set the allowable limit.",
         "corrosionCharacteristics": "Strong resistance to seawater, chlorides and many industrial corrosive media, with useful oxidation resistance.",
-        "mediaAndConditions": ["Seawater and marine environments", "Chloride-bearing process media", "Chemical and oil-and-gas service"],
+        "mediaAndConditions": [
+          "Seawater and marine environments",
+          "Chloride-bearing process media",
+          "Chemical and oil-and-gas service"
+        ],
         "heatTreatment": "Solution annealing when required by product form or specification",
         "supplyCondition": "Commonly annealed or solution treated; strength varies with cold work",
-        "applications": ["Marine and offshore equipment", "Chemical processing", "Pollution-control systems", "Corrosion-resistant bolting"],
-        "standardsSupport": ["ASTM B446", "ASTM F468 / F467", "ASME and project specifications"],
-        "documentationSupport": ["MTC / MTR", "EN 10204 3.1", "PMI report", "Mechanical test report", "Traceability records"]
+        "applications": [
+          "Marine and offshore equipment",
+          "Chemical processing",
+          "Pollution-control systems",
+          "Corrosion-resistant bolting"
+        ],
+        "standardsSupport": [
+          "ASTM B446",
+          "ASTM F468 / F467",
+          "ASME and project specifications"
+        ],
+        "documentationSupport": [
+          "MTC / MTR",
+          "EN 10204 3.1",
+          "PMI report",
+          "Mechanical test report",
+          "Traceability records"
+        ]
       }
     },
     {
@@ -787,11 +840,18 @@
       "service": "Power generation, aerospace-adjacent systems and high-load equipment",
       "status": "published",
       "sortOrder": 2,
-      "translation": { "zh": {} },
+      "translation": {
+        "zh": {}
+      },
       "comparison": {
         "accent": "blue",
         "symbol": "718",
-        "performance": { "corrosion": 78, "tensile": 96, "temperature": 95, "oxidation": 90 },
+        "performance": {
+          "corrosion": 78,
+          "tensile": 96,
+          "temperature": 95,
+          "oxidation": 90
+        },
         "mechanical": {
           "tensileStrength": "Typically 1,275 MPa or greater in common aged bar specifications",
           "yieldStrength": "Typically 1,035 MPa or greater in common aged bar specifications",
@@ -800,12 +860,31 @@
         },
         "temperatureCapability": "Retains high mechanical strength in elevated-temperature service; commonly evaluated around applications up to approximately 700 C.",
         "corrosionCharacteristics": "Good general corrosion and oxidation resistance, selected primarily where high strength and thermal stability are required together.",
-        "mediaAndConditions": ["Gas turbines and power systems", "High-load elevated-temperature service", "Energy and aerospace-adjacent equipment"],
+        "mediaAndConditions": [
+          "Gas turbines and power systems",
+          "High-load elevated-temperature service",
+          "Energy and aerospace-adjacent equipment"
+        ],
         "heatTreatment": "Solution treatment followed by controlled two-step age hardening",
         "supplyCondition": "Usually supplied solution treated and aged to the governing specification",
-        "applications": ["Gas turbines", "Elevated-temperature bolting", "Power generation", "High-load industrial fasteners"],
-        "standardsSupport": ["ASTM B637", "AMS 5662 / 5663 where applicable", "Project-specific fastener specifications"],
-        "documentationSupport": ["MTC / MTR", "Heat-treatment records", "Mechanical test report", "Hardness verification", "Full heat and lot traceability"]
+        "applications": [
+          "Gas turbines",
+          "Elevated-temperature bolting",
+          "Power generation",
+          "High-load industrial fasteners"
+        ],
+        "standardsSupport": [
+          "ASTM B637",
+          "AMS 5662 / 5663 where applicable",
+          "Project-specific fastener specifications"
+        ],
+        "documentationSupport": [
+          "MTC / MTR",
+          "Heat-treatment records",
+          "Mechanical test report",
+          "Hardness verification",
+          "Full heat and lot traceability"
+        ]
       }
     },
     {
@@ -824,11 +903,18 @@
       "service": "Chemical processing, waste treatment and pollution-control systems",
       "status": "published",
       "sortOrder": 3,
-      "translation": { "zh": {} },
+      "translation": {
+        "zh": {}
+      },
       "comparison": {
         "accent": "violet",
         "symbol": "C-276",
-        "performance": { "corrosion": 98, "tensile": 66, "temperature": 70, "oxidation": 80 },
+        "performance": {
+          "corrosion": 98,
+          "tensile": 66,
+          "temperature": 70,
+          "oxidation": 80
+        },
         "mechanical": {
           "tensileStrength": "Typically 690 MPa or greater in common solution-annealed product specifications",
           "yieldStrength": "Typically 280 MPa or greater, depending on product form",
@@ -837,12 +923,31 @@
         },
         "temperatureCapability": "Temperature suitability depends strongly on the process medium; selection is driven by corrosion conditions before a general thermal limit is assigned.",
         "corrosionCharacteristics": "Exceptional resistance to a wide range of oxidizing and reducing acids, chlorides, pitting and crevice attack.",
-        "mediaAndConditions": ["Strong acids and mixed chemical media", "Chloride-bearing process equipment", "Sour and severe chemical service"],
+        "mediaAndConditions": [
+          "Strong acids and mixed chemical media",
+          "Chloride-bearing process equipment",
+          "Sour and severe chemical service"
+        ],
         "heatTreatment": "Solution annealing; avoid unqualified post-process thermal exposure",
         "supplyCondition": "Commonly supplied in the solution-annealed condition",
-        "applications": ["Chemical reactors and vessels", "Acid-processing equipment", "Waste and pollution-control systems", "Severe chemical-service fasteners"],
-        "standardsSupport": ["ASTM B574", "ASME material requirements", "Order-specific fastener specifications"],
-        "documentationSupport": ["MTC / MTR", "EN 10204 3.1", "PMI report", "Corrosion-test records when specified", "Third-party inspection support"]
+        "applications": [
+          "Chemical reactors and vessels",
+          "Acid-processing equipment",
+          "Waste and pollution-control systems",
+          "Severe chemical-service fasteners"
+        ],
+        "standardsSupport": [
+          "ASTM B574",
+          "ASME material requirements",
+          "Order-specific fastener specifications"
+        ],
+        "documentationSupport": [
+          "MTC / MTR",
+          "EN 10204 3.1",
+          "PMI report",
+          "Corrosion-test records when specified",
+          "Third-party inspection support"
+        ]
       }
     },
     {
@@ -861,11 +966,18 @@
       "service": "Marine hardware, pump components, offshore equipment and seawater systems",
       "status": "published",
       "sortOrder": 4,
-      "translation": { "zh": {} },
+      "translation": {
+        "zh": {}
+      },
       "comparison": {
         "accent": "copper",
         "symbol": "K-500",
-        "performance": { "corrosion": 86, "tensile": 87, "temperature": 63, "oxidation": 65 },
+        "performance": {
+          "corrosion": 86,
+          "tensile": 87,
+          "temperature": 63,
+          "oxidation": 65
+        },
         "mechanical": {
           "tensileStrength": "Typically 965-1,100 MPa for age-hardened bar, depending on size and condition",
           "yieldStrength": "Typically 655-760 MPa for age-hardened bar, depending on size and condition",
@@ -874,12 +986,31 @@
         },
         "temperatureCapability": "Primarily selected for high-strength marine service; allowable elevated-temperature use must follow the applicable bolting code and heat-treated condition.",
         "corrosionCharacteristics": "Marine corrosion behavior broadly similar to Monel 400, combined with substantially higher age-hardened strength.",
-        "mediaAndConditions": ["High-velocity seawater", "Marine shafts and pump components", "Offshore and sour-service equipment"],
+        "mediaAndConditions": [
+          "High-velocity seawater",
+          "Marine shafts and pump components",
+          "Offshore and sour-service equipment"
+        ],
         "heatTreatment": "Solution annealing followed by precipitation age hardening",
         "supplyCondition": "Hot-finished or cold-drawn and aged, as defined by size and specification",
-        "applications": ["Pump shafts and impellers", "Marine hardware", "Offshore equipment", "High-strength seawater fasteners"],
-        "standardsSupport": ["ASTM B865", "ASME Code Case requirements where applicable", "Project-specific fastener specifications"],
-        "documentationSupport": ["MTC / MTR", "Heat-treatment chart", "Mechanical test report", "Hardness verification", "PMI and traceability records"]
+        "applications": [
+          "Pump shafts and impellers",
+          "Marine hardware",
+          "Offshore equipment",
+          "High-strength seawater fasteners"
+        ],
+        "standardsSupport": [
+          "ASTM B865",
+          "ASME Code Case requirements where applicable",
+          "Project-specific fastener specifications"
+        ],
+        "documentationSupport": [
+          "MTC / MTR",
+          "Heat-treatment chart",
+          "Mechanical test report",
+          "Hardness verification",
+          "PMI and traceability records"
+        ]
       }
     },
     {
@@ -898,11 +1029,18 @@
       "service": "Power generation, thermal equipment, aerospace-adjacent and industrial assemblies",
       "status": "published",
       "sortOrder": 5,
-      "translation": { "zh": {} },
+      "translation": {
+        "zh": {}
+      },
       "comparison": {
         "accent": "steel",
         "symbol": "A-286",
-        "performance": { "corrosion": 67, "tensile": 89, "temperature": 92, "oxidation": 91 },
+        "performance": {
+          "corrosion": 67,
+          "tensile": 89,
+          "temperature": 92,
+          "oxidation": 91
+        },
         "mechanical": {
           "tensileStrength": "Typically 965 MPa or greater in common precipitation-hardened bar conditions",
           "yieldStrength": "Typically 655 MPa or greater in common precipitation-hardened bar conditions",
@@ -911,12 +1049,31 @@
         },
         "temperatureCapability": "Designed for high-strength elevated-temperature service; final limits depend on fastener grade, stress level and heat-treatment route.",
         "corrosionCharacteristics": "Useful oxidation and general corrosion resistance, with selection normally driven by thermal strength rather than severe chemical resistance.",
-        "mediaAndConditions": ["Steam and thermal equipment", "Power-generation bolting", "High-temperature industrial assemblies"],
+        "mediaAndConditions": [
+          "Steam and thermal equipment",
+          "Power-generation bolting",
+          "High-temperature industrial assemblies"
+        ],
         "heatTreatment": "Solution treatment followed by precipitation hardening to the specified grade",
         "supplyCondition": "Solution treated or fully precipitation hardened, depending on order requirements",
-        "applications": ["Power-generation bolting", "Gas-turbine hardware", "Thermal processing equipment", "High-temperature industrial fasteners"],
-        "standardsSupport": ["ASTM A453 Grade 660", "AMS 5731 / 5732 / 5737 where applicable", "Project-specific fastener specifications"],
-        "documentationSupport": ["MTC / MTR", "Heat-treatment records", "Mechanical test report", "Hardness verification", "Full heat and lot traceability"]
+        "applications": [
+          "Power-generation bolting",
+          "Gas-turbine hardware",
+          "Thermal processing equipment",
+          "High-temperature industrial fasteners"
+        ],
+        "standardsSupport": [
+          "ASTM A453 Grade 660",
+          "AMS 5731 / 5732 / 5737 where applicable",
+          "Project-specific fastener specifications"
+        ],
+        "documentationSupport": [
+          "MTC / MTR",
+          "Heat-treatment records",
+          "Mechanical test report",
+          "Hardness verification",
+          "Full heat and lot traceability"
+        ]
       }
     },
     {
@@ -935,7 +1092,9 @@
       "service": "Marine, chemical, thermal and proprietary industrial equipment",
       "status": "published",
       "sortOrder": 6,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     }
   ],
   "sharedProductProperties": {
