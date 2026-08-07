@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-07T02:15:54.293Z",
+  "updatedAt": "2026-08-07T02:16:05.936Z",
   "categories": [
     {
       "slug": "bolts",
@@ -757,7 +757,26 @@
       "translation": {
         "zh": {}
       },
-      "models": []
+      "models": [
+        {
+          "slug": "new-product-960284",
+          "name": "New Product",
+          "eyebrow": "Drawing-based fastener",
+          "description": "Add a concise description of this product and its intended industrial service.",
+          "size": "Drawing-defined",
+          "length": "Drawing-defined",
+          "standard": "Customer drawing and agreed specification",
+          "configuration": "Project-specific",
+          "threads": "Standard or special thread forms",
+          "image": "/assets/product-fasteners.jpg",
+          "alt": "New BYBOLT alloy fastener product",
+          "status": "published",
+          "sortOrder": 999,
+          "translation": {
+            "zh": {}
+          }
+        }
+      ]
     }
   ],
   "materials": [
