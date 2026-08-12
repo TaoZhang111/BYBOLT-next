@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { CatalogDropdown } from "@/components/navigation/catalog-dropdown";
 import Link from "@/components/navigation/static-link";
 import type { Locale } from "@/i18n/config";
 
@@ -34,8 +35,8 @@ export function ProductHeader({
           <span />
         </button>
         <nav className={`${styles.navigation}${isOpen ? ` ${styles.navigationOpen}` : ""}`} aria-label="Product navigation">
-          <Link href={`${base}/products`} aria-current={current === "products" ? "page" : undefined} onClick={() => setIsOpen(false)}>Products</Link>
-          <Link href={`${base}/alloys`} aria-current={current === "materials" ? "page" : undefined} onClick={() => setIsOpen(false)}>Materials</Link>
+          <CatalogDropdown kind="products" locale={locale} surface="site" current={current === "products"} onNavigate={() => setIsOpen(false)} />
+          <CatalogDropdown kind="materials" locale={locale} surface="site" current={current === "materials"} onNavigate={() => setIsOpen(false)} />
           <Link href={`${base}/capabilities`} aria-current={current === "custom" ? "page" : undefined} onClick={() => setIsOpen(false)}>Custom</Link>
           <Link href={`${base}/quality`} aria-current={current === "quality" ? "page" : undefined} onClick={() => setIsOpen(false)}>Quality</Link>
           <Link href={`${base}/resources`} aria-current={current === "resources" ? "page" : undefined} onClick={() => setIsOpen(false)}>Resources</Link>

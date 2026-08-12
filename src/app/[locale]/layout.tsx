@@ -10,7 +10,7 @@ import "../prototype.css";
 import "../react-overrides.css";
 import "../home-refresh.css";
 
-export const viewport: Viewport = { themeColor: "#070a0c" };
+export const viewport: Viewport = { themeColor: "#1d1210" };
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;

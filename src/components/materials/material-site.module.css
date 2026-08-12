@@ -1,20 +1,20 @@
 .materialSite {
-  --product-ink: #f4f7f5;
-  --product-muted: #aab9c9;
-  --product-cyan: #a9e9f2;
-  --product-lime: #e7f59a;
-  --product-line: rgba(153, 197, 226, 0.28);
-  --material-ink: #151b1f;
-  --material-muted: #637078;
-  --material-line: #d5dcde;
-  --material-paper: #f4f5f2;
-  --material-wine: #6f2936;
-  --material-teal: #176b80;
+  --product-ink: #f2f2f2;
+  --product-muted: rgba(242, 242, 242, 0.68);
+  --product-cyan: #f2f2f2;
+  --product-lime: #e56d2d;
+  --product-line: rgba(242, 242, 242, 0.22);
+  --material-ink: #1d1210;
+  --material-muted: rgba(29, 18, 16, 0.64);
+  --material-line: rgba(29, 18, 16, 0.2);
+  --material-paper: #f2f2f2;
+  --material-wine: #1d1210;
+  --material-teal: #e56d2d;
   width: 100%;
   min-height: 100svh;
   overflow-x: clip;
   color: var(--material-ink);
-  background: #fff;
+  background: var(--material-paper);
   font-family: "Satoshi", "Outfit", "Segoe UI", sans-serif;
 }
 
@@ -38,7 +38,7 @@
 .hero {
   padding: 104px 0 82px;
   border-bottom: 1px solid var(--material-line);
-  background: #fff;
+  background: var(--material-paper);
 }
 
 .heroGrid {
@@ -181,7 +181,7 @@
   padding: 34px;
   border-right: 1px solid var(--material-line);
   border-bottom: 1px solid var(--material-line);
-  background: #fff;
+  background: var(--material-paper);
   transition: color 260ms ease, background-color 260ms ease;
 }
 
@@ -272,7 +272,7 @@
   display: grid;
   grid-template-columns: minmax(260px, 0.34fr) minmax(0, 0.66fr);
   border: 1px solid var(--material-line);
-  background: #fff;
+  background: var(--material-paper);
 }
 
 .detailAside {
@@ -357,7 +357,7 @@
 .materialProfile {
   margin-top: 44px;
   border: 1px solid var(--material-line);
-  background: #fff;
+  background: var(--material-paper);
 }
 
 .materialProfile > header {
@@ -494,7 +494,7 @@
 .footer {
   padding: 38px 0;
   border-top: 1px solid var(--material-line);
-  background: #fff;
+  background: var(--material-paper);
 }
 
 .footerInner {

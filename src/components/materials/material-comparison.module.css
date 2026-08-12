@@ -1,6 +1,6 @@
 .comparison {
-  --comparison-line: #d6dde0;
-  --comparison-muted: #637078;
+  --comparison-line: rgba(29, 18, 16, 0.2);
+  --comparison-muted: rgba(29, 18, 16, 0.64);
   padding-bottom: 96px;
 }
 
@@ -29,8 +29,8 @@
   padding: 0 42px 0 16px;
   border: 1px solid var(--comparison-line);
   border-radius: 4px;
-  color: #151b1f;
-  background: #fff;
+  color: #1d1210;
+  background: #f2f2f2;
   font: inherit;
   font-size: 15px;
   font-weight: 600;
@@ -43,7 +43,7 @@
   gap: 8px;
   padding: 0 10px;
   border: 0;
-  color: #176b80;
+  color: #e56d2d;
   background: transparent;
   font: inherit;
   font-size: 14px;
@@ -106,9 +106,21 @@
 .summaryGrid,
 .threeColumnGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 210px repeat(3, minmax(0, 1fr));
   border: 1px solid var(--comparison-line);
-  background: #fff;
+  background: #f2f2f2;
+}
+
+.gridRowLabel {
+  min-width: 0;
+  min-height: 164px;
+  padding: 22px 20px;
+  border-right: 1px solid var(--comparison-line);
+  background: rgba(29, 18, 16, 0.04);
+}
+
+.summaryGrid .gridRowLabel {
+  min-height: 270px;
 }
 
 .summaryCard {
@@ -160,7 +172,7 @@
 .dataTable {
   border: 1px solid var(--comparison-line);
   border-bottom: 0;
-  background: #fff;
+  background: #f2f2f2;
 }
 
 .metricRow,
@@ -195,7 +207,7 @@
   width: 18px;
   height: 18px;
   flex: 0 0 auto;
-  color: #176b80;
+  color: #e56d2d;
 }
 
 .scoreCell strong {
@@ -276,18 +288,18 @@
   margin-top: 28px;
   padding: 10px 20px;
   border: 1px solid var(--comparison-line);
-  background: #f7faf9;
+  background: rgba(29, 18, 16, 0.04);
   font-size: 13px;
 }
 
 .availabilityBar svg {
   width: 22px;
   height: 22px;
-  color: #176b80;
+  color: #e56d2d;
 }
 
 .availabilityBar a {
-  color: #176b80 !important;
+  color: #e56d2d !important;
   font-weight: 800;
 }
 
@@ -299,7 +311,7 @@
   margin-top: 12px;
   padding: 20px 24px;
   border: 1px solid var(--comparison-line);
-  background: #fff;
+  background: #f2f2f2;
 }
 
 .helpPanel span {
@@ -322,19 +334,19 @@
   align-items: center;
   justify-content: center;
   padding: 0 22px;
-  border: 1px solid #176b80;
+  border: 1px solid #e56d2d;
   font-size: 13px;
   font-weight: 800;
 }
 
 .primaryAction {
-  color: #fff !important;
-  background: #176b80;
+  color: #1d1210 !important;
+  background: #e56d2d;
 }
 
 .secondaryAction {
-  color: #176b80 !important;
-  background: #fff;
+  color: #e56d2d !important;
+  background: #f2f2f2;
 }
 
 .disclaimer {
@@ -357,7 +369,9 @@
   }
 
   .metricRow,
-  .textRow {
+  .textRow,
+  .summaryGrid,
+  .threeColumnGrid {
     grid-template-columns: 170px repeat(3, minmax(0, 1fr));
   }
 
@@ -409,7 +423,9 @@
   }
 
   .summaryCard,
-  .threeColumnGrid > div {
+  .threeColumnGrid > div,
+  .gridRowLabel,
+  .summaryGrid .gridRowLabel {
     min-height: 0;
     border-right: 0;
     border-bottom: 1px solid var(--comparison-line);
@@ -442,7 +458,7 @@
   }
 
   .rowLabel {
-    background: #f3f5f4;
+    background: rgba(29, 18, 16, 0.04);
   }
 
   .mobileMaterialLabel {

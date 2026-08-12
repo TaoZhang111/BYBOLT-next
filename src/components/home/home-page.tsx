@@ -134,7 +134,7 @@ export function HomePage({ locale }: { locale: Locale }) {
           </div>
         </section>
 
-        <SupplyProcess />
+        <SupplyProcess locale={locale} />
 
         <section className="section certificate-section light-chapter" id="quality" aria-labelledby="quality-title">
           <div className="container certificate-grid">

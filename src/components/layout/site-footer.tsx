@@ -2,6 +2,7 @@ import Link from "@/components/navigation/static-link";
 
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
+import { contactDetails } from "@/content/product-catalog";
 import type { Locale } from "@/i18n/config";
 
 export function SiteFooter({ locale }: { locale: Locale }) {
@@ -17,7 +18,9 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           </p>
         </div>
         <div className="text-sm text-white/60">
-          <p>{siteConfig.contactEmail}</p>
+          {contactDetails.email && <p>{contactDetails.email}</p>}
+          {contactDetails.phone && <p className="mt-1">{contactDetails.phone}</p>}
+          {contactDetails.wechat && <p className="mt-1">WeChat: {contactDetails.wechat}</p>}
           <p className="mt-1">International sales · Location to be confirmed</p>
         </div>
         <div className="flex gap-5 text-sm md:justify-end">

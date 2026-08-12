@@ -24,8 +24,8 @@ export function ProductRangeGrid({
 }: ProductRangeGridProps) {
   const base = `/${locale}`;
   const rows = Array.from(
-    { length: Math.ceil(products.length / 3) },
-    (_, index) => products.slice(index * 3, index * 3 + 3),
+    { length: Math.ceil(products.length / 4) },
+    (_, index) => products.slice(index * 4, index * 4 + 4),
   );
 
   const renderCard = (product: ProductRangeItem) => (

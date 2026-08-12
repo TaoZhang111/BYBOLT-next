@@ -103,6 +103,7 @@ export function MaterialComparison({ locale }: { locale: Locale }) {
 
       <ComparisonSection number="01" title="Summary">
         <div className={styles.summaryGrid}>
+          <div className={`${styles.rowLabel} ${styles.gridRowLabel}`}>Material</div>
           {selectedMaterials.map((material) => (
             <article className={styles.summaryCard} data-accent={material.comparison.accent} key={material.slug}>
               <strong className={styles.symbol}>{material.comparison.symbol}</strong>
@@ -201,6 +202,7 @@ export function MaterialComparison({ locale }: { locale: Locale }) {
 
       <ComparisonSection number="06" title="Typical applications">
         <div className={styles.threeColumnGrid}>
+          <div className={`${styles.rowLabel} ${styles.gridRowLabel}`}>Material</div>
           {selectedMaterials.map((material) => (
             <div data-accent={material.comparison.accent} key={material.slug}>
               <h3>{material.name}</h3>

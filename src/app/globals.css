@@ -1,23 +1,27 @@
 ﻿@import "tailwindcss";
 
 :root {
-  --ink: #18212a;
-  --ink-strong: #0a1016;
-  --graphite: #101820;
-  --steel: #43505c;
-  --muted: #66717b;
-  --line: #d9dee2;
-  --line-dark: #b7c0c8;
-  --soft: #f2f4f5;
-  --warm-white: #fbfaf7;
-  --panel: #ffffff;
-  --blue: #256a8c;
-  --blue-deep: #174d68;
-  --amber: #d78027;
-  --amber-strong: #b96619;
+  --bybolt-orange: #e56d2d;
+  --bybolt-cream: #f2f2f2;
+  --bybolt-liquorice: #1d1210;
+  --bybolt-liquorice-rgb: 29, 18, 16;
+  --ink: var(--bybolt-liquorice);
+  --ink-strong: var(--bybolt-liquorice);
+  --graphite: var(--bybolt-liquorice);
+  --steel: rgba(var(--bybolt-liquorice-rgb), 0.78);
+  --muted: rgba(var(--bybolt-liquorice-rgb), 0.64);
+  --line: rgba(var(--bybolt-liquorice-rgb), 0.16);
+  --line-dark: rgba(var(--bybolt-liquorice-rgb), 0.26);
+  --soft: var(--bybolt-cream);
+  --warm-white: var(--bybolt-cream);
+  --panel: var(--bybolt-cream);
+  --blue: var(--bybolt-orange);
+  --blue-deep: var(--bybolt-liquorice);
+  --amber: var(--bybolt-orange);
+  --amber-strong: #c75420;
   --success: #22704a;
   --error: #b2362e;
-  --white: #ffffff;
+  --white: #f2f2f2;
   --shadow: 0 20px 50px rgba(11, 18, 24, 0.12);
   --radius: 8px;
   --container: min(1220px, calc(100% - 48px));
@@ -213,7 +217,7 @@ select {
   min-height: 720px;
   height: 100svh;
   color: var(--white);
-  background: #050607 url("/assets/images/fastener-hero-poster.jpg") 66% center / cover no-repeat;
+  background: #1d1210 url("/assets/images/fastener-hero-poster.jpg") 66% center / cover no-repeat;
   overflow: hidden;
 }
 
@@ -249,7 +253,7 @@ select {
 .hero-canvas {
   display: block;
   opacity: 0;
-  background: #050709;
+  background: #1d1210;
   transition: opacity 700ms ease;
 }
 
@@ -279,7 +283,7 @@ body.webgl-ready .hero-poster {
 
 .eyebrow {
   margin: 0 0 16px;
-  color: #f0a24f;
+  color: var(--bybolt-orange);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -287,7 +291,7 @@ body.webgl-ready .hero-poster {
 }
 
 .eyebrow.dark {
-  color: var(--blue);
+  color: var(--bybolt-orange);
 }
 
 h1,
@@ -381,7 +385,7 @@ h3 {
 
 .hero .button.primary:hover,
 .button.light:hover {
-  background: #e9edef;
+  background: #f2f2f2;
 }
 
 .button.secondary {
@@ -680,7 +684,7 @@ h3 {
 }
 
 .materials-section {
-  background: #e9edef;
+  background: #f2f2f2;
 }
 
 .materials-grid {
@@ -722,7 +726,7 @@ h3 {
 
 .capability-section {
   color: var(--white);
-  background: #152029;
+  background: #1d1210;
 }
 
 .capability-grid {
@@ -953,7 +957,7 @@ h3 {
 .site-footer {
   padding: 52px 0 24px;
   color: rgba(255, 255, 255, 0.62);
-  background: #080e14;
+  background: #1d1210;
 }
 
 .footer-grid {
@@ -1013,7 +1017,7 @@ h3 {
 
 /* RFQ page */
 .page-quote {
-  background: #eef1f2;
+  background: #f2f2f2;
 }
 
 .quote-main {
@@ -1023,7 +1027,7 @@ h3 {
 .quote-hero {
   padding: 150px 0 72px;
   color: var(--white);
-  background: #17232c;
+  background: #1d1210;
 }
 
 .quote-hero-grid {
@@ -1484,7 +1488,7 @@ textarea[aria-invalid="true"] {
   gap: 12px;
   margin: 0;
   padding: 18px;
-  background: #f6f3ed;
+  background: #f2f2f2;
   border: 1px solid #ded6c9;
   border-radius: var(--radius);
   cursor: pointer;
@@ -1643,6 +1647,8 @@ textarea[aria-invalid="true"] {
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: var(--radius);
     box-shadow: 0 18px 60px rgba(0, 0, 0, 0.32);
+    max-height: calc(100dvh - 92px);
+    overflow-y: auto;
   }
 
   .site-nav.is-open {
@@ -2107,7 +2113,7 @@ section[id] {
 }
 
 .media-frame {
-  background: #101820;
+  background: #1d1210;
   overflow: hidden;
 }
 
@@ -2179,7 +2185,7 @@ section[id] {
   height: 50px;
   margin: 0 4px;
   vertical-align: -8px;
-  background: #101820 url("/assets/product-fasteners.jpg") 52% 50% / 180% auto no-repeat;
+  background: #1d1210 url("/assets/product-fasteners.jpg") 52% 50% / 180% auto no-repeat;
   border: 1px solid rgba(10, 16, 22, 0.18);
   border-radius: 999px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
@@ -2218,7 +2224,7 @@ section[id] {
 .product-card:hover,
 .product-card:focus-visible {
   z-index: 2;
-  background: #f3f6f7;
+  background: #f2f2f2;
   border-color: var(--line-dark);
   box-shadow: inset 0 0 0 1px var(--line-dark);
   transform: none;
@@ -2242,7 +2248,7 @@ section[id] {
 
 .materials-section {
   color: var(--white);
-  background: #111a21;
+  background: #1d1210;
 }
 
 .materials-section h2 {
@@ -2260,7 +2266,7 @@ section[id] {
 .material-carousel {
   position: relative;
   min-height: 640px;
-  background: #18232c;
+  background: #1d1210;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: var(--radius);
   overflow: hidden;
@@ -2488,7 +2494,7 @@ section[id] {
 }
 
 .industries-section {
-  background: #e9edef;
+  background: #f2f2f2;
 }
 
 .industry-accordion {
@@ -2505,7 +2511,7 @@ section[id] {
   min-width: 0;
   flex: 1 1 0;
   color: var(--white);
-  background: #121a20;
+  background: #1d1210;
   border-right: 1px solid rgba(255, 255, 255, 0.18);
   cursor: pointer;
   overflow: hidden;
@@ -2650,14 +2656,14 @@ section[id] {
   padding: 42px;
   align-content: space-between;
   color: var(--white);
-  background: #17222a;
+  background: #1d1210;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: var(--radius);
   box-shadow: 0 28px 60px rgba(8, 13, 17, 0.18);
 }
 
 .stack-card:nth-child(even) {
-  background: #22313b;
+  background: #1d1210;
 }
 
 .stack-card:last-child {
@@ -2708,7 +2714,7 @@ section[id] {
   padding-bottom: 90px;
   background:
     radial-gradient(circle at 78% 40%, rgba(215, 128, 39, 0.13), transparent 28%),
-    #17232c;
+    #1d1210;
 }
 
 .page-quote .quote-hero h1 {

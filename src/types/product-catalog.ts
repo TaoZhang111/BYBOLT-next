@@ -69,10 +69,79 @@ export type SharedProductProperties = {
   packaging: string;
 };
 
+export type NewsTranslation = Partial<{
+  category: string;
+  title: string;
+  excerpt: string;
+  body: string;
+  imageAlt: string;
+  seoTitle: string;
+  seoDescription: string;
+}>;
+
+export type NewsArticle = {
+  slug: string;
+  category: string;
+  title: string;
+  excerpt: string;
+  body: string;
+  publishedAt: string;
+  image?: string;
+  imageAlt?: string;
+  status: PublicationStatus;
+  pinned: boolean;
+  sortOrder: number;
+  seoTitle?: string;
+  seoDescription?: string;
+  translation: { zh: NewsTranslation };
+};
+
+export type FaqTranslation = Partial<{
+  question: string;
+  answer: string;
+}>;
+
+export type FaqItem = {
+  id: string;
+  question: string;
+  answer: string;
+  status: PublicationStatus;
+  sortOrder: number;
+  translation: { zh: FaqTranslation };
+};
+
+export type QualityCertificateTranslation = Partial<{
+  title: string;
+  description: string;
+  alt: string;
+}>;
+
+export type QualityCertificate = {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  alt: string;
+  imagePosition?: string;
+  status: PublicationStatus;
+  sortOrder: number;
+  translation: { zh: QualityCertificateTranslation };
+};
+
+export type ContactDetails = {
+  email: string;
+  phone: string;
+  wechat: string;
+};
+
 export type ProductCatalogDocument = {
   version: 1;
   updatedAt: string;
   categories: ProductCategory[];
   materials: AlloyMaterial[];
+  news: NewsArticle[];
+  faqs: FaqItem[];
+  certificates: QualityCertificate[];
+  contact: ContactDetails;
   sharedProductProperties: SharedProductProperties;
 };

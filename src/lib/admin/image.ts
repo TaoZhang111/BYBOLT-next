@@ -3,7 +3,7 @@ import type { PendingAsset } from "./api";
 const MAX_SOURCE_BYTES = 12 * 1024 * 1024;
 const MAX_EDGE = 1920;
 
-export async function prepareProductImage(file: File, slug: string): Promise<PendingAsset> {
+export async function prepareProductImage(file: File, slug: string, directory: "products" | "news" | "certificates" = "products"): Promise<PendingAsset> {
   if (!file.type.startsWith("image/")) throw new Error("Choose a JPG, PNG or WebP image.");
   if (file.size > MAX_SOURCE_BYTES) throw new Error("The source image cannot exceed 12 MB.");
 
@@ -26,7 +26,7 @@ export async function prepareProductImage(file: File, slug: string): Promise<Pen
   });
   const safeSlug = slug.replace(/[^a-z0-9-]/g, "-").replace(/-+/g, "-") || "product";
   const suffix = new Date().toISOString().replace(/\D/g, "").slice(0, 14);
-  const path = `public/uploads/products/${safeSlug}-${suffix}-${crypto.randomUUID().slice(0, 8)}.webp`;
+  const path = `public/uploads/${directory}/${safeSlug}-${suffix}-${crypto.randomUUID().slice(0, 8)}.webp`;
   return {
     path,
     contentBase64: await blobToBase64(blob),

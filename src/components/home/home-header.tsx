@@ -3,6 +3,7 @@
 import Link from "@/components/navigation/static-link";
 import { useEffect, useState } from "react";
 
+import { CatalogDropdown } from "@/components/navigation/catalog-dropdown";
 import type { Locale } from "@/i18n/config";
 
 export function HomeHeader({ locale, solid = false, quoteCurrent = false }: { locale: Locale; solid?: boolean; quoteCurrent?: boolean }) {
@@ -53,8 +54,8 @@ export function HomeHeader({ locale, solid = false, quoteCurrent = false }: { lo
         <span />
       </button>
       <nav className={`site-nav${isOpen ? " is-open" : ""}`} aria-label="Primary navigation">
-        <Link href={`${base}/products`} onClick={() => setIsOpen(false)}>Products</Link>
-        <Link href={`${base}/alloys`} onClick={() => setIsOpen(false)}>Materials</Link>
+        <CatalogDropdown kind="products" locale={locale} surface="home" onNavigate={() => setIsOpen(false)} />
+        <CatalogDropdown kind="materials" locale={locale} surface="home" onNavigate={() => setIsOpen(false)} />
         <Link href={`${base}/capabilities`} onClick={() => setIsOpen(false)}>Custom</Link>
         <Link href={`${base}/quality`} onClick={() => setIsOpen(false)}>Quality</Link>
         <Link href={`${base}/resources`} onClick={() => setIsOpen(false)}>Resources</Link>

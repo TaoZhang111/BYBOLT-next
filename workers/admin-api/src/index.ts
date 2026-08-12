@@ -135,7 +135,7 @@ async function readCatalog(env: Env, session: Session): Promise<Response> {
     catalog,
     commitSha: ref.object.sha,
     repository: `${env.GITHUB_OWNER}/${env.GITHUB_REPO}`,
-    capabilities: ["materials"],
+    capabilities: ["materials", "resources", "quality"],
   });
 }
 
@@ -183,7 +183,7 @@ function parseFiles(value: unknown): Array<{ path: string; contentBase64: string
     if (!item || typeof item !== "object") throw new ApiError(400, "Invalid image payload.");
     const path = "path" in item && typeof item.path === "string" ? item.path : "";
     const contentBase64 = "contentBase64" in item && typeof item.contentBase64 === "string" ? item.contentBase64 : "";
-    if (!/^public\/uploads\/products\/[a-z0-9-]+\.(?:webp|jpg|jpeg|png)$/.test(path)) throw new ApiError(400, "Image path is outside the product upload directory.");
+    if (!/^public\/uploads\/(?:products|news|certificates)\/[a-z0-9-]+\.(?:webp|jpg|jpeg|png)$/.test(path)) throw new ApiError(400, "Image path is outside an allowed upload directory.");
     if (!/^[A-Za-z0-9+/]+={0,2}$/.test(contentBase64)) throw new ApiError(400, "Image content is not valid base64.");
     if (Math.ceil(contentBase64.length * 0.75) > MAX_FILE_BYTES) throw new ApiError(413, "Each optimized image must be 5 MB or smaller.");
     return { path, contentBase64 };

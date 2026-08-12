@@ -23,15 +23,15 @@
 }
 
 :root {
-  --bybolt-ink: #10171d;
-  --bybolt-graphite: #17222a;
-  --bybolt-paper: #eff1f0;
-  --bybolt-paper-strong: #f8f8f5;
-  --bybolt-line: #cbd1d2;
-  --bybolt-muted: #5f6a70;
-  --bybolt-teal: #1c6672;
-  --bybolt-burgundy: #6f1f2d;
-  --bybolt-orange: #c46f23;
+  --bybolt-ink: #1d1210;
+  --bybolt-graphite: #1d1210;
+  --bybolt-paper: #f2f2f2;
+  --bybolt-paper-strong: #f2f2f2;
+  --bybolt-line: rgba(29, 18, 16, 0.2);
+  --bybolt-muted: rgba(29, 18, 16, 0.64);
+  --bybolt-teal: #e56d2d;
+  --bybolt-burgundy: #1d1210;
+  --bybolt-orange: #e56d2d;
   --bybolt-container: min(1240px, calc(100% - 48px));
 }
 
@@ -58,7 +58,7 @@ body.prototype-page {
   inset: 14px max(24px, calc((100vw - 1240px) / 2)) auto;
   min-height: 64px;
   padding: 0 18px;
-  background: rgba(7, 10, 12, 0.74);
+  background: rgba(29, 18, 16, 0.82);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 8px;
   backdrop-filter: blur(18px);
@@ -67,7 +67,7 @@ body.prototype-page {
 .prototype-page .site-header.is-scrolled,
 .prototype-page .site-header.is-solid {
   min-height: 64px;
-  background: rgba(10, 15, 19, 0.96);
+  background: rgba(29, 18, 16, 0.97);
 }
 
 .prototype-page .brand {
@@ -154,7 +154,15 @@ body.prototype-page {
   height: 34svh;
   min-height: 260px;
   color: #fff;
-  background: linear-gradient(180deg, #070a0c 0%, #242b2e 32%, #8b9291 66%, var(--bybolt-paper) 100%);
+  background: linear-gradient(
+    180deg,
+    var(--bybolt-liquorice) 0%,
+    var(--bybolt-liquorice) 20%,
+    rgba(29, 18, 16, 0.92) 38%,
+    rgba(29, 18, 16, 0.68) 58%,
+    rgba(29, 18, 16, 0.34) 76%,
+    var(--bybolt-paper) 100%
+  );
   overflow: hidden;
 }
 
@@ -353,7 +361,7 @@ body.prototype-page {
 
 .image-product-card span,
 .capability-rows span {
-  color: #e09a53;
+  color: #e56d2d;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -437,7 +445,7 @@ body.prototype-page {
 }
 
 .certificate-section {
-  background: #e7ebeb !important;
+  background: #f2f2f2 !important;
 }
 
 .certificate-grid {
@@ -563,17 +571,17 @@ body.prototype-page {
   align-self: start;
   padding: 24px 30px 32px;
   color: var(--bybolt-ink);
-  background: #fff;
+  background: var(--bybolt-paper);
   border: 1px solid var(--bybolt-line);
   border-radius: 8px;
   box-shadow: 0 20px 48px rgba(25, 35, 40, 0.08);
   transition: border-color 260ms ease, box-shadow 260ms ease;
 }
 
-.process-card:nth-child(2) { --stack-index: 1; background: #fdfdfb; }
-.process-card:nth-child(3) { --stack-index: 2; background: #fbfcfa; }
-.process-card:nth-child(4) { --stack-index: 3; background: #fafbf9; }
-.process-card:nth-child(5) { --stack-index: 4; background: #f8faf8; }
+.process-card:nth-child(2) { --stack-index: 1; background: var(--bybolt-paper); }
+.process-card:nth-child(3) { --stack-index: 2; background: var(--bybolt-paper); }
+.process-card:nth-child(4) { --stack-index: 3; background: var(--bybolt-paper); }
+.process-card:nth-child(5) { --stack-index: 4; background: var(--bybolt-paper); }
 
 .process-card.is-active {
   border-color: rgba(22, 83, 86, 0.62);
@@ -620,7 +628,7 @@ body.prototype-page {
   min-height: 86svh;
   display: flex;
   align-items: center;
-  background: #e3e7e6 !important;
+  background: #f2f2f2 !important;
   border-top: 1px solid var(--bybolt-line);
 }
 
@@ -737,7 +745,7 @@ body.prototype-page {
 }
 
 .catalog-card {
-  background: #fff;
+  background: var(--bybolt-paper);
   border: 1px solid var(--bybolt-line);
   border-radius: 8px;
   overflow: hidden;
@@ -828,7 +836,7 @@ body.prototype-page {
 .detail-media {
   height: 650px;
   margin: 0;
-  background: #dce0e0;
+  background: #f2f2f2;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -900,9 +908,9 @@ body.prototype-page {
   border-radius: 8px;
 }
 
-.material-overview-card:nth-child(2) { background: #26434a; }
+.material-overview-card:nth-child(2) { background: var(--bybolt-liquorice); }
 .material-overview-card:nth-child(3) { background: var(--bybolt-burgundy); }
-.material-overview-card:nth-child(4) { background: #3f484b; }
+.material-overview-card:nth-child(4) { background: var(--bybolt-liquorice); }
 
 .material-overview-card h2 {
   max-width: 520px;
@@ -1045,10 +1053,10 @@ body.prototype-page {
 .product-directory-page,
 .category-product-page,
 .product-detail-page {
-  --product-dark: #11191f;
-  --product-blue: #246d77;
-  --product-accent: #c8752c;
-  background: #eef0ef;
+  --product-dark: #1d1210;
+  --product-blue: #e56d2d;
+  --product-accent: #e56d2d;
+  background: #f2f2f2;
 }
 
 .product-directory-hero {
@@ -1218,7 +1226,7 @@ body.prototype-page {
 
 .product-family-copy small {
   margin-bottom: 12px;
-  color: #d9a06c;
+  color: #e56d2d;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
@@ -1256,7 +1264,7 @@ body.prototype-page {
   display: flex;
   align-items: flex-end;
   padding: 150px 0 72px;
-  background: #e7eae8;
+  background: #f2f2f2;
 }
 
 .category-hero-grid {
@@ -1302,7 +1310,7 @@ body.prototype-page {
 }
 
 .model-chapters {
-  background: #f4f5f2;
+  background: #f2f2f2;
 }
 
 .model-chapter {
@@ -1323,7 +1331,7 @@ body.prototype-page {
   min-width: 0;
   display: grid;
   grid-template-rows: minmax(260px, 0.94fr) auto;
-  background: #fff;
+  background: var(--bybolt-paper);
   border: 1px solid var(--bybolt-line);
   border-radius: 6px;
   overflow: hidden;
@@ -1411,7 +1419,7 @@ body.prototype-page {
 
 .category-end {
   padding: 48px 0 140px;
-  background: #f4f5f2;
+  background: #f2f2f2;
 }
 
 .category-end .container {
@@ -1435,7 +1443,7 @@ body.prototype-page {
   display: flex;
   align-items: flex-end;
   padding: 146px 0 72px;
-  background: #eceeec;
+  background: #f2f2f2;
   overflow: hidden;
 }
 
@@ -1521,7 +1529,7 @@ body.prototype-page {
 }
 
 .technical-specs {
-  background: #f7f7f4;
+  background: #f2f2f2;
 }
 
 .technical-specs aside {
@@ -1580,7 +1588,7 @@ body.prototype-page {
 }
 
 .weight-flow span {
-  color: #e5a46c;
+  color: #e56d2d;
   font-size: 12px;
 }
 
@@ -1595,7 +1603,7 @@ body.prototype-page {
 
 .related-products {
   padding: 140px 0;
-  background: #e7eae8;
+  background: #f2f2f2;
   overflow: hidden;
 }
 
@@ -1649,7 +1657,7 @@ body.prototype-page {
   display: flex;
   flex-direction: column;
   padding: 30px;
-  background: #fff;
+  background: var(--bybolt-paper);
   border: 1px solid var(--bybolt-line);
   border-radius: 6px;
   scroll-snap-align: start;

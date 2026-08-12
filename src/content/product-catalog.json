@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-08-07T02:16:28.225Z",
+  "updatedAt": "2026-08-12T02:00:00.000Z",
   "categories": [
     {
       "slug": "bolts",
@@ -1116,6 +1116,255 @@
       }
     }
   ],
+  "news": [
+    {
+      "slug": "specifying-nickel-alloy-fasteners",
+      "category": "Material selection",
+      "title": "What to specify before selecting a nickel alloy fastener",
+      "excerpt": "A practical checklist covering temperature, corrosion media, load, mating materials and governing standards.",
+      "body": "Material selection should begin with the complete service environment, not the alloy name alone. State the operating and upset temperatures, process media, concentration, pressure, loading and expected service life.\n\nThe RFQ should also identify the mating material, product standard, dimensions, thread form, quantity, testing and documentation requirements. These details allow the material grade and manufacturing route to be reviewed together.",
+      "publishedAt": "2026-08-12T01:00:00.000Z",
+      "status": "published",
+      "pinned": true,
+      "sortOrder": 1,
+      "translation": { "zh": {} }
+    },
+    {
+      "slug": "drawing-details-that-reduce-quotation-delays",
+      "category": "Drawing review",
+      "title": "Five details that reduce custom fastener quotation delays",
+      "excerpt": "Revision control, tolerances, thread definition, material condition and inspection scope should be visible from the start.",
+      "body": "A controlled drawing revision gives engineering and procurement teams one common technical baseline. Clearly identify critical dimensions, tolerance classes, thread standards and any geometry that requires special inspection.\n\nMaterial condition and inspection scope should be stated alongside the drawing. Separating mandatory acceptance requirements from preferred information helps a quotation move forward without repeated clarification.",
+      "publishedAt": "2026-08-08T01:00:00.000Z",
+      "status": "published",
+      "pinned": true,
+      "sortOrder": 2,
+      "translation": { "zh": {} }
+    },
+    {
+      "slug": "documentation-requirements-on-an-rfq",
+      "category": "Quality records",
+      "title": "How to define documentation requirements on an RFQ",
+      "excerpt": "Separate mandatory certificates and tests from optional records so the final supply scope remains clear.",
+      "body": "Documentation requirements affect sourcing, manufacturing, inspection and lead time. List each mandatory record, including material certificates, traceability, PMI, mechanical tests, dimensional reports and third-party inspection.\n\nWhere a document is optional, identify it separately. The final quotation should confirm the exact document package so acceptance criteria remain clear through production and dispatch.",
+      "publishedAt": "2026-08-04T01:00:00.000Z",
+      "status": "published",
+      "pinned": true,
+      "sortOrder": 3,
+      "translation": { "zh": {} }
+    },
+    {
+      "slug": "inconel-625-and-718-selection",
+      "category": "Alloy comparison",
+      "title": "Inconel 625 or 718: start with the service requirement",
+      "excerpt": "Corrosion exposure, mechanical load and heat-treatment condition determine which alloy deserves closer review.",
+      "body": "Inconel 625 is frequently considered where broad corrosion resistance and fabrication behavior are important. Inconel 718 is commonly evaluated where high mechanical strength and controlled precipitation hardening are central to the application.\n\nNeither grade should be selected from a single headline property. Review product form, section size, temperature, media, governing standard and required material condition before confirming the specification.",
+      "publishedAt": "2026-07-29T01:00:00.000Z",
+      "status": "published",
+      "pinned": false,
+      "sortOrder": 4,
+      "translation": { "zh": {} }
+    },
+    {
+      "slug": "thread-information-for-fastener-rfqs",
+      "category": "Thread control",
+      "title": "Thread information every fastener RFQ should include",
+      "excerpt": "Diameter, pitch, tolerance class, handedness and inspection method should be unambiguous.",
+      "body": "A thread callout should identify the standard, nominal diameter, pitch or threads per inch, tolerance class and handedness. Special starts, modified profiles and coated conditions require additional definition.\n\nFor critical service, state the required inspection method and acceptance standard. This prevents assumptions about gauges, measurement condition and final fit.",
+      "publishedAt": "2026-07-22T01:00:00.000Z",
+      "status": "published",
+      "pinned": false,
+      "sortOrder": 5,
+      "translation": { "zh": {} }
+    },
+    {
+      "slug": "when-to-request-pmi",
+      "category": "Inspection",
+      "title": "When to request positive material identification",
+      "excerpt": "PMI can strengthen alloy verification, but its scope and acceptance criteria must be defined before production.",
+      "body": "Positive material identification can support verification of alloy chemistry at receiving, during production or before dispatch. The appropriate stage depends on the application risk and traceability plan.\n\nSpecify the sampling rate, method, report format and acceptance criteria in the RFQ. PMI complements, but does not replace, the governing material certificate and complete quality plan.",
+      "publishedAt": "2026-07-15T01:00:00.000Z",
+      "status": "published",
+      "pinned": false,
+      "sortOrder": 6,
+      "translation": { "zh": {} }
+    },
+    {
+      "slug": "heat-treatment-records-for-alloy-fasteners",
+      "category": "Heat treatment",
+      "title": "Reading heat-treatment records for alloy fasteners",
+      "excerpt": "The specified condition, furnace cycle and test results should form one traceable production record.",
+      "body": "Age-hardened and solution-treated alloys depend on controlled thermal processing to achieve the required condition. Purchase requirements should identify the governing specification and final material condition.\n\nHeat-treatment records should connect the production lot to the furnace cycle and relevant mechanical or hardness results. Any project-specific hold points should be agreed before processing begins.",
+      "publishedAt": "2026-07-08T01:00:00.000Z",
+      "status": "published",
+      "pinned": false,
+      "sortOrder": 7,
+      "translation": { "zh": {} }
+    },
+    {
+      "slug": "traceability-from-material-to-packaging",
+      "category": "Traceability",
+      "title": "Maintaining traceability from material receipt to packaging",
+      "excerpt": "Heat, lot and inspection references must remain connected throughout each manufacturing stage.",
+      "body": "Traceability begins when raw material is received and verified. Identification controls should continue through cutting, forming, machining, heat treatment, inspection and final marking.\n\nThe agreed documentation package should link finished quantities and package identification to the relevant heat or lot records. Define any special marking restrictions before production.",
+      "publishedAt": "2026-07-01T01:00:00.000Z",
+      "status": "published",
+      "pinned": false,
+      "sortOrder": 8,
+      "translation": { "zh": {} }
+    },
+    {
+      "slug": "planning-third-party-inspection",
+      "category": "Quality planning",
+      "title": "Plan third-party inspection before the production hold point",
+      "excerpt": "Agency scope, witness stages and document review should be agreed before manufacturing starts.",
+      "body": "Third-party inspection is most effective when the inspection and test plan defines each witness, review and hold point. Late requests can interrupt production or require repeated work.\n\nState the nominated agency, notification period, required reports and release process in the RFQ. The quotation can then account for coordination and lead time.",
+      "publishedAt": "2026-06-24T01:00:00.000Z",
+      "status": "published",
+      "pinned": false,
+      "sortOrder": 9,
+      "translation": { "zh": {} }
+    },
+    {
+      "slug": "round-bar-condition-and-machining",
+      "category": "Round bar",
+      "title": "Match round-bar condition to the machining route",
+      "excerpt": "Diameter tolerance, surface condition, straightness and heat treatment influence downstream machining.",
+      "body": "Round bar requirements should reflect the finished component and machining allowance. Define diameter tolerance, length, straightness, surface condition and any ultrasonic or surface examination.\n\nThe required heat-treatment condition must also be compatible with machining and final properties. Confirm whether testing applies to the supplied bar or to a later processed condition.",
+      "publishedAt": "2026-06-17T01:00:00.000Z",
+      "status": "published",
+      "pinned": false,
+      "sortOrder": 10,
+      "translation": { "zh": {} }
+    },
+    {
+      "slug": "packaging-requirements-for-export-fasteners",
+      "category": "Export preparation",
+      "title": "Define packaging requirements before export dispatch",
+      "excerpt": "Piece count, identification, corrosion protection and document placement should match the receiving workflow.",
+      "body": "Export packaging should protect finished surfaces while preserving clear lot identification. State any requirements for piece count, bag or box labels, desiccants, separators and corrosion protection.\n\nDocument placement and package references should support receiving inspection at destination. Confirm gross-weight, pallet and shipping-mark requirements before dispatch.",
+      "publishedAt": "2026-06-10T01:00:00.000Z",
+      "status": "published",
+      "pinned": false,
+      "sortOrder": 11,
+      "translation": { "zh": {} }
+    }
+  ],
+  "certificates": [
+    {
+      "id": "material-test-certificates",
+      "title": "Material Test Certificates",
+      "description": "Material identity, heat references and certified chemical and mechanical results supplied with the agreed order scope.",
+      "image": "/assets/certificates/alloy-fastener-quality-certificates.jpg",
+      "alt": "Material test certificate example for alloy fastener traceability",
+      "imagePosition": "0% 0%",
+      "status": "published",
+      "sortOrder": 1,
+      "translation": { "zh": {} }
+    },
+    {
+      "id": "chemical-analysis-records",
+      "title": "Chemical Analysis Records",
+      "description": "Certified composition records used to support alloy-grade verification and material traceability.",
+      "image": "/assets/certificates/alloy-fastener-quality-certificates.jpg",
+      "alt": "Chemical analysis record example for nickel alloy fasteners",
+      "imagePosition": "50% 0%",
+      "status": "published",
+      "sortOrder": 2,
+      "translation": { "zh": {} }
+    },
+    {
+      "id": "mechanical-test-reports",
+      "title": "Mechanical Test Reports",
+      "description": "Mechanical-property results matched to the applicable material condition and governing specification.",
+      "image": "/assets/certificates/alloy-fastener-quality-certificates.jpg",
+      "alt": "Mechanical test report example for high-temperature alloy fasteners",
+      "imagePosition": "100% 0%",
+      "status": "published",
+      "sortOrder": 3,
+      "translation": { "zh": {} }
+    },
+    {
+      "id": "dimensional-inspection-records",
+      "title": "Dimensional Inspection Records",
+      "description": "Recorded checks for drawing dimensions, threads and order-specific acceptance characteristics.",
+      "image": "/assets/certificates/alloy-fastener-quality-certificates.jpg",
+      "alt": "Dimensional inspection record example for precision fasteners",
+      "imagePosition": "0% 100%",
+      "status": "published",
+      "sortOrder": 4,
+      "translation": { "zh": {} }
+    },
+    {
+      "id": "pmi-hardness-records",
+      "title": "PMI and Hardness Records",
+      "description": "Positive material identification and hardness records prepared when those checks are included in the inspection plan.",
+      "image": "/assets/certificates/alloy-fastener-quality-certificates.jpg",
+      "alt": "PMI and hardness inspection record example",
+      "imagePosition": "50% 100%",
+      "status": "published",
+      "sortOrder": 5,
+      "translation": { "zh": {} }
+    },
+    {
+      "id": "third-party-inspection-files",
+      "title": "Third-Party Inspection Files",
+      "description": "Agency release notes, witnessed results and supporting files organized around the agreed inspection stages.",
+      "image": "/assets/certificates/alloy-fastener-quality-certificates.jpg",
+      "alt": "Third-party inspection file example for an alloy fastener order",
+      "imagePosition": "100% 100%",
+      "status": "published",
+      "sortOrder": 6,
+      "translation": { "zh": {} }
+    }
+  ],
+  "faqs": [
+    {
+      "id": "rfq-information",
+      "question": "What information should be included in an RFQ?",
+      "answer": "Include the product form, alloy grade, standard or drawing, dimensions, quantity, required testing, documentation and delivery destination.",
+      "status": "published",
+      "sortOrder": 1,
+      "translation": { "zh": {} }
+    },
+    {
+      "id": "drawing-review",
+      "question": "Can BYBOLT review a customer drawing?",
+      "answer": "Yes. The custom workflow is structured around drawing review, including geometry, tolerances, threads, material condition and inspection requirements.",
+      "status": "published",
+      "sortOrder": 2,
+      "translation": { "zh": {} }
+    },
+    {
+      "id": "material-certificates",
+      "question": "Are material certificates available?",
+      "answer": "Material certification and other records can be included when they are specified and confirmed as part of the order scope.",
+      "status": "published",
+      "sortOrder": 3,
+      "translation": { "zh": {} }
+    },
+    {
+      "id": "alloy-grades",
+      "question": "Which alloy grades can be considered?",
+      "answer": "The current catalogue includes Inconel 625, Inconel 718, Hastelloy C-276, Monel K-500, A-286 and other project-specific alloy options.",
+      "status": "published",
+      "sortOrder": 4,
+      "translation": { "zh": {} }
+    },
+    {
+      "id": "combined-quotation",
+      "question": "Can standard and custom products be quoted together?",
+      "answer": "Yes. List each line item clearly and attach the relevant drawings so standard and drawing-based products can be reviewed in one RFQ.",
+      "status": "published",
+      "sortOrder": 5,
+      "translation": { "zh": {} }
+    }
+  ],
+  "contact": {
+    "email": "sales@bybolt.com",
+    "phone": "",
+    "wechat": ""
+  },
   "sharedProductProperties": {
     "materials": "Inconel 625, Inconel 718, Hastelloy C-276, Alloy 20 and specified nickel-based alloys",
     "dimensionalControl": "Drawing, purchase specification and agreed product standard",

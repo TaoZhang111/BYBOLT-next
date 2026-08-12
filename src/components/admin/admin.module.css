@@ -503,6 +503,34 @@
   font-size: 9px;
 }
 
+.hiddenResource {
+  color: #8d9498 !important;
+  background: #f1f3f3;
+}
+
+.contactSidebar {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 10px;
+  margin: 16px 14px;
+  padding: 16px;
+  color: var(--admin-muted);
+  background: var(--admin-soft);
+  border-left: 2px solid var(--admin-blue);
+}
+
+.contactSidebar svg {
+  width: 18px;
+  height: 18px;
+  color: var(--admin-blue);
+}
+
+.contactSidebar p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
 .addCategory {
   position: fixed;
   bottom: 0;
@@ -613,6 +641,49 @@
 .field select:focus { border-color: #4b8bab; box-shadow: 0 0 0 3px rgba(41, 116, 151, 0.1); }
 .field input:disabled { color: #747d82; background: #eef1f1; cursor: not-allowed; }
 .field em { color: var(--admin-muted); font-size: 10px; font-style: normal; }
+
+.pinField {
+  min-height: 64px;
+  display: grid;
+  grid-template-columns: 18px 18px minmax(0, 1fr);
+  gap: 9px;
+  align-items: center;
+  padding: 9px 11px;
+  color: var(--admin-ink);
+  background: #fff;
+  border: 1px solid #cbd2d5;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pinField input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--admin-blue);
+}
+
+.pinField > svg {
+  width: 16px;
+  height: 16px;
+  color: var(--admin-blue);
+}
+
+.pinField span {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.pinField b,
+.pinField small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pinField b { font-size: 11px; }
+.pinField small { color: var(--admin-muted); font-size: 9px; }
+.pinDisabled { color: #8d9498; background: #eef1f1; cursor: not-allowed; }
 
 .imageField { display: grid; gap: 18px; }
 .imagePath {
