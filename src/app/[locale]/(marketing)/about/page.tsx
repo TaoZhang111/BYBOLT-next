@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import Link from "@/components/navigation/static-link";
+import { ContactBand } from "@/components/marketing/contact-band";
 import { InformationSiteShell } from "@/components/marketing/information-site-shell";
 import styles from "@/components/marketing/information-site.module.css";
 import { isLocale } from "@/i18n/config";
@@ -25,8 +25,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   if (!isLocale(locale)) return null;
-  const base = `/${locale}`;
-
   return (
     <InformationSiteShell locale={locale} current="about">
       <section className={styles.hero}>
@@ -50,7 +48,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <div className={styles.valueGrid}>{values.map(([number, title, description]) => <article className={styles.valueCard} key={number}><span>{number}</span><h2>{title}</h2><p>{description}</p></article>)}</div>
         </div>
       </section>
-      <section className={styles.ctaBand}><div className={`${styles.container} ${styles.ctaInner}`}><h2>Start with the fastener, material or drawing you already have.</h2><Link className={styles.ctaButton} href={`${base}/request-a-quote`}>Request a Quote</Link></div></section>
+      <ContactBand locale={locale} titleId="about-contact-title" />
     </InformationSiteShell>
   );
 }

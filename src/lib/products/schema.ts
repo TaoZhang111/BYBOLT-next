@@ -59,6 +59,7 @@ export const productModelSchema = z.object({
 });
 
 export const productCategorySchema = z.object({
+  productRange: z.enum(["range1", "range2"]),
   slug: slugSchema,
   name: z.string().min(2).max(120),
   index: z.string().min(1).max(4),
@@ -143,21 +144,25 @@ export const qualityCertificateSchema = z.object({
 });
 
 export const contactDetailsSchema = z.object({
-  email: z.string().max(240),
-  phone: z.string().max(80),
-  wechat: z.string().max(120),
+  id: slugSchema,
+  label: z.string().min(2).max(80),
+  value: z.string().max(240),
+  href: z.string().max(500),
+  type: z.enum(["email", "phone", "link", "text"]),
+  status: statusSchema,
+  sortOrder: z.number().int().min(0).max(9999),
 });
 
 export const productCatalogSchema = z
   .object({
-    version: z.literal(1),
+    version: z.literal(2),
     updatedAt: z.iso.datetime(),
     categories: z.array(productCategorySchema).min(1).max(40),
     materials: materialCatalogSchema,
     news: z.array(newsArticleSchema).max(200),
     faqs: z.array(faqItemSchema).max(100),
     certificates: z.array(qualityCertificateSchema).max(100),
-    contact: contactDetailsSchema,
+    contact: z.array(contactDetailsSchema).max(30),
     sharedProductProperties: sharedProductPropertiesSchema,
   })
   .superRefine((catalog, context) => {

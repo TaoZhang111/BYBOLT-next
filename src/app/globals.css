@@ -106,8 +106,8 @@ select {
 
 .site-header.is-scrolled,
 .site-header.is-solid {
-  min-height: 68px;
-  background: rgba(10, 16, 22, 0.98);
+  min-height: 76px;
+  background: rgba(29, 18, 16, 0.97);
   border-bottom-color: rgba(255, 255, 255, 0.1);
   box-shadow: 0 12px 34px rgba(0, 0, 0, 0.2);
 }
@@ -203,8 +203,24 @@ select {
 
 .site-header.is-scrolled .nav-cta,
 .site-header.is-solid .nav-cta {
-  color: var(--white);
-  background: var(--amber);
+  color: #1d1210;
+  background: #f2f2f2;
+}
+
+.site-header .nav-cta:hover,
+.site-header .nav-cta:focus-visible,
+.site-header.is-scrolled .nav-cta:hover,
+.site-header.is-scrolled .nav-cta:focus-visible,
+.site-header.is-solid .nav-cta:hover,
+.site-header.is-solid .nav-cta:focus-visible {
+  color: #fff;
+  background: #050505;
+}
+
+.site-header-spacer {
+  width: 100%;
+  height: 76px;
+  flex: 0 0 76px;
 }
 
 .nav-toggle {
@@ -1612,6 +1628,11 @@ textarea[aria-invalid="true"] {
     min-height: 68px;
   }
 
+  .site-header-spacer {
+    height: 68px;
+    flex-basis: 68px;
+  }
+
   .nav-toggle {
     display: grid;
     width: 42px;
@@ -1724,6 +1745,17 @@ textarea[aria-invalid="true"] {
 @media (max-width: 760px) {
   :root {
     --container: min(1220px, calc(100% - 28px));
+  }
+
+  .site-header-spacer {
+    height: 64px;
+    flex-basis: 64px;
+  }
+
+  .site-header,
+  .site-header.is-scrolled,
+  .site-header.is-solid {
+    min-height: 64px;
   }
 
   .brand {

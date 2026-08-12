@@ -17,11 +17,32 @@ export const productCategories = productCatalogDocument.categories
   }))
   .sort((left, right) => left.sortOrder - right.sortOrder);
 
-export const fastenerCategories = productCategories.filter((category) => category.slug !== "alloy-round-bars");
-export const roundBarCategory = productCategories.find((category) => category.slug === "alloy-round-bars");
+export const fastenerCategories = productCategories.filter((category) => category.productRange === "range1");
+export const millProductCategories = productCategories.filter((category) => category.productRange === "range2");
+
+const legacyRoundBarProducts = new Set([
+  "inconel-625-round-bar",
+  "inconel-718-round-bar",
+  "hastelloy-c276-round-bar",
+  "monel-400-round-bar",
+  "alloy-20-round-bar",
+  "nickel-200-round-bar",
+]);
+
+export function resolveProductCategory(categorySlug: string, productSlug?: string) {
+  const directCategory = productCategories.find((category) => category.slug === categorySlug);
+  if (directCategory) return directCategory;
+  if (categorySlug !== "alloy-round-bars") return undefined;
+  if (productSlug && legacyRoundBarProducts.has(productSlug)) {
+    return millProductCategories.find((category) => category.models.some((model) => model.slug === productSlug));
+  }
+  return millProductCategories.find((category) => category.slug === "round-bar");
+}
 
 export const sharedProductProperties = productCatalogDocument.sharedProductProperties;
-export const contactDetails = productCatalogDocument.contact;
+export const contactDetails = productCatalogDocument.contact
+  .filter((method) => method.status === "published")
+  .sort((left, right) => left.sortOrder - right.sortOrder);
 
 export const newsArticles = productCatalogDocument.news
   .filter((article) => article.status === "published")

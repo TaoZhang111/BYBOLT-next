@@ -52,11 +52,11 @@ import {
 import { prepareProductImage } from "@/lib/admin/image";
 import { productCatalogSchema } from "@/lib/products/schema";
 import type { AlloyComparison, AlloyMaterial, MaterialAccent } from "@/types/material-catalog";
-import type { ContactDetails, FaqItem, NewsArticle, ProductCatalogDocument, ProductCategory, ProductModel, PublicationStatus, QualityCertificate } from "@/types/product-catalog";
+import type { ContactDetails, FaqItem, NewsArticle, ProductCatalogDocument, ProductCategory, ProductModel, ProductRange, PublicationStatus, QualityCertificate } from "@/types/product-catalog";
 
 import styles from "./admin.module.css";
 
-const DRAFT_KEY = "bybolt-admin-product-draft-v1";
+const DRAFT_KEY = "bybolt-admin-product-draft-v2";
 const cloneCatalog = (value: ProductCatalogDocument): ProductCatalogDocument => structuredClone(value);
 
 function toggleSetValue<T>(current: Set<T>, value: T) {
@@ -69,11 +69,9 @@ function toggleSetValue<T>(current: Set<T>, value: T) {
 type Selection = { kind: "category"; categorySlug: string } | { kind: "product"; categorySlug: string; productSlug: string };
 type LocaleTab = "en" | "zh";
 type CatalogMode = "products" | "materials" | "news" | "faqs" | "quality" | "contact";
-type ProductRangeKey = "range1" | "range2";
+type ProductRangeKey = ProductRange;
 type MaterialFieldValue = string | number | string[] | AlloyComparison | undefined;
 type ResourceFieldValue = string | number | boolean | undefined;
-
-const ROUND_BAR_CATEGORY_SLUG = "alloy-round-bars";
 
 function compareProductCategories(left: ProductCategory, right: ProductCategory) {
   const archivedDifference = Number(left.status === "archived") - Number(right.status === "archived");
@@ -127,6 +125,7 @@ export function AdminApp() {
   const publishedNewsCount = useMemo(() => catalog.news.filter((article) => article.status === "published").length, [catalog.news]);
   const publishedFaqCount = useMemo(() => catalog.faqs.filter((faq) => faq.status === "published").length, [catalog.faqs]);
   const publishedCertificateCount = useMemo(() => catalog.certificates.filter((certificate) => certificate.status === "published").length, [catalog.certificates]);
+  const publishedContactCount = useMemo(() => catalog.contact.filter((method) => method.status === "published").length, [catalog.contact]);
 
   useEffect(() => {
     let active = true;
@@ -251,18 +250,20 @@ export function AdminApp() {
 
   function addProduct(categorySlug: string) {
     const suffix = Date.now().toString().slice(-6);
+    const category = catalog.categories.find((item) => item.slug === categorySlug);
+    const isMillProduct = category?.productRange === "range2";
     const product: ProductModel = {
       slug: `new-product-${suffix}`,
-      name: "New Product",
-      eyebrow: "Drawing-based fastener",
-      description: "Add a concise description of this product and its intended industrial service.",
-      size: "Drawing-defined",
-      length: "Drawing-defined",
-      standard: "Customer drawing and agreed specification",
-      configuration: "Project-specific",
-      threads: "Standard or special thread forms",
-      image: catalog.categories.find((category) => category.slug === categorySlug)?.image ?? "/assets/product-fasteners.jpg",
-      alt: "New BYBOLT alloy fastener product",
+      name: isMillProduct ? "New Mill Product" : "New Product",
+      eyebrow: isMillProduct ? "High-temperature alloy mill product" : "Drawing-based fastener",
+      description: isMillProduct ? "Add a concise description of this alloy mill product, supply condition and intended industrial service." : "Add a concise description of this product and its intended industrial service.",
+      size: isMillProduct ? "Size range by review" : "Drawing-defined",
+      length: isMillProduct ? "Mill length, coil or cut-to-size by order" : "Drawing-defined",
+      standard: isMillProduct ? "Applicable ASTM / ASME material specification or purchase specification" : "Customer drawing and agreed specification",
+      configuration: isMillProduct ? "Product form and supply condition by order" : "Project-specific",
+      threads: isMillProduct ? "Surface, tolerance and finish by order" : "Standard or special thread forms",
+      image: category?.image ?? "/assets/product-fasteners.jpg",
+      alt: isMillProduct ? "New BYBOLT high-temperature alloy mill product" : "New BYBOLT alloy fastener product",
       status: "draft",
       sortOrder: 999,
       translation: { zh: {} },
@@ -352,24 +353,27 @@ export function AdminApp() {
     setNotice({ type: "success", text: `${category.name} folder deleted from the local draft.` });
   }
 
-  function addCategory() {
+  function addCategory(productRange: ProductRangeKey) {
     const suffix = Date.now().toString().slice(-6);
+    const isMillProduct = productRange === "range2";
+    const rangeCategories = catalog.categories.filter((item) => item.productRange === productRange);
     const category: ProductCategory = {
+      productRange,
       slug: `new-category-${suffix}`,
-      name: "New Category",
-      index: String(catalog.categories.length + 1).padStart(2, "0"),
-      image: "/assets/product-fasteners.jpg",
-      alt: "BYBOLT alloy fastener category",
-      summary: "Add a concise summary for this product category.",
+      name: isMillProduct ? "New Mill Product Category" : "New Fastener Category",
+      index: String(rangeCategories.length + 1).padStart(2, "0"),
+      image: isMillProduct ? "/assets/bars/ground-alloy-round-bars.webp" : "/assets/product-fasteners.jpg",
+      alt: isMillProduct ? "BYBOLT high-temperature alloy mill product category" : "BYBOLT alloy fastener category",
+      summary: isMillProduct ? "Add a concise summary for this mill product category." : "Add a concise summary for this fastener category.",
       intro: "Add the category introduction shown above its complete product range.",
       status: "draft",
-      sortOrder: catalog.categories.length + 1,
+      sortOrder: rangeCategories.length + 1,
       translation: { zh: {} },
       models: [],
     };
     mutateCatalog((draft) => { draft.categories.push(category); });
     setExpanded((current) => new Set(current).add(category.slug));
-    setExpandedRanges((current) => new Set(current).add("range1"));
+    setExpandedRanges((current) => new Set(current).add(productRange));
     select({ kind: "category", categorySlug: category.slug });
   }
 
@@ -524,8 +528,31 @@ export function AdminApp() {
     setSelectedCertificateId(catalog.certificates.find((item) => item.id !== certificateId)?.id ?? "");
   }
 
-  function updateContact(field: "email" | "phone" | "wechat", value: string) {
-    mutateCatalog((draft) => { draft.contact[field] = value; });
+  function addContactMethod() {
+    const suffix = Date.now().toString().slice(-6);
+    const method: ContactDetails = {
+      id: `contact-${suffix}`,
+      label: "New contact method",
+      value: "",
+      href: "",
+      type: "text",
+      status: "draft",
+      sortOrder: catalog.contact.length + 1,
+    };
+    mutateCatalog((draft) => { draft.contact.push(method); });
+  }
+
+  function updateContact(id: string, field: keyof ContactDetails, value: string | number) {
+    mutateCatalog((draft) => {
+      const method = draft.contact.find((item) => item.id === id);
+      if (method) (method as unknown as Record<string, string | number>)[field] = value;
+    });
+  }
+
+  function deleteContactMethod(id: string) {
+    const method = catalog.contact.find((item) => item.id === id);
+    if (!method || !window.confirm(`Delete ${method.label}? The change is not permanent until published.`)) return;
+    mutateCatalog((draft) => { draft.contact = draft.contact.filter((item) => item.id !== id); });
   }
 
   async function uploadImage(file: File, slug: string, onReady: (sitePath: string) => void, directory: "products" | "news" | "certificates" = "products") {
@@ -566,10 +593,10 @@ export function AdminApp() {
   const selectedFaq = catalog.faqs.find((faq) => faq.id === selectedFaqId) ?? catalog.faqs[0];
   const selectedCertificate = catalog.certificates.find((certificate) => certificate.id === selectedCertificateId) ?? catalog.certificates[0];
   const productRange1Categories = catalog.categories
-    .filter((category) => category.slug !== ROUND_BAR_CATEGORY_SLUG)
+    .filter((category) => category.productRange === "range1")
     .sort(compareProductCategories);
   const productRange2Categories = catalog.categories
-    .filter((category) => category.slug === ROUND_BAR_CATEGORY_SLUG)
+    .filter((category) => category.productRange === "range2")
     .sort(compareProductCategories);
 
   return (
@@ -597,7 +624,7 @@ export function AdminApp() {
       <div className={styles.workspace}>
         <aside className={`${styles.sidebar} ${mobileMenu ? styles.sidebarOpen : ""}`}>
           <div className={styles.sidebarHeader}>
-            <div><p>Catalog</p><strong>{catalogMode === "products" ? `${publishedCount} published products` : catalogMode === "materials" ? `${publishedMaterialCount} published materials` : catalogMode === "news" ? `${publishedNewsCount} published articles` : catalogMode === "faqs" ? `${publishedFaqCount} published questions` : catalogMode === "quality" ? `${publishedCertificateCount} published certificates` : "Shared contact details"}</strong></div>
+            <div><p>Catalog</p><strong>{catalogMode === "products" ? `${publishedCount} published products` : catalogMode === "materials" ? `${publishedMaterialCount} published materials` : catalogMode === "news" ? `${publishedNewsCount} published articles` : catalogMode === "faqs" ? `${publishedFaqCount} published questions` : catalogMode === "quality" ? `${publishedCertificateCount} published certificates` : `${publishedContactCount} published contact methods`}</strong></div>
             <button className={styles.mobileClose} type="button" aria-label="Close product navigation" onClick={() => setMobileMenu(false)}><X /></button>
           </div>
           <div className={styles.catalogTabs} aria-label="Catalog type">
@@ -622,7 +649,7 @@ export function AdminApp() {
               onToggleCategory={(categorySlug) => setExpanded((current) => toggleSetValue(current, categorySlug))}
               onSelect={select}
               onAddProduct={addProduct}
-              onAddCategory={addCategory}
+              onAddCategory={() => addCategory("range1")}
             />
             <ProductRangeGroup
               id="range2"
@@ -636,6 +663,7 @@ export function AdminApp() {
               onToggleCategory={(categorySlug) => setExpanded((current) => toggleSetValue(current, categorySlug))}
               onSelect={select}
               onAddProduct={addProduct}
+              onAddCategory={() => addCategory("range2")}
             />
           </nav> : catalogMode === "materials" ? <nav className={`${styles.catalogNav} ${styles.materialNav}`} aria-label="Material catalog editor">
             {catalog.materials
@@ -667,8 +695,8 @@ export function AdminApp() {
               .map((certificate) => <button className={`${styles.productRow} ${certificate.status === "archived" ? styles.hiddenResource : ""} ${selectedCertificate?.id === certificate.id ? styles.activeRow : ""}`} type="button" key={certificate.id} onClick={() => { setSelectedCertificateId(certificate.id); setMobileMenu(false); }}>
                 <ShieldCheck /><span><b>{certificate.title}</b><small>Order {certificate.sortOrder}</small></span><StatusMark status={certificate.status} />
               </button>)}
-          </nav> : <div className={styles.contactSidebar}><SquareUserRound /><p>Manage the contact details reused by Resources and future site sections.</p></div>}
-          {catalogMode !== "contact" && <button className={styles.addCategory} type="button" onClick={catalogMode === "products" ? addCategory : catalogMode === "materials" ? addMaterial : catalogMode === "news" ? addNewsArticle : catalogMode === "quality" ? addCertificate : addFaq}><Plus /> {catalogMode === "products" ? "Add Product range1 category" : catalogMode === "materials" ? "Add material" : catalogMode === "news" ? "Add news article" : catalogMode === "quality" ? "Add certificate" : "Add FAQ"}</button>}
+          </nav> : <div className={styles.contactSidebar}><SquareUserRound /><p>Manage the contact methods shared by Resources, About and other public sections.</p></div>}
+          {catalogMode !== "products" && <button className={styles.addCategory} type="button" onClick={catalogMode === "materials" ? addMaterial : catalogMode === "news" ? addNewsArticle : catalogMode === "quality" ? addCertificate : catalogMode === "contact" ? addContactMethod : addFaq}><Plus /> {catalogMode === "materials" ? "Add material" : catalogMode === "news" ? "Add news article" : catalogMode === "quality" ? "Add certificate" : catalogMode === "contact" ? "Add contact method" : "Add FAQ"}</button>}
         </aside>
 
         <section className={styles.editorArea}>
@@ -688,7 +716,7 @@ export function AdminApp() {
           {catalogMode === "news" && selectedNews && <NewsEditor article={selectedNews} locale={localeTab} lockedSlug={productCatalogDocument.news.some((item) => item.slug === selectedNews.slug && item.status === "published")} pinnedCount={catalog.news.filter((article) => article.pinned).length} update={updateSelectedNews} upload={(file) => void uploadImage(file, selectedNews.slug, (path) => mutateCatalog((draft) => updateNewsArticle(draft, selectedNews.slug, "en", "image", path)), "news")} remove={() => deleteNewsArticle(selectedNews.slug)} />}
           {catalogMode === "faqs" && selectedFaq && <FaqEditor faq={selectedFaq} locale={localeTab} update={updateSelectedFaq} remove={() => deleteFaq(selectedFaq.id)} />}
           {catalogMode === "quality" && selectedCertificate && <CertificateEditor certificate={selectedCertificate} locale={localeTab} update={updateSelectedCertificate} upload={(file) => void uploadImage(file, selectedCertificate.id, (path) => mutateCatalog((draft) => updateQualityCertificate(draft, selectedCertificate.id, "en", "image", path)), "certificates")} remove={() => deleteCertificate(selectedCertificate.id)} />}
-          {catalogMode === "contact" && <ContactEditor contact={catalog.contact} update={updateContact} />}
+          {catalogMode === "contact" && <ContactEditor contact={catalog.contact} update={updateContact} remove={deleteContactMethod} />}
         </section>
 
         <aside className={styles.previewRail}>
@@ -790,7 +818,7 @@ function CategoryEditor({ category, locale, lockedSlug, update, upload, hide, re
   return <div className={styles.formSections}>
     <FormSection title="Category identity" description="Controls the category index page and its permanent route.">
       <div className={styles.twoColumns}><Field label="Category name" value={copy.name ?? ""} onChange={(value) => update("name", value)} /><Field label="URL slug" value={category.slug} disabled={lockedSlug} hint={lockedSlug ? "Locked to preserve the accepted URL." : undefined} onChange={(value) => update("slug", slugify(value))} /></div>
-      {locale === "en" && <div className={styles.threeColumns}><Field label="Index" value={category.index} onChange={(value) => update("index", value)} /><Field label="Sort order" type="number" value={String(category.sortOrder)} onChange={(value) => update("sortOrder", Number(value))} /><StatusField value={category.status} onChange={(value) => update("status", value)} /></div>}
+      {locale === "en" && <><div className={styles.twoColumns}><SelectField label="Product range" value={category.productRange} options={["range1", "range2"]} onChange={(value) => update("productRange", value)} /><StatusField value={category.status} onChange={(value) => update("status", value)} /></div><div className={styles.twoColumns}><Field label="Index" value={category.index} onChange={(value) => update("index", value)} /><Field label="Sort order" type="number" value={String(category.sortOrder)} onChange={(value) => update("sortOrder", Number(value))} /></div></>}
       <Field label="Summary" multiline value={copy.summary ?? ""} onChange={(value) => update("summary", value)} />
       <Field label="Category introduction" multiline rows={4} value={copy.intro ?? ""} onChange={(value) => update("intro", value)} />
     </FormSection>
@@ -937,13 +965,22 @@ function CertificateEditor({ certificate, locale, update, upload, remove }: { ce
   </div>;
 }
 
-function ContactEditor({ contact, update }: { contact: ContactDetails; update: (field: "email" | "phone" | "wechat", value: string) => void }) {
+function ContactEditor({ contact, update, remove }: { contact: ContactDetails[]; update: (id: string, field: keyof ContactDetails, value: string | number) => void; remove: (id: string) => void }) {
   return <div className={styles.formSections}>
-    <FormSection title="Contact details" description="These fields are shared by Resources and can be reused by other public sections without duplicate editing.">
-      <Field label="Email" type="email" value={contact.email} onChange={(value) => update("email", value)} />
-      <Field label="Phone" type="tel" value={contact.phone} hint="Include the international country code, for example +86." onChange={(value) => update("phone", value)} />
-      <Field label="WeChat" value={contact.wechat} onChange={(value) => update("wechat", value)} />
-    </FormSection>
+    {[...contact]
+      .sort((left, right) => Number(left.status === "archived") - Number(right.status === "archived") || left.sortOrder - right.sortOrder)
+      .map((method) => <div className={method.status === "archived" ? styles.hiddenContactEditor : ""} key={method.id}>
+        <FormSection title={method.label} description="Published methods appear in the shared Contact section on Resources and About.">
+          <div className={styles.threeColumns}><Field label="Internal ID" value={method.id} onChange={(value) => update(method.id, "id", slugify(value))} /><Field label="Label" value={method.label} onChange={(value) => update(method.id, "label", value)} /><Field label="Sort order" type="number" value={String(method.sortOrder)} onChange={(value) => update(method.id, "sortOrder", Number(value))} /></div>
+          <div className={styles.twoColumns}><SelectField label="Type" value={method.type} options={["email", "phone", "link", "text"]} onChange={(value) => update(method.id, "type", value)} /><StatusField value={method.status} onChange={(value) => update(method.id, "status", value)} /></div>
+          <Field label="Displayed value" value={method.value} hint={method.type === "phone" ? "Include the international country code, for example +86." : undefined} onChange={(value) => update(method.id, "value", value)} />
+          {method.type === "link" && <Field label="Link path or URL" value={method.href} hint="Use /contact for a localized site page, or a complete https:// URL." onChange={(value) => update(method.id, "href", value)} />}
+          <div className={styles.folderActions}>
+            <button type="button" onClick={() => update(method.id, "status", method.status === "archived" ? "draft" : "archived")}>{method.status === "archived" ? <Eye /> : <EyeOff />}{method.status === "archived" ? "Restore contact method" : "Hide contact method"}</button>
+            <button className={styles.deleteButton} type="button" onClick={() => remove(method.id)}><Trash2 /> Delete contact method</button>
+          </div>
+        </FormSection>
+      </div>)}
   </div>;
 }
 
@@ -1036,8 +1073,9 @@ function CertificatePreview({ certificate, locale, assets }: { certificate: Qual
   </div>;
 }
 
-function ContactPreview({ contact }: { contact: ContactDetails }) {
-  return <div className={`${styles.previewCard} ${styles.materialPreview}`}><div className={styles.previewCopy}><span>Shared contact details</span><h2>Contact BYBOLT</h2><dl><div><dt>Email</dt><dd>{contact.email || "Not published"}</dd></div><div><dt>Phone</dt><dd>{contact.phone || "Not published"}</dd></div><div><dt>WeChat</dt><dd>{contact.wechat || "Not published"}</dd></div></dl></div></div>;
+function ContactPreview({ contact }: { contact: ContactDetails[] }) {
+  const visible = contact.filter((method) => method.status === "published").sort((left, right) => left.sortOrder - right.sortOrder);
+  return <div className={`${styles.previewCard} ${styles.materialPreview}`}><div className={styles.previewCopy}><span>Shared contact details</span><h2>Contact BYBOLT</h2><dl>{visible.map((method) => <div key={method.id}><dt>{method.label}</dt><dd>{method.value || "—"}</dd></div>)}</dl></div></div>;
 }
 
 function StatusMark({ status }: { status: PublicationStatus }) {
@@ -1047,7 +1085,7 @@ function StatusMark({ status }: { status: PublicationStatus }) {
 function updateCategory(catalog: ProductCatalogDocument, slug: string, locale: LocaleTab, field: string, value: string | number) {
   const category = catalog.categories.find((item) => item.slug === slug);
   if (!category) return;
-  if (locale === "zh" && field !== "status" && field !== "sortOrder" && field !== "image" && field !== "slug" && field !== "index") {
+  if (locale === "zh" && field !== "productRange" && field !== "status" && field !== "sortOrder" && field !== "image" && field !== "slug" && field !== "index") {
     (category.translation.zh as Record<string, string | number>)[field] = value;
   } else {
     (category as unknown as Record<string, string | number>)[field] = value;
@@ -1153,7 +1191,7 @@ function readLocalDraft(): ProductCatalogDocument | null {
     if (!draft.news) draft.news = structuredClone(productCatalogDocument.news);
     if (!draft.faqs) draft.faqs = structuredClone(productCatalogDocument.faqs);
     if (!draft.certificates) draft.certificates = structuredClone(productCatalogDocument.certificates);
-    if (!draft.contact) draft.contact = structuredClone(productCatalogDocument.contact);
+    draft.contact = normalizeContactDetails(draft.contact);
     const result = productCatalogSchema.safeParse(draft);
     return result.success ? result.data as ProductCatalogDocument : null;
   } catch {
@@ -1167,10 +1205,24 @@ function normalizeCatalog(value: ProductCatalogDocument | Partial<ProductCatalog
   if (!candidate.news) candidate.news = structuredClone(productCatalogDocument.news);
   if (!candidate.faqs) candidate.faqs = structuredClone(productCatalogDocument.faqs);
   if (!candidate.certificates) candidate.certificates = structuredClone(productCatalogDocument.certificates);
-  if (!candidate.contact) candidate.contact = structuredClone(productCatalogDocument.contact);
+  candidate.contact = normalizeContactDetails(candidate.contact);
   const result = productCatalogSchema.safeParse(candidate);
   if (!result.success) throw new Error("The repository catalog is not compatible with this editor.");
   return result.data as ProductCatalogDocument;
+}
+
+function normalizeContactDetails(value: unknown): ContactDetails[] {
+  if (Array.isArray(value)) return value as ContactDetails[];
+  if (value && typeof value === "object") {
+    const legacy = value as { email?: string; phone?: string; wechat?: string };
+    return [
+      { id: "email", label: "Email", value: legacy.email ?? "", href: "", type: "email", status: "published", sortOrder: 1 },
+      { id: "phone", label: "Phone", value: legacy.phone ?? "", href: "", type: "phone", status: "published", sortOrder: 2 },
+      { id: "wechat", label: "WeChat", value: legacy.wechat ?? "", href: "", type: "text", status: legacy.wechat ? "published" : "archived", sortOrder: 3 },
+      { id: "contact", label: "Contact", value: "Send an enquiry", href: "/contact", type: "link", status: "published", sortOrder: 4 },
+    ];
+  }
+  return structuredClone(productCatalogDocument.contact);
 }
 
 function slugify(value: string): string {

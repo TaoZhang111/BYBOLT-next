@@ -1,6 +1,7 @@
 import type { AlloyMaterial } from "./material-catalog";
 
 export type PublicationStatus = "draft" | "published" | "archived";
+export type ProductRange = "range1" | "range2";
 
 export type ProductTranslation = Partial<{
   name: string;
@@ -45,6 +46,7 @@ export type ProductModel = {
 };
 
 export type ProductCategory = {
+  productRange: ProductRange;
   slug: string;
   name: string;
   index: string;
@@ -128,20 +130,26 @@ export type QualityCertificate = {
   translation: { zh: QualityCertificateTranslation };
 };
 
+export type ContactMethodType = "email" | "phone" | "link" | "text";
+
 export type ContactDetails = {
-  email: string;
-  phone: string;
-  wechat: string;
+  id: string;
+  label: string;
+  value: string;
+  href: string;
+  type: ContactMethodType;
+  status: PublicationStatus;
+  sortOrder: number;
 };
 
 export type ProductCatalogDocument = {
-  version: 1;
+  version: 2;
   updatedAt: string;
   categories: ProductCategory[];
   materials: AlloyMaterial[];
   news: NewsArticle[];
   faqs: FaqItem[];
   certificates: QualityCertificate[];
-  contact: ContactDetails;
+  contact: ContactDetails[];
   sharedProductProperties: SharedProductProperties;
 };

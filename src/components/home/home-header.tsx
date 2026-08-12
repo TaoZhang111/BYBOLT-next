@@ -6,7 +6,9 @@ import { useEffect, useState } from "react";
 import { CatalogDropdown } from "@/components/navigation/catalog-dropdown";
 import type { Locale } from "@/i18n/config";
 
-export function HomeHeader({ locale, solid = false, quoteCurrent = false }: { locale: Locale; solid?: boolean; quoteCurrent?: boolean }) {
+type HeaderSection = "products" | "materials" | "custom" | "quality" | "resources" | "about";
+
+export function HomeHeader({ locale, solid = false, quoteCurrent = false, current }: { locale: Locale; solid?: boolean; quoteCurrent?: boolean; current?: HeaderSection }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLight, setIsLight] = useState(false);
@@ -54,12 +56,12 @@ export function HomeHeader({ locale, solid = false, quoteCurrent = false }: { lo
         <span />
       </button>
       <nav className={`site-nav${isOpen ? " is-open" : ""}`} aria-label="Primary navigation">
-        <CatalogDropdown kind="products" locale={locale} surface="home" onNavigate={() => setIsOpen(false)} />
-        <CatalogDropdown kind="materials" locale={locale} surface="home" onNavigate={() => setIsOpen(false)} />
-        <Link href={`${base}/capabilities`} onClick={() => setIsOpen(false)}>Custom</Link>
-        <Link href={`${base}/quality`} onClick={() => setIsOpen(false)}>Quality</Link>
-        <Link href={`${base}/resources`} onClick={() => setIsOpen(false)}>Resources</Link>
-        <Link href={`${base}/about`} onClick={() => setIsOpen(false)}>About</Link>
+        <CatalogDropdown kind="products" locale={locale} surface="home" current={current === "products"} onNavigate={() => setIsOpen(false)} />
+        <CatalogDropdown kind="materials" locale={locale} surface="home" current={current === "materials"} onNavigate={() => setIsOpen(false)} />
+        <Link href={`${base}/capabilities`} aria-current={current === "custom" ? "page" : undefined} onClick={() => setIsOpen(false)}>Custom</Link>
+        <Link href={`${base}/quality`} aria-current={current === "quality" ? "page" : undefined} onClick={() => setIsOpen(false)}>Quality</Link>
+        <Link href={`${base}/resources`} aria-current={current === "resources" ? "page" : undefined} onClick={() => setIsOpen(false)}>Resources</Link>
+        <Link href={`${base}/about`} aria-current={current === "about" ? "page" : undefined} onClick={() => setIsOpen(false)}>About</Link>
         <Link className="nav-cta" href={`${base}/request-a-quote`} aria-current={quoteCurrent ? "page" : undefined} onClick={() => setIsOpen(false)}>Request a Quote</Link>
       </nav>
     </header>

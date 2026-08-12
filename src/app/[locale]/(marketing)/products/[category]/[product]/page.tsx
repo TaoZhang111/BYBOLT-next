@@ -7,21 +7,25 @@ import { notFound } from "next/navigation";
 import { ProductReveal } from "@/components/products/product-reveal";
 import { ProductSiteShell } from "@/components/products/product-site-shell";
 import styles from "@/components/products/product-site.module.css";
-import { localizeProductCategory, productCategories, sharedProductProperties } from "@/content/product-catalog";
+import { localizeProductCategory, millProductCategories, productCategories, resolveProductCategory, sharedProductProperties } from "@/content/product-catalog";
 import { isLocale } from "@/i18n/config";
 import { localizedAlternates } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string; category: string; product: string }> };
 
 export function generateStaticParams() {
-  return productCategories.flatMap((category) =>
+  const canonical = productCategories.flatMap((category) =>
     category.models.map((product) => ({ category: category.slug, product: product.slug })),
   );
+  const legacy = millProductCategories.flatMap((category) =>
+    category.models.map((product) => ({ category: "alloy-round-bars", product: product.slug })),
+  );
+  return [...canonical, ...legacy];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, category: categorySlug, product: productSlug } = await params;
-  const sourceCategory = productCategories.find((item) => item.slug === categorySlug);
+  const sourceCategory = resolveProductCategory(categorySlug, productSlug);
   const category = sourceCategory && isLocale(locale) ? localizeProductCategory(sourceCategory, locale) : sourceCategory;
   const product = category?.models.find((item) => item.slug === productSlug);
   if (!isLocale(locale) || !category || !product) return {};
@@ -35,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductDetailPage({ params }: Props) {
   const { locale, category: categorySlug, product: productSlug } = await params;
-  const sourceCategory = productCategories.find((item) => item.slug === categorySlug);
+  const sourceCategory = resolveProductCategory(categorySlug, productSlug);
   const category = sourceCategory && isLocale(locale) ? localizeProductCategory(sourceCategory, locale) : sourceCategory;
   const product = category?.models.find((item) => item.slug === productSlug);
 
@@ -43,15 +47,15 @@ export default async function ProductDetailPage({ params }: Props) {
     notFound();
   }
   const base = `/${locale}`;
-  const isRoundBarProduct = category.slug === "alloy-round-bars";
+  const isMillProduct = millProductCategories.some((item) => item.slug === category.slug);
 
   const specs = [
     ["Size range", product.size],
     ["Length / thickness", product.length],
     ["Standard", product.standard],
     ["Configuration", product.configuration],
-    [isRoundBarProduct ? "Surface / tolerance" : "Threads", product.threads],
-    [isRoundBarProduct ? "Material grade" : "Materials", isRoundBarProduct ? product.name.replace(/ Round Bar$/, "") : sharedProductProperties.materials],
+    [isMillProduct ? "Surface / tolerance" : "Threads", product.threads],
+    [isMillProduct ? "Material grade" : "Materials", isMillProduct ? product.name.replace(/ (Round Bar|Plate|Wire|Strip)$/, "") : sharedProductProperties.materials],
     ["Inspection", sharedProductProperties.inspection],
     ["Documentation", sharedProductProperties.documentation],
   ];

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
-import Link from "@/components/navigation/static-link";
+import { ContactBand } from "@/components/marketing/contact-band";
 import { InformationSiteShell } from "@/components/marketing/information-site-shell";
 import styles from "@/components/marketing/information-site.module.css";
 import { ResourceNewsFeed } from "@/components/resources/resource-news-feed";
-import { contactDetails, frequentlyAskedQuestions, localizeFaq, localizeNewsArticle, newsArticles } from "@/content/product-catalog";
+import { frequentlyAskedQuestions, localizeFaq, localizeNewsArticle, newsArticles } from "@/content/product-catalog";
 import { isLocale } from "@/i18n/config";
 import { localizedAlternates } from "@/lib/seo";
 
@@ -42,16 +42,7 @@ export default async function ResourcesPage({ params }: { params: Promise<{ loca
           <div className={styles.faqList}>{localizedFaqs.map((faq) => <details key={faq.id}><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}</div>
         </div>
       </section>
-      <section className={styles.contactBand} aria-labelledby="resource-contact-title">
-        <div className={`${styles.container} ${styles.contactGrid}`}>
-          <div><p className={styles.kicker}>{zh ? "联系我们" : "Contact"}</p><h2 id="resource-contact-title">{zh ? "与 BYBOLT 团队联系。" : "Contact the BYBOLT team."}</h2></div>
-          <address>
-            {contactDetails.email && <p><span>{zh ? "邮箱" : "Email"}</span><Link href={`mailto:${contactDetails.email}`}>{contactDetails.email}</Link></p>}
-            {contactDetails.phone && <p><span>{zh ? "电话" : "Phone"}</span><Link href={`tel:${contactDetails.phone.replace(/\s/g, "")}`}>{contactDetails.phone}</Link></p>}
-            {contactDetails.wechat && <p><span>WeChat</span><b>{contactDetails.wechat}</b></p>}
-          </address>
-        </div>
-      </section>
+      <ContactBand locale={locale} titleId="resource-contact-title" />
     </InformationSiteShell>
   );
 }

@@ -1,7 +1,7 @@
 import { ChevronDown } from "lucide-react";
 
 import { alloyMaterials, localizeAlloyMaterial } from "@/content/materials";
-import { fastenerCategories, localizeProductCategory, roundBarCategory } from "@/content/product-catalog";
+import { fastenerCategories, localizeProductCategory, millProductCategories } from "@/content/product-catalog";
 import type { Locale } from "@/i18n/config";
 
 import Link from "./static-link";
@@ -28,11 +28,11 @@ export function CatalogDropdown({ kind, locale, surface, current, onNavigate }: 
         products: "Products",
         materials: "Materials",
         fasteners: "Fastener Categories",
-        roundBars: "High-Temperature Alloy Round Bars",
+        millProducts: "High-Temperature Alloy Mill Products",
       };
 
   const localizedFasteners = fastenerCategories.map((category) => localizeProductCategory(category, locale));
-  const localizedRoundBars = roundBarCategory ? localizeProductCategory(roundBarCategory, locale) : undefined;
+  const localizedMillProducts = millProductCategories.map((category) => localizeProductCategory(category, locale));
   const localizedMaterials = alloyMaterials.map((material) => localizeAlloyMaterial(material, locale));
   const isProducts = kind === "products";
 
@@ -68,20 +68,20 @@ export function CatalogDropdown({ kind, locale, surface, current, onNavigate }: 
               </div>
             </section>
 
-            {localizedRoundBars && (
+            {localizedMillProducts.length > 0 && (
               <section className={styles.group}>
-                <Link className={styles.groupHeading} href={`${base}/products/${localizedRoundBars.slug}`} onClick={onNavigate}>
-                  {labels.roundBars}
+                <Link className={styles.groupHeading} href={`${base}/products#mill-products`} onClick={onNavigate}>
+                  {labels.millProducts}
                 </Link>
                 <div className={styles.linkGrid}>
-                  {localizedRoundBars.models.map((model) => (
+                  {localizedMillProducts.map((category) => (
                     <Link
                       className={styles.menuLink}
-                      href={`${base}/products/${localizedRoundBars.slug}/${model.slug}`}
-                      key={model.slug}
+                      href={`${base}/products/${category.slug}`}
+                      key={category.slug}
                       onClick={onNavigate}
                     >
-                      {model.name}
+                      {category.name}
                     </Link>
                   ))}
                 </div>

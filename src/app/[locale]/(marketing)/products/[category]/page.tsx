@@ -7,19 +7,19 @@ import { notFound } from "next/navigation";
 import { ProductReveal } from "@/components/products/product-reveal";
 import { ProductSiteShell } from "@/components/products/product-site-shell";
 import styles from "@/components/products/product-site.module.css";
-import { localizeProductCategory, productCategories, sharedProductProperties } from "@/content/product-catalog";
+import { localizeProductCategory, millProductCategories, productCategories, resolveProductCategory, sharedProductProperties } from "@/content/product-catalog";
 import { isLocale } from "@/i18n/config";
 import { localizedAlternates } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string; category: string }> };
 
 export function generateStaticParams() {
-  return productCategories.map((category) => ({ category: category.slug }));
+  return [...productCategories.map((category) => ({ category: category.slug })), { category: "alloy-round-bars" }];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, category: categorySlug } = await params;
-  const sourceCategory = productCategories.find((item) => item.slug === categorySlug);
+  const sourceCategory = resolveProductCategory(categorySlug);
   const category = sourceCategory && isLocale(locale) ? localizeProductCategory(sourceCategory, locale) : sourceCategory;
   if (!isLocale(locale) || !category) return {};
   return {
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProductCategoryPage({ params }: Props) {
   const { locale, category: categorySlug } = await params;
-  const sourceCategory = productCategories.find((item) => item.slug === categorySlug);
+  const sourceCategory = resolveProductCategory(categorySlug);
   const category = sourceCategory && isLocale(locale) ? localizeProductCategory(sourceCategory, locale) : sourceCategory;
 
   if (!isLocale(locale) || !category) {
@@ -39,7 +39,7 @@ export default async function ProductCategoryPage({ params }: Props) {
   }
   const base = `/${locale}`;
   const singularCategory = category.name === "Custom Products" ? "Custom Product" : category.name.replace(/s$/, "");
-  const isRoundBarCategory = category.slug === "alloy-round-bars";
+  const isMillProductCategory = millProductCategories.some((item) => item.slug === category.slug);
 
   return (
     <ProductSiteShell locale={locale}>
@@ -60,7 +60,7 @@ export default async function ProductCategoryPage({ params }: Props) {
                 <dl className={styles.specRail}>
                   <div><dt>Standard</dt><dd>{model.standard}</dd></div>
                   <div><dt>Configuration</dt><dd>{model.configuration}</dd></div>
-                  <div><dt>{isRoundBarCategory ? "Material grade" : "Materials"}</dt><dd>{isRoundBarCategory ? model.name.replace(/ Round Bar$/, "") : sharedProductProperties.materials}</dd></div>
+                  <div><dt>{isMillProductCategory ? "Material grade" : "Materials"}</dt><dd>{isMillProductCategory ? model.name.replace(/ (Round Bar|Plate|Wire|Strip)$/, "") : sharedProductProperties.materials}</dd></div>
                   <div><dt>Testing</dt><dd>{sharedProductProperties.inspection}</dd></div>
                 </dl>
                 <div className={styles.modelCopy} data-reveal-copy>

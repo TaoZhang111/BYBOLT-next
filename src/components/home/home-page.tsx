@@ -10,8 +10,8 @@ import { ProductRangeGrid } from "@/components/home/product-range-grid";
 import { RequirementRoutes } from "@/components/home/requirement-routes";
 import { ScrollMedia } from "@/components/home/scroll-media";
 import { SupplyProcess } from "@/components/home/supply-process";
-import { capabilities, qualityPoints, transitionItems } from "@/content/home-content";
-import { fastenerCategories, localizeProductCategory, roundBarCategory } from "@/content/product-catalog";
+import { qualityPoints, transitionItems } from "@/content/home-content";
+import { fastenerCategories, localizeProductCategory, millProductCategories } from "@/content/product-catalog";
 import type { Locale } from "@/i18n/config";
 
 const organizationJsonLd = {
@@ -34,15 +34,16 @@ export function HomePage({ locale }: { locale: Locale }) {
       description: localizedCategory.summary,
     };
   });
-  const barCategory = roundBarCategory ? localizeProductCategory(roundBarCategory, locale) : undefined;
-  const roundBarProducts = barCategory?.models.map((model) => ({
-    href: `/products/${barCategory.slug}/${model.slug}/`,
-    image: model.image,
-    alt: model.alt,
-    context: model.eyebrow,
-    name: model.name,
-    description: model.description,
-  })) ?? [];
+  const millProducts = millProductCategories.map((category) => {
+    const localizedCategory = localizeProductCategory(category, locale);
+    return {
+      href: `/products/${localizedCategory.slug}/`,
+      image: localizedCategory.image,
+      alt: localizedCategory.alt,
+      name: localizedCategory.name,
+      description: localizedCategory.summary,
+    };
+  });
 
   return (
     <div className="page-home">
@@ -82,7 +83,7 @@ export function HomePage({ locale }: { locale: Locale }) {
           <div className="container">
             <div className="section-heading split">
               <div>
-                <p className="eyebrow dark">Engineered fasteners</p>
+                <p className="eyebrow dark">Fastener Categories</p>
                 <h2 id="products-title">Product range1</h2>
               </div>
               <Link className="text-link product-view-link" href={`${base}/products`}>View products <ArrowUpRight aria-hidden="true" /></Link>
@@ -91,38 +92,22 @@ export function HomePage({ locale }: { locale: Locale }) {
           </div>
         </section>
 
-        {roundBarProducts.length > 0 && (
+        {millProducts.length > 0 && (
           <section className="section product-gallery-section product-gallery-secondary light-chapter" id="round-bars" aria-labelledby="round-bars-title">
             <div className="container">
               <div className="section-heading split">
                 <div>
-                  <p className="eyebrow dark">High-temperature alloy bars</p>
+                  <p className="eyebrow dark">High-Temperature Alloy Mill Products</p>
                   <h2 id="round-bars-title">Product range2</h2>
                 </div>
-                <Link className="text-link product-view-link" href={`${base}/products#alloy-round-bars`}>View products <ArrowUpRight aria-hidden="true" /></Link>
+                <Link className="text-link product-view-link" href={`${base}/products#mill-products`}>View products <ArrowUpRight aria-hidden="true" /></Link>
               </div>
-              <ProductRangeGrid locale={locale} products={roundBarProducts} ariaLabel="BYBOLT alloy round bar products" />
+              <ProductRangeGrid locale={locale} products={millProducts} ariaLabel="BYBOLT high-temperature alloy mill product categories" />
             </div>
           </section>
         )}
 
         <MaterialSelector locale={locale} />
-
-        <section className="section capability-light light-chapter" id="capabilities" aria-labelledby="capabilities-title">
-          <div className="container capability-light-grid">
-            <div className="capability-light-copy">
-              <p className="eyebrow dark">Custom and supply capability</p>
-              <h2 id="capabilities-title">Quote what the assembly actually needs.</h2>
-              <p>Material condition, geometry, thread, inspection and order quantity are reviewed together before the proposed supply route is confirmed.</p>
-              <Link className="button dark-button" href={`${base}/request-a-quote`}>Upload your requirement</Link>
-            </div>
-            <div className="capability-rows">
-              {capabilities.map(([label, title, description]) => (
-                <article key={label}><span>{label}</span><h3>{title}</h3><p>{description}</p></article>
-              ))}
-            </div>
-          </div>
-        </section>
 
         <section className="section industries-section light-chapter" id="industries" aria-labelledby="industries-title">
           <div className="container">
@@ -130,7 +115,7 @@ export function HomePage({ locale }: { locale: Locale }) {
               <div><p className="eyebrow dark">Application fit</p><h2 id="industries-title">Relevant to critical industrial equipment.</h2></div>
               <p className="heading-note">Suitability is reviewed against the buyer&apos;s engineering specification and operating environment.</p>
             </div>
-            <IndustryAccordion locale={locale} />
+            <IndustryAccordion />
           </div>
         </section>
 

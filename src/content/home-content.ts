@@ -46,40 +46,20 @@ export const qualityPoints = [
 
 export const industries = [
   {
-    context: "Heat and pressure",
-    name: "Energy & Petrochemical",
-    description: "Bolting for valves, pumps, flanges and process systems.",
-    image: "/assets/hero-fasteners.jpg",
-  },
-  {
-    context: "Aggressive media",
     name: "Chemical Processing",
-    description: "Alloy fasteners for corrosion-critical process equipment.",
-    image: "/assets/quality-inspection.jpg",
+    image: "/assets/industries/chemical-processing.webp",
   },
   {
-    context: "Seawater exposure",
     name: "Marine & Offshore",
-    description: "Material options for offshore maintenance and seawater-adjacent systems.",
-    image: "/assets/product-fasteners.jpg",
+    image: "/assets/industries/marine-offshore.webp",
   },
   {
-    context: "Elevated temperature",
     name: "Power Generation",
-    description: "Fasteners for thermal equipment and engineered plant assemblies.",
-    image: "/assets/products/nickel-alloy-stud-bolts.jpg",
+    image: "/assets/industries/power-generation.webp",
   },
   {
-    context: "Weight and reliability",
-    name: "Aerospace Systems",
-    description: "Precision threaded components for tightly controlled thermal and structural assemblies.",
-    image: "/assets/products/custom-alloy-fastener-components.jpg",
-  },
-  {
-    context: "Thermal cycling",
-    name: "Industrial Furnaces",
-    description: "Alloy bolting for heat-treatment lines, furnace fixtures and high-temperature equipment.",
-    image: "/assets/products/nickel-alloy-flat-washers.jpg",
+    name: "Aerospace",
+    image: "/assets/industries/aerospace.webp",
   },
 ] as const;
 

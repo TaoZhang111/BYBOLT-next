@@ -1,8 +1,9 @@
 {
-  "version": 1,
+  "version": 2,
   "updatedAt": "2026-08-12T02:00:00.000Z",
   "categories": [
     {
+      "productRange": "range1",
       "slug": "bolts",
       "name": "Bolts",
       "index": "01",
@@ -145,6 +146,7 @@
       ]
     },
     {
+      "productRange": "range1",
       "slug": "nuts",
       "name": "Nuts",
       "index": "02",
@@ -233,6 +235,7 @@
       ]
     },
     {
+      "productRange": "range1",
       "slug": "studs",
       "name": "Studs",
       "index": "03",
@@ -357,6 +360,7 @@
       ]
     },
     {
+      "productRange": "range1",
       "slug": "washers",
       "name": "Washers",
       "index": "04",
@@ -445,6 +449,7 @@
       ]
     },
     {
+      "productRange": "range1",
       "slug": "screws",
       "name": "Screws",
       "index": "05",
@@ -533,6 +538,7 @@
       ]
     },
     {
+      "productRange": "range1",
       "slug": "custom-products",
       "name": "Custom Products",
       "index": "06",
@@ -621,15 +627,16 @@
       ]
     },
     {
-      "slug": "alloy-round-bars",
-      "name": "Alloy Round Bars",
-      "index": "07",
+      "productRange": "range2",
+      "slug": "round-bar",
+      "name": "Round Bar",
+      "index": "01",
       "image": "/assets/bars/ground-alloy-round-bars.webp",
       "alt": "Precision-ground high-temperature nickel-alloy round bars",
       "summary": "Solid nickel-alloy round bar stock for machining, fabrication and corrosion-critical service.",
       "intro": "Alloy grade, diameter, condition, surface finish, testing and cut length are reviewed together before the bar supply route is confirmed.",
       "status": "published",
-      "sortOrder": 7,
+      "sortOrder": 1,
       "translation": {
         "zh": {}
       },
@@ -669,82 +676,120 @@
           "translation": {
             "zh": {}
           }
-        },
-        {
-          "slug": "hastelloy-c276-round-bar",
-          "name": "Hastelloy C-276 Round Bar",
-          "eyebrow": "Chemical-service nickel alloy bar",
-          "description": "C-276 round bar for machined parts used in aggressive chemical and corrosion-critical environments.",
-          "size": "6-250 mm diameter; larger sizes by review",
-          "length": "1000-6000 mm mill lengths or cut-to-length",
-          "standard": "ASTM B574 / ASME SB-574 or purchase specification",
-          "configuration": "Solution-annealed solid bar",
-          "threads": "Hot-finished, cold-drawn or ground surface",
-          "image": "/assets/bars/alloy-round-bar-stock.webp",
-          "alt": "Warehouse stock of Hastelloy C-276 solid round bars",
-          "status": "published",
-          "sortOrder": 3,
-          "translation": {
-            "zh": {}
-          }
-        },
-        {
-          "slug": "monel-400-round-bar",
-          "name": "Monel 400 Round Bar",
-          "eyebrow": "Marine-service nickel-copper bar",
-          "description": "Nickel-copper Alloy 400 round bar for seawater, pump, valve and chemical-processing components.",
-          "size": "6-250 mm diameter; project diameters by review",
-          "length": "1000-6000 mm mill lengths or cut-to-length",
-          "standard": "ASTM B164 / ASME SB-164 or purchase specification",
-          "configuration": "Hot-finished, cold-drawn or stress-relieved condition",
-          "threads": "Bright, peeled or centerless-ground finish",
-          "image": "/assets/bars/ground-alloy-round-bars.webp",
-          "alt": "Bright-finished Monel 400 solid round bars",
-          "status": "published",
-          "sortOrder": 4,
-          "translation": {
-            "zh": {}
-          }
-        },
-        {
-          "slug": "alloy-20-round-bar",
-          "name": "Alloy 20 Round Bar",
-          "eyebrow": "Acid-service alloy bar",
-          "description": "Alloy 20 solid round bar for sulfuric-acid equipment, process machinery and fabricated components.",
-          "size": "6-250 mm diameter; project diameters by review",
-          "length": "1000-6000 mm mill lengths or cut-to-length",
-          "standard": "ASTM B473 or purchase specification",
-          "configuration": "Annealed hot-finished or cold-finished bar",
-          "threads": "Pickled, bright-drawn, peeled or ground finish",
-          "image": "/assets/bars/alloy-round-bar-ends.webp",
-          "alt": "Alloy 20 solid round bars in multiple diameters",
-          "status": "published",
-          "sortOrder": 5,
-          "translation": {
-            "zh": {}
-          }
-        },
-        {
-          "slug": "nickel-200-round-bar",
-          "name": "Nickel 200 Round Bar",
-          "eyebrow": "Commercially pure nickel bar",
-          "description": "Nickel 200 solid bar for caustic-service, electrical and thermal-processing components.",
-          "size": "6-250 mm diameter; project diameters by review",
-          "length": "1000-6000 mm mill lengths or cut-to-length",
-          "standard": "ASTM B160 / ASME SB-160 or purchase specification",
-          "configuration": "Hot-rolled, cold-drawn or annealed condition",
-          "threads": "Bright, peeled or centerless-ground finish",
-          "image": "/assets/bars/alloy-round-bar-stock.webp",
-          "alt": "Nickel 200 solid round bar warehouse stock",
-          "status": "published",
-          "sortOrder": 6,
-          "translation": {
-            "zh": {}
-          }
         }
       ]
     },
     {
+      "productRange": "range2",
+      "slug": "plate",
+      "name": "Plate",
+      "index": "02",
+      "image": "/assets/bars/alloy-round-bar-stock.webp",
+      "alt": "High-temperature nickel-alloy plate mill products",
+      "summary": "Nickel-alloy plate for pressure equipment, chemical processing and fabricated assemblies.",
+      "intro": "Alloy grade, thickness, condition, dimensions, testing and surface requirements are reviewed together before plate supply is confirmed.",
+      "status": "published",
+      "sortOrder": 2,
+      "translation": { "zh": {} },
+      "models": [
+        {
+          "slug": "hastelloy-c276-round-bar",
+          "name": "Hastelloy C-276 Plate",
+          "eyebrow": "Chemical-service nickel alloy plate",
+          "description": "C-276 plate for fabricated equipment used in aggressive chemical and corrosion-critical environments.",
+          "size": "3-100 mm thickness; project thicknesses by review",
+          "length": "Mill plate or cut-to-size dimensions by order",
+          "standard": "ASTM B575 / ASME SB-575 or purchase specification",
+          "configuration": "Solution-annealed plate",
+          "threads": "Hot-rolled, pickled or ground surface; tolerance by order",
+          "image": "/assets/bars/alloy-round-bar-stock.webp",
+          "alt": "Hastelloy C-276 nickel-alloy plate mill product",
+          "status": "published",
+          "sortOrder": 1,
+          "translation": { "zh": {} }
+        },
+        {
+          "slug": "monel-400-round-bar",
+          "name": "Monel 400 Plate",
+          "eyebrow": "Marine-service nickel-copper plate",
+          "description": "Nickel-copper Alloy 400 plate for seawater, process equipment and fabricated components.",
+          "size": "3-100 mm thickness; project thicknesses by review",
+          "length": "Mill plate or cut-to-size dimensions by order",
+          "standard": "ASTM B127 / ASME SB-127 or purchase specification",
+          "configuration": "Hot-rolled or annealed plate",
+          "threads": "Pickled, ground or project-specified surface",
+          "image": "/assets/bars/ground-alloy-round-bars.webp",
+          "alt": "Monel 400 nickel-copper alloy plate",
+          "status": "published",
+          "sortOrder": 2,
+          "translation": { "zh": {} }
+        }
+      ]
+    },
+    {
+      "productRange": "range2",
+      "slug": "wire",
+      "name": "Wire",
+      "index": "03",
+      "image": "/assets/bars/alloy-round-bar-ends.webp",
+      "alt": "High-temperature nickel-alloy wire mill products",
+      "summary": "Nickel-alloy wire for forming, welding, springs and precision industrial components.",
+      "intro": "Alloy, diameter, temper, coil format, surface and testing requirements are reviewed together before wire supply is confirmed.",
+      "status": "published",
+      "sortOrder": 3,
+      "translation": { "zh": {} },
+      "models": [
+        {
+          "slug": "alloy-20-round-bar",
+          "name": "Alloy 20 Wire",
+          "eyebrow": "Acid-service alloy wire",
+          "description": "Alloy 20 wire for formed components, process equipment and sulfuric-acid service applications.",
+          "size": "0.5-12 mm diameter; project diameters by review",
+          "length": "Coil, spool or cut length by order",
+          "standard": "Applicable ASTM wire specification or purchase specification",
+          "configuration": "Annealed, cold-drawn or temper-controlled wire",
+          "threads": "Bright, pickled or project-specified surface",
+          "image": "/assets/bars/alloy-round-bar-ends.webp",
+          "alt": "Alloy 20 nickel-alloy wire mill product",
+          "status": "published",
+          "sortOrder": 1,
+          "translation": { "zh": {} }
+        }
+      ]
+    },
+    {
+      "productRange": "range2",
+      "slug": "strip",
+      "name": "Strip",
+      "index": "04",
+      "image": "/assets/bars/alloy-round-bar-stock.webp",
+      "alt": "High-temperature nickel-alloy strip mill products",
+      "summary": "Precision nickel-alloy strip for thermal, electrical and corrosion-resistant formed components.",
+      "intro": "Alloy, thickness, width, temper, edge condition and coil requirements are reviewed together before strip supply is confirmed.",
+      "status": "published",
+      "sortOrder": 4,
+      "translation": { "zh": {} },
+      "models": [
+        {
+          "slug": "nickel-200-round-bar",
+          "name": "Nickel 200 Strip",
+          "eyebrow": "Commercially pure nickel strip",
+          "description": "Nickel 200 strip for caustic-service, electrical and thermal-processing components.",
+          "size": "0.1-6 mm thickness; width by order",
+          "length": "Coil or cut length by order",
+          "standard": "ASTM B162 / ASME SB-162 or purchase specification",
+          "configuration": "Cold-rolled or annealed strip",
+          "threads": "Bright, matte or project-specified finish and edge condition",
+          "image": "/assets/bars/alloy-round-bar-stock.webp",
+          "alt": "Nickel 200 commercially pure nickel strip",
+          "status": "published",
+          "sortOrder": 1,
+          "translation": { "zh": {} }
+        }
+      ]
+    },
+    {
+      "productRange": "range1",
       "slug": "new-category-628974",
       "name": "test category",
       "index": "08",
@@ -1360,11 +1405,35 @@
       "translation": { "zh": {} }
     }
   ],
-  "contact": {
-    "email": "sales@bybolt.com",
-    "phone": "",
-    "wechat": ""
-  },
+  "contact": [
+    {
+      "id": "email",
+      "label": "Email",
+      "value": "sales@bybolt.com",
+      "href": "",
+      "type": "email",
+      "status": "published",
+      "sortOrder": 1
+    },
+    {
+      "id": "phone",
+      "label": "Phone",
+      "value": "",
+      "href": "",
+      "type": "phone",
+      "status": "published",
+      "sortOrder": 2
+    },
+    {
+      "id": "contact",
+      "label": "Contact",
+      "value": "Send an enquiry",
+      "href": "/contact",
+      "type": "link",
+      "status": "published",
+      "sortOrder": 3
+    }
+  ],
   "sharedProductProperties": {
     "materials": "Inconel 625, Inconel 718, Hastelloy C-276, Alloy 20 and specified nickel-based alloys",
     "dimensionalControl": "Drawing, purchase specification and agreed product standard",

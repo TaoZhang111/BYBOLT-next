@@ -54,6 +54,12 @@
   background: var(--home-ink);
 }
 
+.page-home > .site-header .nav-cta:hover,
+.page-home > .site-header .nav-cta:focus-visible {
+  color: #fff;
+  background: #050505;
+}
+
 .page-home > .site-header.is-light .nav-toggle {
   color: var(--home-ink);
   background: transparent;
@@ -77,19 +83,22 @@
   max-width: none;
   min-height: 100svh;
   align-items: flex-start;
-  justify-content: center;
-  padding: 156px max(24px, calc((100vw - 1240px) / 2)) 92px;
+  justify-content: flex-start;
+  padding: 156px clamp(28px, 5vw, 84px) 92px;
   text-align: left;
 }
 
 .page-home .hero-copy-block {
-  width: min(850px, 70vw);
+  width: min(720px, 58vw);
+  align-self: flex-start;
   margin-top: auto;
+  margin-right: 0;
   margin-bottom: auto;
+  margin-left: 0;
 }
 
 .page-home .hero h1 {
-  max-width: 820px;
+  max-width: 700px;
   margin-bottom: 26px;
   font-size: clamp(58px, 6.25vw, 96px);
   font-weight: 500;
@@ -384,7 +393,7 @@
 }
 
 .page-home .product-range-row.has-4-cards {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
 }
 
 .page-home .product-range-row.has-2-cards {
@@ -469,19 +478,19 @@
 
 @media (min-width: 1061px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .page-home .product-range-row.has-4-cards:has(> .image-product-card:nth-child(1):hover) {
-    grid-template-columns: minmax(0, 1.24fr) repeat(3, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1.24fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
   }
 
   .page-home .product-range-row.has-4-cards:has(> .image-product-card:nth-child(2):hover) {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.24fr) repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.24fr) minmax(0, 1fr) minmax(0, 1fr);
   }
 
   .page-home .product-range-row.has-4-cards:has(> .image-product-card:nth-child(3):hover) {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) minmax(0, 1.24fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.24fr) minmax(0, 1fr);
   }
 
   .page-home .product-range-row.has-4-cards:has(> .image-product-card:nth-child(4):hover) {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.24fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.24fr);
   }
 
   .page-home .product-range-row.has-3-cards:has(> .image-product-card:nth-child(1):hover) {
@@ -701,7 +710,7 @@
 .page-home .industry-accordion {
   display: grid;
   min-height: 0;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
   border: 0;
 }
@@ -710,7 +719,7 @@
 .page-home .industry-panel.is-active {
   position: relative;
   min-width: 0;
-  min-height: 390px;
+  min-height: 460px;
   display: block;
   flex: none;
   color: #fff;
@@ -727,9 +736,9 @@
   inset: 0;
   z-index: -2;
   background: var(--panel-image) center / cover no-repeat;
-  opacity: 0.82;
-  transform: scale(1.01);
-  transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1), opacity 300ms ease;
+  opacity: 0.9;
+  transform: scale(1.002);
+  transition: transform 1200ms cubic-bezier(0.33, 0, 0.2, 1), opacity 700ms ease;
 }
 
 .page-home .industry-panel::after {
@@ -742,8 +751,8 @@
 
 .page-home .industry-panel:hover::before,
 .page-home .industry-panel:focus-visible::before {
-  opacity: 0.96;
-  transform: scale(1.055);
+  opacity: 1;
+  transform: scale(1.025);
 }
 
 .page-home .industry-panel > div {
@@ -760,31 +769,10 @@
 }
 
 .page-home .industry-panel h3 {
-  margin: 8px 0 10px;
-  color: #fff;
-  font-size: 28px;
-}
-
-.page-home .industry-panel p {
-  max-width: 330px;
   margin: 0;
-  color: rgba(255, 255, 255, 0.72);
-  font-size: 14px;
-  opacity: 1;
-  transform: none;
-}
-
-.page-home .industry-panel b {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  display: grid;
-  width: 38px;
-  height: 38px;
-  place-items: center;
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.34);
-  border-radius: 50%;
+  font-size: clamp(22px, 1.65vw, 28px);
+  line-height: 1.08;
 }
 
 .page-home .final-action {
@@ -924,6 +912,7 @@
   width: 100%;
   height: auto;
   display: block;
+  mix-blend-mode: multiply;
 }
 
 .page-home .manufacturing-process-hotspots {
@@ -1417,7 +1406,7 @@
   }
 
   .page-home .product-range-layout .product-range-row.has-4-cards {
-    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr) !important;
   }
 
   .page-home .product-range-layout .product-range-row.has-2-cards {

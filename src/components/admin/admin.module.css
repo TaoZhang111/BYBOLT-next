@@ -730,6 +730,12 @@
 .folderActions button:disabled { color: #939a9e; background: #eef0f0; border-color: #d9dddf; cursor: not-allowed; }
 .folderActionNote { margin: -6px 0 0; color: var(--admin-muted); font-size: 10px; line-height: 1.5; }
 
+.hiddenContactEditor {
+  color: #858d91;
+  background: #f1f3f3;
+  filter: grayscale(0.55);
+}
+
 .enableComparison {
   min-height: 46px;
   display: inline-flex;
