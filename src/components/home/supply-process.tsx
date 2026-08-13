@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import Link from "@/components/navigation/static-link";
-import { manufacturingStages } from "@/content/quality-process";
+import { manufacturingProcesses } from "@/content/product-catalog";
 import type { Locale } from "@/i18n/config";
 
 export function SupplyProcess({ locale }: { locale: Locale }) {
@@ -26,18 +26,18 @@ export function SupplyProcess({ locale }: { locale: Locale }) {
             sizes="(max-width: 760px) 100vw, 1440px"
             alt="Eight-stage BYBOLT fastener manufacturing sequence from material verification to marking and packaging"
           />
-          <div className="manufacturing-process-hotspots" aria-label="Open manufacturing stages on the Quality page">
-            {manufacturingStages.map((stage) => (
-              <Link href={`/${locale}/quality/#process-${stage.id}`} aria-label={`View ${stage.number} ${stage.title}`} key={stage.id}><span>{stage.number} {stage.title}</span></Link>
+          <div className="manufacturing-process-hotspots" aria-label="Open custom manufacturing process stages">
+            {manufacturingProcesses.map((stage) => (
+              <Link href={`/${locale}/capabilities/${stage.slug}/`} aria-label={`View ${stage.number} ${stage.title}`} key={stage.slug}><span>{stage.number} {stage.title}</span></Link>
             ))}
           </div>
           <figcaption>BYBOLT manufacturing and quality-control sequence.</figcaption>
         </figure>
 
         <ol className="manufacturing-process-mobile" aria-label="BYBOLT manufacturing sequence">
-          {manufacturingStages.map((stage) => (
-            <li key={stage.id}>
-              <Link href={`/${locale}/quality/#process-${stage.id}`}>
+          {manufacturingProcesses.map((stage) => (
+            <li key={stage.slug}>
+              <Link href={`/${locale}/capabilities/${stage.slug}/`}>
                 <span>{stage.number}</span>
                 <strong>{stage.title}</strong>
               </Link>

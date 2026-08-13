@@ -2,6 +2,7 @@ import Link from "@/components/navigation/static-link";
 
 import { HomeHeader } from "@/components/home/home-header";
 import { RfqForm } from "@/components/rfq/rfq-form";
+import { contactDetails } from "@/content/product-catalog";
 import type { Locale } from "@/i18n/config";
 
 export function RfqPage({ locale }: { locale: Locale }) {
@@ -24,18 +25,14 @@ export function RfqPage({ locale }: { locale: Locale }) {
 
         <section className="quote-workspace">
           <div className="container quote-layout">
-            <aside className="quote-aside">
-              <div>
-                <p className="eyebrow dark">What to include</p>
-                <h2>Enough detail for a useful quotation.</h2>
-                <p>Material, size, quantity and destination are the essentials. Add the standard, testing and drawing where available.</p>
-              </div>
-              <ol className="quote-guide">
-                <li><span>01</span><div><strong>Contact details</strong><small>So the technical response reaches the right person.</small></div></li>
-                <li><span>02</span><div><strong>Product requirements</strong><small>Material, size, quantity, testing and destination.</small></div></li>
-                <li><span>03</span><div><strong>Drawing &amp; confidentiality</strong><small>Optional files with a clear confidentiality request.</small></div></li>
-              </ol>
-              <div className="aside-contact"><span>Prefer email?</span><a href="mailto:sales@bybolt.com">sales@bybolt.com</a></div>
+            <aside className="quote-aside quote-contact-card">
+              <div><p className="eyebrow dark">Contact</p><h2>Contact Us</h2><p>Speak with BYBOLT about alloy selection, drawings, testing and delivery requirements.</p></div>
+              <address className="quote-contact-list">
+                {contactDetails.map((method) => {
+                  const href = method.type === "email" ? `mailto:${method.value}` : method.type === "phone" ? `tel:${method.value.replace(/\s/g, "")}` : null;
+                  return <p key={method.id}><span>{method.label}</span>{href ? <a href={href}>{method.value}</a> : <b>{method.value || "-"}</b>}</p>;
+                })}
+              </address>
             </aside>
             <div className="rfq-panel"><RfqForm locale={locale} /></div>
           </div>

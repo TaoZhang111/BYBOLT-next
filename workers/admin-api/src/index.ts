@@ -135,7 +135,7 @@ async function readCatalog(env: Env, session: Session): Promise<Response> {
     catalog,
     commitSha: ref.object.sha,
     repository: `${env.GITHUB_OWNER}/${env.GITHUB_REPO}`,
-    capabilities: ["materials", "resources", "quality"],
+    capabilities: ["materials", "resources", "quality", "processes", "product-gallery"],
   });
 }
 

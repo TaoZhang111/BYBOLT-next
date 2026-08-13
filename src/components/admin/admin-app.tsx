@@ -52,7 +52,7 @@ import {
 import { prepareProductImage } from "@/lib/admin/image";
 import { productCatalogSchema } from "@/lib/products/schema";
 import type { AlloyComparison, AlloyMaterial, MaterialAccent } from "@/types/material-catalog";
-import type { ContactDetails, FaqItem, NewsArticle, ProductCatalogDocument, ProductCategory, ProductModel, ProductRange, PublicationStatus, QualityCertificate } from "@/types/product-catalog";
+import type { ContactDetails, FaqItem, ManufacturingProcess, NewsArticle, ProductCatalogDocument, ProductCategory, ProductModel, ProductRange, PublicationStatus, QualityCertificate } from "@/types/product-catalog";
 
 import styles from "./admin.module.css";
 
@@ -68,7 +68,7 @@ function toggleSetValue<T>(current: Set<T>, value: T) {
 
 type Selection = { kind: "category"; categorySlug: string } | { kind: "product"; categorySlug: string; productSlug: string };
 type LocaleTab = "en" | "zh";
-type CatalogMode = "products" | "materials" | "news" | "faqs" | "quality" | "contact";
+type CatalogMode = "products" | "materials" | "news" | "faqs" | "quality" | "processes" | "contact";
 type ProductRangeKey = ProductRange;
 type MaterialFieldValue = string | number | string[] | AlloyComparison | undefined;
 type ResourceFieldValue = string | number | boolean | undefined;
@@ -92,6 +92,7 @@ export function AdminApp() {
   const [selectedNewsSlug, setSelectedNewsSlug] = useState(productCatalogDocument.news[0]?.slug ?? "");
   const [selectedFaqId, setSelectedFaqId] = useState(productCatalogDocument.faqs[0]?.id ?? "");
   const [selectedCertificateId, setSelectedCertificateId] = useState(productCatalogDocument.certificates[0]?.id ?? "");
+  const [selectedProcessSlug, setSelectedProcessSlug] = useState(productCatalogDocument.processes[0]?.slug ?? "");
   const [query, setQuery] = useState("");
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set());
   const [expandedRanges, setExpandedRanges] = useState<Set<ProductRangeKey>>(() => new Set(["range1", "range2"]));
@@ -101,6 +102,8 @@ export function AdminApp() {
   const [supportsMaterialCatalog, setSupportsMaterialCatalog] = useState(false);
   const [supportsResourceCatalog, setSupportsResourceCatalog] = useState(false);
   const [supportsQualityCatalog, setSupportsQualityCatalog] = useState(false);
+  const [supportsProcessCatalog, setSupportsProcessCatalog] = useState(false);
+  const [supportsProductGallery, setSupportsProductGallery] = useState(false);
   const [pendingAssets, setPendingAssets] = useState<PendingAsset[]>([]);
   const [commitMessage, setCommitMessage] = useState("Update site catalog");
   const [publishing, setPublishing] = useState(false);
@@ -125,6 +128,7 @@ export function AdminApp() {
   const publishedNewsCount = useMemo(() => catalog.news.filter((article) => article.status === "published").length, [catalog.news]);
   const publishedFaqCount = useMemo(() => catalog.faqs.filter((faq) => faq.status === "published").length, [catalog.faqs]);
   const publishedCertificateCount = useMemo(() => catalog.certificates.filter((certificate) => certificate.status === "published").length, [catalog.certificates]);
+  const publishedProcessCount = useMemo(() => catalog.processes.filter((process) => process.status === "published").length, [catalog.processes]);
   const publishedContactCount = useMemo(() => catalog.contact.filter((method) => method.status === "published").length, [catalog.contact]);
 
   useEffect(() => {
@@ -157,6 +161,8 @@ export function AdminApp() {
         setSupportsMaterialCatalog(response.capabilities?.includes("materials") ?? false);
         setSupportsResourceCatalog(response.capabilities?.includes("resources") ?? false);
         setSupportsQualityCatalog(response.capabilities?.includes("quality") ?? false);
+        setSupportsProcessCatalog(response.capabilities?.includes("processes") ?? false);
+        setSupportsProductGallery(response.capabilities?.includes("product-gallery") ?? false);
         setConnection("ready");
       } catch (error) {
         if (!active) return;
@@ -225,7 +231,7 @@ export function AdminApp() {
       setNotice({ type: "error", text: "Connect the authorized GitHub account before publishing." });
       return;
     }
-    if (!supportsMaterialCatalog || !supportsResourceCatalog || !supportsQualityCatalog) {
+    if (!supportsMaterialCatalog || !supportsResourceCatalog || !supportsQualityCatalog || !supportsProcessCatalog || !supportsProductGallery) {
       setNotice({ type: "error", text: "Deploy the updated Admin API before publishing this catalog version. Your local draft is safe." });
       return;
     }
@@ -262,8 +268,10 @@ export function AdminApp() {
       standard: isMillProduct ? "Applicable ASTM / ASME material specification or purchase specification" : "Customer drawing and agreed specification",
       configuration: isMillProduct ? "Product form and supply condition by order" : "Project-specific",
       threads: isMillProduct ? "Surface, tolerance and finish by order" : "Standard or special thread forms",
+      features: "",
       image: category?.image ?? "/assets/product-fasteners.jpg",
       alt: isMillProduct ? "New BYBOLT high-temperature alloy mill product" : "New BYBOLT alloy fastener product",
+      gallery: [],
       status: "draft",
       sortOrder: 999,
       translation: { zh: {} },
@@ -528,6 +536,41 @@ export function AdminApp() {
     setSelectedCertificateId(catalog.certificates.find((item) => item.id !== certificateId)?.id ?? "");
   }
 
+  function addProcess() {
+    const suffix = Date.now().toString().slice(-6);
+    const process: ManufacturingProcess = {
+      slug: `new-process-${suffix}`,
+      number: String(catalog.processes.length + 1).padStart(2, "0"),
+      title: "New manufacturing process",
+      summary: "Add a concise summary of this manufacturing stage and its role in the custom route.",
+      description: "Add the complete process description here, including the production purpose, technical sequence and the records connected to this manufacturing stage.",
+      control: "Describe the critical control point reviewed before the component moves to the next stage.",
+      image: "/assets/manufacturing-process-white.png",
+      imageAlt: "BYBOLT custom manufacturing process",
+      imagePosition: "50% 50%",
+      status: "draft",
+      sortOrder: catalog.processes.length + 1,
+      translation: { zh: {} },
+    };
+    mutateCatalog((draft) => { draft.processes.push(process); });
+    setSelectedProcessSlug(process.slug);
+    switchCatalog("processes");
+  }
+
+  function updateSelectedProcess(field: string, value: ResourceFieldValue) {
+    if (!selectedProcess) return;
+    const previousSlug = selectedProcess.slug;
+    mutateCatalog((draft) => updateManufacturingProcess(draft, previousSlug, localeTab, field, value));
+    if (field === "slug" && typeof value === "string" && value) setSelectedProcessSlug(value);
+  }
+
+  function deleteProcess(processSlug: string) {
+    const process = catalog.processes.find((item) => item.slug === processSlug);
+    if (!process || !window.confirm(`Delete ${process.title}? The change is not permanent until published.`)) return;
+    mutateCatalog((draft) => { draft.processes = draft.processes.filter((item) => item.slug !== processSlug); });
+    setSelectedProcessSlug(catalog.processes.find((item) => item.slug !== processSlug)?.slug ?? "");
+  }
+
   function addContactMethod() {
     const suffix = Date.now().toString().slice(-6);
     const method: ContactDetails = {
@@ -555,7 +598,7 @@ export function AdminApp() {
     mutateCatalog((draft) => { draft.contact = draft.contact.filter((item) => item.id !== id); });
   }
 
-  async function uploadImage(file: File, slug: string, onReady: (sitePath: string) => void, directory: "products" | "news" | "certificates" = "products") {
+  async function uploadImage(file: File, slug: string, onReady: (sitePath: string) => void, directory: "products" | "news" | "certificates" | "processes" = "products") {
     try {
       const asset = await prepareProductImage(file, slug, directory);
       setPendingAssets((current) => [...current, asset]);
@@ -586,12 +629,54 @@ export function AdminApp() {
     }
   }
 
+  function addSelectedProductGalleryImages(files: File[]) {
+    if (!selectedCategory || !selectedProduct) return;
+    const categorySlug = selectedCategory.slug;
+    const productSlug = selectedProduct.slug;
+    const startOrder = Math.max(0, ...selectedProduct.gallery.map((image) => image.sortOrder)) + 10;
+    files.forEach((file, index) => {
+      void uploadImage(file, `${productSlug}-gallery`, (path) => {
+        mutateCatalog((draft) => {
+          const product = draft.categories.find((category) => category.slug === categorySlug)?.models.find((item) => item.slug === productSlug);
+          if (!product || product.gallery.length >= 12) return;
+          product.gallery.push({
+            id: `image-${Date.now().toString(36)}-${crypto.randomUUID().slice(0, 6)}`,
+            image: path,
+            alt: `${product.name} product view ${product.gallery.length + 2}`,
+            imagePosition: "50% 50%",
+            sortOrder: startOrder + index,
+          });
+        });
+      });
+    });
+  }
+
+  function updateSelectedProductGalleryImage(imageId: string, field: "alt" | "imagePosition" | "sortOrder", value: string | number) {
+    if (!selectedCategory || !selectedProduct) return;
+    mutateCatalog((draft) => {
+      const image = draft.categories.find((category) => category.slug === selectedCategory.slug)?.models
+        .find((product) => product.slug === selectedProduct.slug)?.gallery.find((item) => item.id === imageId);
+      if (image) (image as unknown as Record<string, string | number>)[field] = value;
+    });
+  }
+
+  function deleteSelectedProductGalleryImage(imageId: string) {
+    if (!selectedCategory || !selectedProduct) return;
+    const image = selectedProduct.gallery.find((item) => item.id === imageId);
+    if (!image || !window.confirm("Remove this image from the product gallery? The change is not permanent until published.")) return;
+    mutateCatalog((draft) => {
+      const product = draft.categories.find((category) => category.slug === selectedCategory.slug)?.models.find((item) => item.slug === selectedProduct.slug);
+      if (product) product.gallery = product.gallery.filter((item) => item.id !== imageId);
+    });
+  }
+
   const selectedCategory = catalog.categories.find((category) => category.slug === selection.categorySlug);
   const selectedProduct = selection.kind === "product" ? selectedCategory?.models.find((product) => product.slug === selection.productSlug) : undefined;
   const selectedMaterial = catalog.materials.find((material) => material.slug === selectedMaterialSlug) ?? catalog.materials[0];
   const selectedNews = catalog.news.find((article) => article.slug === selectedNewsSlug) ?? catalog.news[0];
   const selectedFaq = catalog.faqs.find((faq) => faq.id === selectedFaqId) ?? catalog.faqs[0];
   const selectedCertificate = catalog.certificates.find((certificate) => certificate.id === selectedCertificateId) ?? catalog.certificates[0];
+  const selectedProcess = catalog.processes.find((process) => process.slug === selectedProcessSlug) ?? catalog.processes[0];
   const productRange1Categories = catalog.categories
     .filter((category) => category.productRange === "range1")
     .sort(compareProductCategories);
@@ -624,7 +709,7 @@ export function AdminApp() {
       <div className={styles.workspace}>
         <aside className={`${styles.sidebar} ${mobileMenu ? styles.sidebarOpen : ""}`}>
           <div className={styles.sidebarHeader}>
-            <div><p>Catalog</p><strong>{catalogMode === "products" ? `${publishedCount} published products` : catalogMode === "materials" ? `${publishedMaterialCount} published materials` : catalogMode === "news" ? `${publishedNewsCount} published articles` : catalogMode === "faqs" ? `${publishedFaqCount} published questions` : catalogMode === "quality" ? `${publishedCertificateCount} published certificates` : `${publishedContactCount} published contact methods`}</strong></div>
+            <div><p>Catalog</p><strong>{catalogMode === "products" ? `${publishedCount} published products` : catalogMode === "materials" ? `${publishedMaterialCount} published materials` : catalogMode === "news" ? `${publishedNewsCount} published articles` : catalogMode === "faqs" ? `${publishedFaqCount} published questions` : catalogMode === "quality" ? `${publishedCertificateCount} published certificates` : catalogMode === "processes" ? `${publishedProcessCount} published processes` : `${publishedContactCount} published contact methods`}</strong></div>
             <button className={styles.mobileClose} type="button" aria-label="Close product navigation" onClick={() => setMobileMenu(false)}><X /></button>
           </div>
           <div className={styles.catalogTabs} aria-label="Catalog type">
@@ -633,6 +718,7 @@ export function AdminApp() {
             <button className={catalogMode === "news" ? styles.activeCatalogTab : ""} type="button" onClick={() => switchCatalog("news")}><BookOpenText />News</button>
             <button className={catalogMode === "faqs" ? styles.activeCatalogTab : ""} type="button" onClick={() => switchCatalog("faqs")}><CircleAlert />FAQ</button>
             <button className={catalogMode === "quality" ? styles.activeCatalogTab : ""} type="button" onClick={() => switchCatalog("quality")}><ShieldCheck />Quality</button>
+            <button className={catalogMode === "processes" ? styles.activeCatalogTab : ""} type="button" onClick={() => switchCatalog("processes")}><Settings2 />Processes</button>
             <button className={catalogMode === "contact" ? styles.activeCatalogTab : ""} type="button" onClick={() => switchCatalog("contact")}><SquareUserRound />Contact</button>
           </div>
           {catalogMode !== "contact" && <label className={styles.search}><Search /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder={`Search ${catalogMode}`} /></label>}
@@ -695,15 +781,22 @@ export function AdminApp() {
               .map((certificate) => <button className={`${styles.productRow} ${certificate.status === "archived" ? styles.hiddenResource : ""} ${selectedCertificate?.id === certificate.id ? styles.activeRow : ""}`} type="button" key={certificate.id} onClick={() => { setSelectedCertificateId(certificate.id); setMobileMenu(false); }}>
                 <ShieldCheck /><span><b>{certificate.title}</b><small>Order {certificate.sortOrder}</small></span><StatusMark status={certificate.status} />
               </button>)}
+          </nav> : catalogMode === "processes" ? <nav className={`${styles.catalogNav} ${styles.materialNav}`} aria-label="Manufacturing process editor">
+            {catalog.processes
+              .filter((process) => `${process.title} ${process.slug} ${process.number}`.toLowerCase().includes(query.toLowerCase()))
+              .sort((left, right) => Number(left.status === "archived") - Number(right.status === "archived") || left.sortOrder - right.sortOrder)
+              .map((process) => <button className={`${styles.productRow} ${process.status === "archived" ? styles.hiddenResource : ""} ${selectedProcess?.slug === process.slug ? styles.activeRow : ""}`} type="button" key={process.slug} onClick={() => { setSelectedProcessSlug(process.slug); setMobileMenu(false); }}>
+                <Settings2 /><span><b>{process.number} {process.title}</b><small>Order {process.sortOrder}</small></span><StatusMark status={process.status} />
+              </button>)}
           </nav> : <div className={styles.contactSidebar}><SquareUserRound /><p>Manage the contact methods shared by Resources, About and other public sections.</p></div>}
-          {catalogMode !== "products" && <button className={styles.addCategory} type="button" onClick={catalogMode === "materials" ? addMaterial : catalogMode === "news" ? addNewsArticle : catalogMode === "quality" ? addCertificate : catalogMode === "contact" ? addContactMethod : addFaq}><Plus /> {catalogMode === "materials" ? "Add material" : catalogMode === "news" ? "Add news article" : catalogMode === "quality" ? "Add certificate" : catalogMode === "contact" ? "Add contact method" : "Add FAQ"}</button>}
+          {catalogMode !== "products" && <button className={styles.addCategory} type="button" onClick={catalogMode === "materials" ? addMaterial : catalogMode === "news" ? addNewsArticle : catalogMode === "quality" ? addCertificate : catalogMode === "processes" ? addProcess : catalogMode === "contact" ? addContactMethod : addFaq}><Plus /> {catalogMode === "materials" ? "Add material" : catalogMode === "news" ? "Add news article" : catalogMode === "quality" ? "Add certificate" : catalogMode === "processes" ? "Add process" : catalogMode === "contact" ? "Add contact method" : "Add FAQ"}</button>}
         </aside>
 
         <section className={styles.editorArea}>
           <div className={styles.editorHeader}>
             <div>
-              <p>{catalogMode === "materials" ? "Material catalog" : catalogMode === "news" ? "News and technical resources" : catalogMode === "faqs" ? "Frequently asked questions" : catalogMode === "quality" ? "Quality certificates" : catalogMode === "contact" ? "Shared site settings" : selection.kind === "product" ? selectedCategory?.name : "Category settings"}</p>
-              <h1>{catalogMode === "materials" ? selectedMaterial?.name : catalogMode === "news" ? selectedNews?.title : catalogMode === "faqs" ? selectedFaq?.question : catalogMode === "quality" ? selectedCertificate?.title : catalogMode === "contact" ? "Contact details" : selection.kind === "product" ? selectedProduct?.name : selectedCategory?.name}</h1>
+              <p>{catalogMode === "materials" ? "Material catalog" : catalogMode === "news" ? "News and technical resources" : catalogMode === "faqs" ? "Frequently asked questions" : catalogMode === "quality" ? "Quality certificates" : catalogMode === "processes" ? "Custom manufacturing processes" : catalogMode === "contact" ? "Shared site settings" : selection.kind === "product" ? selectedCategory?.name : "Category settings"}</p>
+              <h1>{catalogMode === "materials" ? selectedMaterial?.name : catalogMode === "news" ? selectedNews?.title : catalogMode === "faqs" ? selectedFaq?.question : catalogMode === "quality" ? selectedCertificate?.title : catalogMode === "processes" ? selectedProcess?.title : catalogMode === "contact" ? "Contact details" : selection.kind === "product" ? selectedProduct?.name : selectedCategory?.name}</h1>
             </div>
             <div className={styles.localeTabs} aria-label="Content language">
               <button className={localeTab === "en" ? styles.activeLocale : ""} type="button" onClick={() => setLocaleTab("en")}>English</button>
@@ -711,21 +804,23 @@ export function AdminApp() {
             </div>
           </div>
           {catalogMode === "products" && selectedCategory && selection.kind === "category" && <CategoryEditor category={selectedCategory} locale={localeTab} lockedSlug={productCatalogDocument.categories.some((item) => item.slug === selectedCategory.slug && item.status === "published")} update={updateSelectedCategory} upload={(file) => void uploadImage(file, selectedCategory.slug, (path) => mutateCatalog((draft) => updateCategory(draft, selectedCategory.slug, "en", "image", path)))} hide={() => hideCategory(selectedCategory.slug)} restore={() => restoreCategory(selectedCategory.slug)} remove={() => deleteCategory(selectedCategory.slug)} />}
-          {catalogMode === "products" && selectedCategory && selectedProduct && selection.kind === "product" && <ProductEditor product={selectedProduct} locale={localeTab} lockedSlug={productCatalogDocument.categories.some((category) => category.slug === selectedCategory.slug && category.models.some((item) => item.slug === selectedProduct.slug && item.status === "published"))} update={updateSelectedProduct} upload={(file) => void uploadImage(file, selectedProduct.slug, (path) => mutateCatalog((draft) => updateProduct(draft, selectedCategory.slug, selectedProduct.slug, "en", "image", path)))} duplicate={() => duplicateProduct(selectedCategory.slug, selectedProduct.slug)} remove={() => deleteProduct(selectedCategory.slug, selectedProduct.slug)} />}
+          {catalogMode === "products" && selectedCategory && selectedProduct && selection.kind === "product" && <ProductEditor product={selectedProduct} locale={localeTab} lockedSlug={productCatalogDocument.categories.some((category) => category.slug === selectedCategory.slug && category.models.some((item) => item.slug === selectedProduct.slug && item.status === "published"))} assets={pendingAssets} update={updateSelectedProduct} upload={(file) => void uploadImage(file, selectedProduct.slug, (path) => mutateCatalog((draft) => updateProduct(draft, selectedCategory.slug, selectedProduct.slug, "en", "image", path)))} uploadGallery={addSelectedProductGalleryImages} updateGallery={updateSelectedProductGalleryImage} removeGallery={deleteSelectedProductGalleryImage} duplicate={() => duplicateProduct(selectedCategory.slug, selectedProduct.slug)} remove={() => deleteProduct(selectedCategory.slug, selectedProduct.slug)} />}
           {catalogMode === "materials" && selectedMaterial && <MaterialEditor material={selectedMaterial} locale={localeTab} lockedSlug={productCatalogDocument.materials.some((item) => item.slug === selectedMaterial.slug && item.status === "published")} update={updateSelectedMaterial} duplicate={() => duplicateMaterial(selectedMaterial.slug)} remove={() => deleteMaterial(selectedMaterial.slug)} />}
           {catalogMode === "news" && selectedNews && <NewsEditor article={selectedNews} locale={localeTab} lockedSlug={productCatalogDocument.news.some((item) => item.slug === selectedNews.slug && item.status === "published")} pinnedCount={catalog.news.filter((article) => article.pinned).length} update={updateSelectedNews} upload={(file) => void uploadImage(file, selectedNews.slug, (path) => mutateCatalog((draft) => updateNewsArticle(draft, selectedNews.slug, "en", "image", path)), "news")} remove={() => deleteNewsArticle(selectedNews.slug)} />}
           {catalogMode === "faqs" && selectedFaq && <FaqEditor faq={selectedFaq} locale={localeTab} update={updateSelectedFaq} remove={() => deleteFaq(selectedFaq.id)} />}
           {catalogMode === "quality" && selectedCertificate && <CertificateEditor certificate={selectedCertificate} locale={localeTab} update={updateSelectedCertificate} upload={(file) => void uploadImage(file, selectedCertificate.id, (path) => mutateCatalog((draft) => updateQualityCertificate(draft, selectedCertificate.id, "en", "image", path)), "certificates")} remove={() => deleteCertificate(selectedCertificate.id)} />}
+          {catalogMode === "processes" && selectedProcess && <ProcessEditor process={selectedProcess} locale={localeTab} update={updateSelectedProcess} upload={(file) => void uploadImage(file, selectedProcess.slug, (path) => mutateCatalog((draft) => updateManufacturingProcess(draft, selectedProcess.slug, "en", "image", path)), "processes")} remove={() => deleteProcess(selectedProcess.slug)} />}
           {catalogMode === "contact" && <ContactEditor contact={catalog.contact} update={updateContact} remove={deleteContactMethod} />}
         </section>
 
         <aside className={styles.previewRail}>
-          <div className={styles.previewHeader}><div><p>Live preview</p><strong>{localeTab === "zh" ? "Chinese with English fallback" : "English content"}</strong></div><a href={catalogMode === "materials" && selectedMaterial ? `/en/alloys/${selectedMaterial.slug}/` : catalogMode === "news" && selectedNews ? `/en/news/${selectedNews.slug}/` : catalogMode === "quality" ? "/en/quality/" : catalogMode === "faqs" || catalogMode === "contact" ? "/en/resources/" : selectedCategory ? `/en/products/${selectedCategory.slug}/${selectedProduct?.slug ?? ""}` : "/en/products/"} target="_blank" rel="noreferrer" title="Open public page"><ExternalLink /></a></div>
+          <div className={styles.previewHeader}><div><p>Live preview</p><strong>{localeTab === "zh" ? "Chinese with English fallback" : "English content"}</strong></div><a href={catalogMode === "materials" && selectedMaterial ? `/en/alloys/${selectedMaterial.slug}/` : catalogMode === "news" && selectedNews ? `/en/news/${selectedNews.slug}/` : catalogMode === "quality" ? "/en/quality/" : catalogMode === "processes" && selectedProcess ? `/en/capabilities/${selectedProcess.slug}/` : catalogMode === "faqs" || catalogMode === "contact" ? "/en/resources/" : selectedCategory ? `/en/products/${selectedCategory.slug}/${selectedProduct?.slug ?? ""}` : "/en/products/"} target="_blank" rel="noreferrer" title="Open public page"><ExternalLink /></a></div>
           {catalogMode === "products" && selectedCategory && <CatalogPreview category={selectedCategory} product={selectedProduct} locale={localeTab} assets={pendingAssets} />}
           {catalogMode === "materials" && selectedMaterial && <MaterialPreview material={selectedMaterial} locale={localeTab} />}
           {catalogMode === "news" && selectedNews && <NewsPreview article={selectedNews} locale={localeTab} assets={pendingAssets} />}
           {catalogMode === "faqs" && selectedFaq && <FaqPreview faq={selectedFaq} locale={localeTab} />}
           {catalogMode === "quality" && selectedCertificate && <CertificatePreview certificate={selectedCertificate} locale={localeTab} assets={pendingAssets} />}
+          {catalogMode === "processes" && selectedProcess && <ProcessPreview process={selectedProcess} locale={localeTab} assets={pendingAssets} />}
           {catalogMode === "contact" && <ContactPreview contact={catalog.contact} />}
           <div className={styles.validationPanel}>
             <div className={styles.validationHeading}>{validation.success ? <Check /> : <CircleAlert />}<div><strong>{validation.success ? "Ready to publish" : `${validation.error.issues.length} validation issues`}</strong><span>{pendingAssets.length} image{pendingAssets.length === 1 ? "" : "s"} queued</span></div></div>
@@ -834,7 +929,7 @@ function CategoryEditor({ category, locale, lockedSlug, update, upload, hide, re
   </div>;
 }
 
-function ProductEditor({ product, locale, lockedSlug, update, upload, duplicate, remove }: { product: ProductModel; locale: LocaleTab; lockedSlug: boolean; update: (field: string, value: string | number) => void; upload: (file: File) => void; duplicate: () => void; remove: () => void }) {
+function ProductEditor({ product, locale, lockedSlug, assets, update, upload, uploadGallery, updateGallery, removeGallery, duplicate, remove }: { product: ProductModel; locale: LocaleTab; lockedSlug: boolean; assets: PendingAsset[]; update: (field: string, value: string | number) => void; upload: (file: File) => void; uploadGallery: (files: File[]) => void; updateGallery: (imageId: string, field: "alt" | "imagePosition" | "sortOrder", value: string | number) => void; removeGallery: (imageId: string) => void; duplicate: () => void; remove: () => void }) {
   const copy = locale === "en" ? product : { ...product, ...product.translation.zh };
   return <div className={styles.formSections}>
     <FormSection title="Product identity" description="The English slug remains the canonical URL for both language routes.">
@@ -842,7 +937,15 @@ function ProductEditor({ product, locale, lockedSlug, update, upload, duplicate,
       <div className={styles.twoColumns}><Field label="Product type" value={copy.eyebrow ?? ""} onChange={(value) => update("eyebrow", value)} />{locale === "en" && <StatusField value={product.status} onChange={(value) => update("status", value)} />}</div>
       <Field label="Product description" multiline rows={4} value={copy.description ?? ""} onChange={(value) => update("description", value)} />
     </FormSection>
-    {locale === "en" && <FormSection title="Product image" description="Images are resized to 1920 px, converted to WebP and committed with the catalog."><ImageField path={product.image} alt={product.alt} onAltChange={(value) => update("alt", value)} onUpload={upload} /></FormSection>}
+    <FormSection title="Product Features" description="Long-form product characteristics shown below the gallery and technical specification.">
+      <Field label="Product feature text" multiline rows={7} value={copy.features ?? ""} maxLength={5000} onChange={(value) => update("features", value)} />
+    </FormSection>
+    {locale === "en" && <>
+      <FormSection title="Primary product image" description="The primary image is always the first image on the product page."><ImageField path={product.image} alt={product.alt} onAltChange={(value) => update("alt", value)} onUpload={upload} /></FormSection>
+      <FormSection title="Product image gallery" description="Add up to 12 additional views. Lower sort orders appear first after the primary image.">
+        <ProductGalleryEditor images={product.gallery} assets={assets} onUpload={uploadGallery} onUpdate={updateGallery} onRemove={removeGallery} />
+      </FormSection>
+    </>}
     <FormSection title="Technical specification" description="These values populate the specification rail and product detail page.">
       <div className={styles.twoColumns}><Field label="Size range" value={copy.size ?? ""} onChange={(value) => update("size", value)} /><Field label="Length / thickness" value={copy.length ?? ""} onChange={(value) => update("length", value)} /></div>
       <Field label="Standard" value={copy.standard ?? ""} onChange={(value) => update("standard", value)} />
@@ -984,6 +1087,32 @@ function ContactEditor({ contact, update, remove }: { contact: ContactDetails[];
   </div>;
 }
 
+function ProcessEditor({ process, locale, update, upload, remove }: { process: ManufacturingProcess; locale: LocaleTab; update: (field: string, value: ResourceFieldValue) => void; upload: (file: File) => void; remove: () => void }) {
+  const copy = locale === "zh" ? { ...process, ...process.translation.zh } : process;
+  return <div className={styles.formSections}>
+    <FormSection title="Process identity" description="Published processes appear on Custom and receive an individual static detail page.">
+      <div className={styles.threeColumns}><Field label="Process title" value={copy.title ?? ""} onChange={(value) => update("title", value)} /><Field label="URL slug" value={process.slug} disabled={locale === "zh"} onChange={(value) => update("slug", slugify(value))} /><Field label="Index" value={process.number} disabled={locale === "zh"} onChange={(value) => update("number", value)} /></div>
+      <div className={styles.twoColumns}><Field label="Sort order" type="number" value={String(process.sortOrder)} disabled={locale === "zh"} onChange={(value) => update("sortOrder", Number(value))} /><StatusField value={process.status} onChange={(value) => update("status", value)} /></div>
+      <Field label="Summary" multiline rows={3} value={copy.summary ?? ""} onChange={(value) => update("summary", value)} />
+      <Field label="Complete process description" multiline rows={8} value={copy.description ?? ""} hint="Separate paragraphs with a blank line." onChange={(value) => update("description", value)} />
+      <Field label="Control point" multiline rows={4} value={copy.control ?? ""} onChange={(value) => update("control", value)} />
+    </FormSection>
+    {locale === "en" && <FormSection title="Process image" description="Used on the process detail page. Uploaded files are optimized and committed with the catalog.">
+      <ImageField path={process.image} alt={process.imageAlt} onAltChange={(value) => update("imageAlt", value)} onUpload={upload} />
+      <Field label="Image focus" value={process.imagePosition ?? "50% 50%"} hint="CSS object position, for example 50% 50% or 0% 50%." onChange={(value) => update("imagePosition", value)} />
+    </FormSection>}
+    {locale === "zh" && <FormSection title="Chinese image description" description="Optional Chinese alternative text. Empty content falls back to English."><Field label="Alternative text" value={copy.imageAlt ?? ""} onChange={(value) => update("imageAlt", value)} /></FormSection>}
+    <FormSection title="Search appearance" description="Optional metadata overrides. Empty fields use the process title and summary.">
+      <Field label="SEO title" maxLength={70} value={copy.seoTitle ?? ""} onChange={(value) => update("seoTitle", value)} />
+      <Field label="SEO description" multiline rows={3} maxLength={180} value={copy.seoDescription ?? ""} onChange={(value) => update("seoDescription", value)} />
+    </FormSection>
+    {locale === "en" && <div className={styles.folderActions}>
+      <button type="button" onClick={() => update("status", process.status === "archived" ? "draft" : "archived")}>{process.status === "archived" ? <Eye /> : <EyeOff />}{process.status === "archived" ? "Restore process" : "Hide process"}</button>
+      <button className={styles.deleteButton} type="button" onClick={remove}><Trash2 /> Delete process</button>
+    </div>}
+  </div>;
+}
+
 function FormSection({ title, description, children }: { title: string; description: string; children: React.ReactNode }) {
   return <section className={styles.formSection}><header><h2>{title}</h2><p>{description}</p></header><div className={styles.fields}>{children}</div></section>;
 }
@@ -1076,6 +1205,39 @@ function CertificatePreview({ certificate, locale, assets }: { certificate: Qual
 function ContactPreview({ contact }: { contact: ContactDetails[] }) {
   const visible = contact.filter((method) => method.status === "published").sort((left, right) => left.sortOrder - right.sortOrder);
   return <div className={`${styles.previewCard} ${styles.materialPreview}`}><div className={styles.previewCopy}><span>Shared contact details</span><h2>Contact BYBOLT</h2><dl>{visible.map((method) => <div key={method.id}><dt>{method.label}</dt><dd>{method.value || "—"}</dd></div>)}</dl></div></div>;
+}
+
+function ProductGalleryEditor({ images, assets, onUpload, onUpdate, onRemove }: { images: ProductModel["gallery"]; assets: PendingAsset[]; onUpload: (files: File[]) => void; onUpdate: (imageId: string, field: "alt" | "imagePosition" | "sortOrder", value: string | number) => void; onRemove: (imageId: string) => void }) {
+  const input = useRef<HTMLInputElement>(null);
+  const sortedImages = images.slice().sort((left, right) => left.sortOrder - right.sortOrder);
+  return <div className={styles.galleryEditor}>
+    <div className={styles.galleryToolbar}>
+      <span>{images.length} / 12 additional images</span>
+      <button type="button" disabled={images.length >= 12} onClick={() => input.current?.click()}><Upload /> Add images</button>
+      <input ref={input} hidden multiple type="file" accept="image/jpeg,image/png,image/webp" onChange={(event) => { const files = Array.from(event.target.files ?? []).slice(0, 12 - images.length); if (files.length) onUpload(files); event.currentTarget.value = ""; }} />
+    </div>
+    {sortedImages.length === 0 ? <p className={styles.galleryEmpty}>No additional views yet. The primary product image remains visible on the public page.</p> : <div className={styles.galleryAdminGrid}>
+      {sortedImages.map((image, index) => <article className={styles.galleryAdminItem} key={image.id}>
+        <figure><img src={previewAsset(image.image, assets)} alt="" style={{ objectPosition: image.imagePosition ?? "50% 50%" }} /><span>{String(index + 2).padStart(2, "0")}</span></figure>
+        <div className={styles.galleryAdminFields}>
+          <Field label="Alternative text" value={image.alt} onChange={(value) => onUpdate(image.id, "alt", value)} />
+          <div className={styles.twoColumns}>
+            <Field label="Image focus" value={image.imagePosition ?? "50% 50%"} onChange={(value) => onUpdate(image.id, "imagePosition", value)} />
+            <Field label="Sort order" type="number" value={String(image.sortOrder)} onChange={(value) => onUpdate(image.id, "sortOrder", Number(value))} />
+          </div>
+          <button className={styles.galleryRemove} type="button" onClick={() => onRemove(image.id)}><Trash2 /> Remove image</button>
+        </div>
+      </article>)}
+    </div>}
+  </div>;
+}
+
+function ProcessPreview({ process, locale, assets }: { process: ManufacturingProcess; locale: LocaleTab; assets: PendingAsset[] }) {
+  const copy = locale === "zh" ? { ...process, ...process.translation.zh } : process;
+  return <div className={styles.previewCard}>
+    <figure><img src={previewAsset(process.image, assets)} alt="" style={{ objectPosition: process.imagePosition ?? "50% 50%" }} /></figure>
+    <div className={styles.previewCopy}><span>{process.number} Custom process</span><h2>{copy.title}</h2><p>{copy.summary}</p><dl><div><dt>Visibility</dt><dd>{process.status}</dd></div><div><dt>Sort order</dt><dd>{process.sortOrder}</dd></div></dl></div>
+  </div>;
 }
 
 function StatusMark({ status }: { status: PublicationStatus }) {
@@ -1191,6 +1353,7 @@ function readLocalDraft(): ProductCatalogDocument | null {
     if (!draft.news) draft.news = structuredClone(productCatalogDocument.news);
     if (!draft.faqs) draft.faqs = structuredClone(productCatalogDocument.faqs);
     if (!draft.certificates) draft.certificates = structuredClone(productCatalogDocument.certificates);
+    if (!draft.processes) draft.processes = structuredClone(productCatalogDocument.processes);
     draft.contact = normalizeContactDetails(draft.contact);
     const result = productCatalogSchema.safeParse(draft);
     return result.success ? result.data as ProductCatalogDocument : null;
@@ -1205,10 +1368,22 @@ function normalizeCatalog(value: ProductCatalogDocument | Partial<ProductCatalog
   if (!candidate.news) candidate.news = structuredClone(productCatalogDocument.news);
   if (!candidate.faqs) candidate.faqs = structuredClone(productCatalogDocument.faqs);
   if (!candidate.certificates) candidate.certificates = structuredClone(productCatalogDocument.certificates);
+  if (!candidate.processes) candidate.processes = structuredClone(productCatalogDocument.processes);
   candidate.contact = normalizeContactDetails(candidate.contact);
   const result = productCatalogSchema.safeParse(candidate);
   if (!result.success) throw new Error("The repository catalog is not compatible with this editor.");
   return result.data as ProductCatalogDocument;
+}
+
+function updateManufacturingProcess(catalog: ProductCatalogDocument, slug: string, locale: LocaleTab, field: string, value: ResourceFieldValue) {
+  const process = catalog.processes.find((item) => item.slug === slug);
+  if (!process) return;
+  const localizedFields = new Set(["title", "summary", "description", "control", "imageAlt", "seoTitle", "seoDescription"]);
+  if (locale === "zh" && localizedFields.has(field)) {
+    (process.translation.zh as Record<string, ResourceFieldValue>)[field] = value;
+    return;
+  }
+  (process as unknown as Record<string, ResourceFieldValue>)[field] = value;
 }
 
 function normalizeContactDetails(value: unknown): ContactDetails[] {

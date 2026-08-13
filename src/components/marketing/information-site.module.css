@@ -72,6 +72,27 @@ main.informationSite .hero h1 {
   line-height: 1.62;
 }
 
+.customHero {
+  padding-block: 74px;
+}
+
+.customHeroGrid {
+  min-height: 190px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.5fr) minmax(380px, 0.5fr);
+  gap: 96px;
+  align-items: end;
+}
+
+main.informationSite .customHero h1 {
+  max-width: 560px;
+  margin: 0;
+  color: var(--info-ink);
+  font-size: clamp(54px, 5.4vw, 78px);
+  font-weight: 500;
+  line-height: 0.98;
+}
+
 .section {
   padding: 92px 0 112px;
   background: var(--info-paper);
@@ -144,6 +165,7 @@ main.informationSite .hero h1 {
 
 .processFigure {
   position: relative;
+  aspect-ratio: 1672 / 570;
   margin: 0;
   overflow: hidden;
   border: 1px solid var(--info-line);
@@ -152,8 +174,11 @@ main.informationSite .hero h1 {
 
 .processFigure > img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
+  object-fit: cover;
+  object-position: 50% 55%;
+  mix-blend-mode: multiply;
 }
 
 .processHotspots {
@@ -172,13 +197,118 @@ main.informationSite .hero h1 {
 .processHotspots a::after {
   content: "";
   position: absolute;
-  top: 61.8%;
+  top: 66%;
   right: 4%;
-  bottom: 31.4%;
+  bottom: 18%;
   left: 4%;
   border: 1px solid transparent;
   clip-path: polygon(4% 0, 96% 0, 100% 16%, 100% 84%, 96% 100%, 4% 100%, 0 84%, 0 16%);
   transition: border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.processOverview {
+  padding-top: 76px;
+}
+
+.processDetailHero {
+  padding-block: 76px;
+}
+
+.processBreadcrumb {
+  margin: 0 0 20px;
+  color: var(--info-teal);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.processLead {
+  max-width: 760px;
+  margin: 26px 0 0;
+  color: var(--info-muted);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.processDetailSection {
+  padding-top: 72px;
+}
+
+.processDetailGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(420px, 0.98fr);
+  gap: 68px;
+  align-items: stretch;
+}
+
+.processDetailMedia {
+  min-height: 620px;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid var(--info-line);
+  background: var(--info-paper);
+}
+
+.processDetailMedia img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+}
+
+.processDetailCopy {
+  align-self: center;
+}
+
+.processDetailCopy h2 {
+  margin: 0 0 28px;
+  font-size: clamp(42px, 4.5vw, 62px);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.processDetailCopy > p:not(.kicker) {
+  margin: 0 0 18px;
+  color: var(--info-muted);
+  font-size: 17px;
+  line-height: 1.68;
+}
+
+.controlPanel {
+  margin-top: 34px;
+  padding: 26px 0;
+  border-top: 1px solid var(--info-line);
+  border-bottom: 1px solid var(--info-line);
+}
+
+.controlPanel span {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--info-teal);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.controlPanel p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.processDetailActions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 34px;
+}
+
+.textLink {
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .processHotspots a:nth-child(2)::after { right: 2%; left: 22%; }
@@ -858,6 +988,7 @@ main.informationSite .hero h1 {
 
 @media (max-width: 980px) {
   .heroGrid,
+  .customHeroGrid,
   .sectionHeading,
   .storyGrid,
   .contactGrid {
@@ -882,6 +1013,14 @@ main.informationSite .hero h1 {
 
   .processStage > div:last-child {
     grid-column: 2;
+  }
+
+  .processDetailGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .processDetailMedia {
+    min-height: 520px;
   }
 }
 
@@ -941,6 +1080,21 @@ main.informationSite .hero h1 {
 
   .processFigure {
     display: none;
+  }
+
+  .customHeroGrid {
+    min-height: 0;
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .processDetailMedia {
+    min-height: 360px;
+  }
+
+  .processDetailActions {
+    align-items: stretch;
+    flex-direction: column;
   }
 
   .processDirectory a {

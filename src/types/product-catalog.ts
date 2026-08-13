@@ -12,10 +12,19 @@ export type ProductTranslation = Partial<{
   standard: string;
   configuration: string;
   threads: string;
+  features: string;
   alt: string;
   seoTitle: string;
   seoDescription: string;
 }>;
+
+export type ProductGalleryImage = {
+  id: string;
+  image: string;
+  alt: string;
+  imagePosition?: string;
+  sortOrder: number;
+};
 
 export type CategoryTranslation = Partial<{
   name: string;
@@ -36,8 +45,10 @@ export type ProductModel = {
   standard: string;
   configuration: string;
   threads: string;
+  features: string;
   image: string;
   alt: string;
+  gallery: ProductGalleryImage[];
   status: PublicationStatus;
   sortOrder: number;
   seoTitle?: string;
@@ -142,6 +153,33 @@ export type ContactDetails = {
   sortOrder: number;
 };
 
+export type ManufacturingProcessTranslation = Partial<{
+  title: string;
+  summary: string;
+  description: string;
+  control: string;
+  imageAlt: string;
+  seoTitle: string;
+  seoDescription: string;
+}>;
+
+export type ManufacturingProcess = {
+  slug: string;
+  number: string;
+  title: string;
+  summary: string;
+  description: string;
+  control: string;
+  image: string;
+  imageAlt: string;
+  imagePosition?: string;
+  status: PublicationStatus;
+  sortOrder: number;
+  seoTitle?: string;
+  seoDescription?: string;
+  translation: { zh: ManufacturingProcessTranslation };
+};
+
 export type ProductCatalogDocument = {
   version: 2;
   updatedAt: string;
@@ -150,6 +188,7 @@ export type ProductCatalogDocument = {
   news: NewsArticle[];
   faqs: FaqItem[];
   certificates: QualityCertificate[];
+  processes: ManufacturingProcess[];
   contact: ContactDetails[];
   sharedProductProperties: SharedProductProperties;
 };

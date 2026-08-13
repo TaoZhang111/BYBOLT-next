@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 import { siteConfig } from "@/config/site";
 import { alloyMaterials } from "@/content/materials";
-import { newsArticles, productCategories } from "@/content/product-catalog";
+import { manufacturingProcesses, newsArticles, productCategories } from "@/content/product-catalog";
 import { locales } from "@/i18n/config";
 
 export const dynamic = "force-static";
@@ -43,6 +43,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "monthly" as const,
     priority: 0.65,
   })));
+  const processPages = locales.flatMap((locale) => manufacturingProcesses.map((process) => ({
+    url: `${siteConfig.url}/${locale}/capabilities/${process.slug}/`,
+    lastModified,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  })));
 
-  return [...staticPages, ...productPages, ...materialPages, ...newsPages];
+  return [...staticPages, ...productPages, ...materialPages, ...newsPages, ...processPages];
 }

@@ -58,7 +58,7 @@ export function HomeHeader({ locale, solid = false, quoteCurrent = false, curren
       <nav className={`site-nav${isOpen ? " is-open" : ""}`} aria-label="Primary navigation">
         <CatalogDropdown kind="products" locale={locale} surface="home" current={current === "products"} onNavigate={() => setIsOpen(false)} />
         <CatalogDropdown kind="materials" locale={locale} surface="home" current={current === "materials"} onNavigate={() => setIsOpen(false)} />
-        <Link href={`${base}/capabilities`} aria-current={current === "custom" ? "page" : undefined} onClick={() => setIsOpen(false)}>Custom</Link>
+        <CatalogDropdown kind="custom" locale={locale} surface="home" current={current === "custom"} onNavigate={() => setIsOpen(false)} />
         <Link href={`${base}/quality`} aria-current={current === "quality" ? "page" : undefined} onClick={() => setIsOpen(false)}>Quality</Link>
         <Link href={`${base}/resources`} aria-current={current === "resources" ? "page" : undefined} onClick={() => setIsOpen(false)}>Resources</Link>
         <Link href={`${base}/about`} aria-current={current === "about" ? "page" : undefined} onClick={() => setIsOpen(false)}>About</Link>

@@ -3,7 +3,7 @@ import type { PendingAsset } from "./api";
 const MAX_SOURCE_BYTES = 12 * 1024 * 1024;
 const MAX_EDGE = 1920;
 
-export async function prepareProductImage(file: File, slug: string, directory: "products" | "news" | "certificates" = "products"): Promise<PendingAsset> {
+export async function prepareProductImage(file: File, slug: string, directory: "products" | "news" | "certificates" | "processes" = "products"): Promise<PendingAsset> {
   if (!file.type.startsWith("image/")) throw new Error("Choose a JPG, PNG or WebP image.");
   if (file.size > MAX_SOURCE_BYTES) throw new Error("The source image cannot exceed 12 MB.");
 

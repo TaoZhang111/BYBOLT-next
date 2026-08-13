@@ -1,7 +1,7 @@
 import catalogSource from "./product-catalog.json";
 
 import { productCatalogSchema } from "@/lib/products/schema";
-import type { FaqItem, NewsArticle, ProductCategory, ProductCatalogDocument, ProductModel, QualityCertificate } from "@/types/product-catalog";
+import type { FaqItem, ManufacturingProcess, NewsArticle, ProductCategory, ProductCatalogDocument, ProductModel, QualityCertificate } from "@/types/product-catalog";
 
 export const siteOrigin = "https://alloyforge-fasteners-site.tao1461248574.workers.dev";
 
@@ -56,6 +56,10 @@ export const qualityCertificates = productCatalogDocument.certificates
   .filter((certificate) => certificate.status === "published")
   .sort((left, right) => left.sortOrder - right.sortOrder);
 
+export const manufacturingProcesses = productCatalogDocument.processes
+  .filter((process) => process.status === "published")
+  .sort((left, right) => left.sortOrder - right.sortOrder);
+
 export function localizeProductCategory(category: ProductCategory, locale: string): ProductCategory {
   if (locale !== "zh") return category;
   const translation = category.translation.zh;
@@ -84,6 +88,11 @@ export function localizeFaq(faq: FaqItem, locale: string): FaqItem {
 export function localizeQualityCertificate(certificate: QualityCertificate, locale: string): QualityCertificate {
   if (locale !== "zh") return certificate;
   return { ...certificate, ...withoutUndefined(certificate.translation.zh) };
+}
+
+export function localizeManufacturingProcess(process: ManufacturingProcess, locale: string): ManufacturingProcess {
+  if (locale !== "zh") return process;
+  return { ...process, ...withoutUndefined(process.translation.zh) };
 }
 
 function withoutUndefined<T extends object>(value: T): Partial<T> {

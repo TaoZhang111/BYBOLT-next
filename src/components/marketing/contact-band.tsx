@@ -19,9 +19,10 @@ export function ContactBand({ locale, titleId }: { locale: Locale; titleId: stri
   const heading = zh ? "\u4e0e BYBOLT \u56e2\u961f\u8054\u7cfb\u3002" : "Contact the BYBOLT team.";
   const kicker = zh ? "\u8054\u7cfb\u6211\u4eec" : "Contact";
   const localizedLabels: Record<string, string> = {
+    address: "\u5730\u5740",
     email: "\u90ae\u7bb1",
-    phone: "\u7535\u8bdd",
-    contact: "\u8054\u7cfb",
+    phone: "\u7535\u8bdd\u53f7\u7801",
+    wechat: "\u5fae\u4fe1",
   };
 
   return (
@@ -35,9 +36,7 @@ export function ContactBand({ locale, titleId }: { locale: Locale; titleId: stri
           {contactDetails.map((method) => {
             const href = resolveContactHref(locale, method.type, method.value, method.href);
             const label = zh ? (localizedLabels[method.id] ?? method.label) : method.label;
-            const value = zh && method.id === "contact" && method.value === "Send an enquiry"
-              ? "\u53d1\u9001\u54a8\u8be2"
-              : method.value;
+            const value = method.value;
 
             return (
               <p key={method.id}>

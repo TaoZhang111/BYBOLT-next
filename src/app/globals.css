@@ -1159,6 +1159,42 @@ h3 {
   display: block;
 }
 
+.quote-contact-card {
+  align-self: start;
+}
+
+.quote-contact-list {
+  display: grid;
+  margin-top: 34px;
+  border-top: 1px solid rgba(29, 18, 16, 0.2);
+  font-style: normal;
+}
+
+.quote-contact-list p {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 20px;
+  margin: 0;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(29, 18, 16, 0.2);
+}
+
+.quote-contact-list span {
+  color: rgba(29, 18, 16, 0.58);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.quote-contact-list a,
+.quote-contact-list b {
+  min-width: 0;
+  color: #1d1210;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
 .aside-contact span {
   margin-bottom: 5px;
   color: rgba(255, 255, 255, 0.55);

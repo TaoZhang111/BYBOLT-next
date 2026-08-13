@@ -25,6 +25,7 @@ export const productTranslationSchema = z.object({
   standard: optionalCopy,
   configuration: optionalCopy,
   threads: optionalCopy,
+  features: optionalCopy,
   alt: optionalCopy,
   seoTitle: z.string().max(70).optional(),
   seoDescription: z.string().max(180).optional(),
@@ -39,6 +40,14 @@ export const categoryTranslationSchema = z.object({
   seoDescription: z.string().max(180).optional(),
 });
 
+export const productGalleryImageSchema = z.object({
+  id: slugSchema,
+  image: assetPathSchema,
+  alt: z.string().min(3).max(240),
+  imagePosition: z.string().max(40).optional(),
+  sortOrder: z.number().int().min(0).max(9999),
+});
+
 export const productModelSchema = z.object({
   slug: slugSchema,
   name: z.string().min(2).max(120),
@@ -49,8 +58,10 @@ export const productModelSchema = z.object({
   standard: z.string().min(1).max(1000),
   configuration: z.string().min(1).max(1000),
   threads: z.string().min(1).max(500),
+  features: z.string().max(5000).default(""),
   image: assetPathSchema,
   alt: z.string().min(3).max(240),
+  gallery: z.array(productGalleryImageSchema).max(12).default([]),
   status: statusSchema,
   sortOrder: z.number().int().min(0).max(9999),
   seoTitle: z.string().max(70).optional(),
@@ -143,6 +154,33 @@ export const qualityCertificateSchema = z.object({
   translation: z.object({ zh: qualityCertificateTranslationSchema }),
 });
 
+export const manufacturingProcessTranslationSchema = z.object({
+  title: optionalCopy,
+  summary: optionalCopy,
+  description: optionalCopy,
+  control: optionalCopy,
+  imageAlt: optionalCopy,
+  seoTitle: z.string().max(70).optional(),
+  seoDescription: z.string().max(180).optional(),
+});
+
+export const manufacturingProcessSchema = z.object({
+  slug: slugSchema,
+  number: z.string().min(1).max(4),
+  title: z.string().min(2).max(180),
+  summary: z.string().min(10).max(1200),
+  description: z.string().min(20).max(5000),
+  control: z.string().min(10).max(2000),
+  image: assetPathSchema,
+  imageAlt: z.string().min(3).max(240),
+  imagePosition: z.string().max(40).optional(),
+  status: statusSchema,
+  sortOrder: z.number().int().min(0).max(9999),
+  seoTitle: z.string().max(70).optional(),
+  seoDescription: z.string().max(180).optional(),
+  translation: z.object({ zh: manufacturingProcessTranslationSchema }),
+});
+
 export const contactDetailsSchema = z.object({
   id: slugSchema,
   label: z.string().min(2).max(80),
@@ -162,6 +200,7 @@ export const productCatalogSchema = z
     news: z.array(newsArticleSchema).max(200),
     faqs: z.array(faqItemSchema).max(100),
     certificates: z.array(qualityCertificateSchema).max(100),
+    processes: z.array(manufacturingProcessSchema).max(100),
     contact: z.array(contactDetailsSchema).max(30),
     sharedProductProperties: sharedProductPropertiesSchema,
   })
@@ -179,6 +218,14 @@ export const productCatalogSchema = z
           context.addIssue({ code: "custom", path: ["categories", categoryIndex, "models", productIndex, "slug"], message: "Product slug must be unique inside its category" });
         }
         productSlugs.add(product.slug);
+
+        const galleryIds = new Set<string>();
+        for (const [imageIndex, image] of product.gallery.entries()) {
+          if (galleryIds.has(image.id)) {
+            context.addIssue({ code: "custom", path: ["categories", categoryIndex, "models", productIndex, "gallery", imageIndex, "id"], message: "Gallery image id must be unique inside its product" });
+          }
+          galleryIds.add(image.id);
+        }
       }
     }
 
@@ -207,6 +254,14 @@ export const productCatalogSchema = z
         context.addIssue({ code: "custom", path: ["certificates", certificateIndex, "id"], message: "Certificate id must be unique" });
       }
       certificateIds.add(certificate.id);
+    }
+
+    const processSlugs = new Set<string>();
+    for (const [processIndex, process] of catalog.processes.entries()) {
+      if (processSlugs.has(process.slug)) {
+        context.addIssue({ code: "custom", path: ["processes", processIndex, "slug"], message: "Process slug must be unique" });
+      }
+      processSlugs.add(process.slug);
     }
   });
 

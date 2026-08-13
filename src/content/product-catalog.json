@@ -1405,7 +1405,130 @@
       "translation": { "zh": {} }
     }
   ],
+  "processes": [
+    {
+      "slug": "material-verification",
+      "number": "01",
+      "title": "Material Verification",
+      "summary": "Incoming alloy identity, heat and lot references are checked before material enters production.",
+      "description": "The manufacturing route begins by reconciling the received material with the released purchase specification. Alloy grade, material condition, dimensions, heat or lot identity and available certification are reviewed before stock is released to production. This establishes the traceability record that follows the component through every later operation.",
+      "control": "Review the purchase specification, material certificate, dimensions and identification against the released order.",
+      "image": "/assets/manufacturing-process-white.png",
+      "imageAlt": "Material verification stage in the BYBOLT manufacturing process",
+      "imagePosition": "0% 50%",
+      "status": "published",
+      "sortOrder": 1,
+      "translation": { "zh": {} }
+    },
+    {
+      "slug": "cutting",
+      "number": "02",
+      "title": "Cutting",
+      "summary": "Verified stock is separated into controlled blanks for the required fastener or machined component.",
+      "description": "Released stock is cut into controlled blanks according to the component geometry, machining allowance and planned production quantity. Material identity remains attached to the batch while blank dimensions and piece counts are checked before forming or machining begins.",
+      "control": "Blank dimensions, material identity and production quantity remain linked to the active heat or lot record.",
+      "image": "/assets/manufacturing-process-white.png",
+      "imageAlt": "Cutting stage in the BYBOLT manufacturing process",
+      "imagePosition": "14% 50%",
+      "status": "published",
+      "sortOrder": 2,
+      "translation": { "zh": {} }
+    },
+    {
+      "slug": "forming",
+      "number": "03",
+      "title": "Forming",
+      "summary": "Heads and primary geometry are formed through the qualified route selected for the alloy and drawing.",
+      "description": "Primary geometry is formed using the route selected for the alloy, material condition and released drawing. Tooling, forming temperature and intermediate dimensions are controlled so that subsequent heat treatment and machining operations begin from a stable, traceable workpiece.",
+      "control": "Process parameters, tooling and intermediate dimensions are checked before the parts move to thermal processing.",
+      "image": "/assets/manufacturing-process-white.png",
+      "imageAlt": "Forming stage in the BYBOLT manufacturing process",
+      "imagePosition": "28% 50%",
+      "status": "published",
+      "sortOrder": 3,
+      "translation": { "zh": {} }
+    },
+    {
+      "slug": "heat-treatment",
+      "number": "04",
+      "title": "Heat Treatment",
+      "summary": "Thermal cycles establish the specified material condition and required mechanical performance.",
+      "description": "Qualified thermal cycles establish or restore the material condition specified by the governing standard and purchase requirement. Furnace load identity, cycle parameters and applicable test results are retained with the production record to support final material and mechanical-property verification.",
+      "control": "Furnace records, load identity, cycle requirements and applicable test results are retained with the production lot.",
+      "image": "/assets/manufacturing-process-white.png",
+      "imageAlt": "Heat treatment stage in the BYBOLT manufacturing process",
+      "imagePosition": "42% 50%",
+      "status": "published",
+      "sortOrder": 4,
+      "translation": { "zh": {} }
+    },
+    {
+      "slug": "cnc-turning",
+      "number": "05",
+      "title": "CNC Turning",
+      "summary": "Threads, shoulders and drawing-defined features are machined to the released dimensions and tolerances.",
+      "description": "CNC machining establishes threads, shoulders, bearing faces and other drawing-defined features. Tooling and in-process checks are selected around the alloy and tolerance requirements, with critical dimensions monitored against the released drawing and inspection plan.",
+      "control": "Tooling, thread requirements and critical dimensions are monitored against the drawing and inspection plan.",
+      "image": "/assets/manufacturing-process-white.png",
+      "imageAlt": "CNC turning stage in the BYBOLT manufacturing process",
+      "imagePosition": "57% 50%",
+      "status": "published",
+      "sortOrder": 5,
+      "translation": { "zh": {} }
+    },
+    {
+      "slug": "cleaning",
+      "number": "06",
+      "title": "Cleaning",
+      "summary": "Process residue and handling contamination are removed before final inspection and packaging.",
+      "description": "Parts are cleaned using a method compatible with the alloy, surface condition and order-specific cleanliness requirements. Manufacturing residue and handling contamination are removed before final inspection so that surfaces and identification remain suitable for examination and protected packing.",
+      "control": "The cleaning method is selected for the alloy, surface condition and any order-specific cleanliness requirement.",
+      "image": "/assets/manufacturing-process-white.png",
+      "imageAlt": "Cleaning stage in the BYBOLT manufacturing process",
+      "imagePosition": "71% 50%",
+      "status": "published",
+      "sortOrder": 6,
+      "translation": { "zh": {} }
+    },
+    {
+      "slug": "inspection",
+      "number": "07",
+      "title": "Inspection",
+      "summary": "Finished parts are checked against dimensional, material and testing requirements agreed with the order.",
+      "description": "Finished components are reviewed against the dimensional, material and testing scope confirmed for the order. Depending on the requirement, the inspection package may include dimensional reports, PMI, hardness, mechanical testing and third-party witness or release records.",
+      "control": "Dimensional records, PMI, hardness, mechanical tests or third-party review are assembled when specified.",
+      "image": "/assets/manufacturing-process-white.png",
+      "imageAlt": "Inspection stage in the BYBOLT manufacturing process",
+      "imagePosition": "85% 50%",
+      "status": "published",
+      "sortOrder": 7,
+      "translation": { "zh": {} }
+    },
+    {
+      "slug": "marking-packaging",
+      "number": "08",
+      "title": "Marking & Packaging",
+      "summary": "Accepted parts receive the confirmed identification and are packed for protected, traceable dispatch.",
+      "description": "Accepted parts receive the marking and labels confirmed for the order before they are packed for protected transport. Piece count, package identity, heat or lot references and the final document set are reconciled so that the delivered components remain connected to their manufacturing records.",
+      "control": "Piece count, package labels, heat or lot references and the final document set are reconciled before shipment.",
+      "image": "/assets/manufacturing-process-white.png",
+      "imageAlt": "Marking and packaging stage in the BYBOLT manufacturing process",
+      "imagePosition": "100% 50%",
+      "status": "published",
+      "sortOrder": 8,
+      "translation": { "zh": {} }
+    }
+  ],
   "contact": [
+    {
+      "id": "address",
+      "label": "Address",
+      "value": "No. 88 Precision Industry Road, Suzhou, Jiangsu, China",
+      "href": "",
+      "type": "text",
+      "status": "published",
+      "sortOrder": 1
+    },
     {
       "id": "email",
       "label": "Email",
@@ -1413,25 +1536,25 @@
       "href": "",
       "type": "email",
       "status": "published",
-      "sortOrder": 1
-    },
-    {
-      "id": "phone",
-      "label": "Phone",
-      "value": "",
-      "href": "",
-      "type": "phone",
-      "status": "published",
       "sortOrder": 2
     },
     {
-      "id": "contact",
-      "label": "Contact",
-      "value": "Send an enquiry",
-      "href": "/contact",
-      "type": "link",
+      "id": "phone",
+      "label": "Phone number",
+      "value": "+86 512 5555 0188",
+      "href": "",
+      "type": "phone",
       "status": "published",
       "sortOrder": 3
+    },
+    {
+      "id": "wechat",
+      "label": "WeChat",
+      "value": "BYBOLT-Alloy",
+      "href": "",
+      "type": "text",
+      "status": "published",
+      "sortOrder": 4
     }
   ],
   "sharedProductProperties": {

@@ -686,6 +686,51 @@
 .pinDisabled { color: #8d9498; background: #eef1f1; cursor: not-allowed; }
 
 .imageField { display: grid; gap: 18px; }
+.galleryEditor { display: grid; gap: 18px; }
+.galleryToolbar {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--admin-line);
+}
+.galleryToolbar span { color: var(--admin-muted); font-size: 10px; }
+.galleryToolbar button,
+.galleryRemove {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 11px;
+  color: var(--admin-ink);
+  background: #fff;
+  border: 1px solid var(--admin-line);
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.galleryToolbar button:disabled { color: #939a9e; background: #eef0f0; cursor: not-allowed; }
+.galleryToolbar svg,
+.galleryRemove svg { width: 14px; height: 14px; }
+.galleryEmpty { margin: 0; padding: 24px; color: var(--admin-muted); background: var(--admin-soft); font-size: 11px; line-height: 1.55; text-align: center; }
+.galleryAdminGrid { display: grid; gap: 14px; }
+.galleryAdminItem {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 16px;
+  padding: 14px;
+  background: #f7f8f8;
+  border: 1px solid var(--admin-line);
+  border-radius: 5px;
+}
+.galleryAdminItem figure { position: relative; min-height: 142px; margin: 0; overflow: hidden; background: #e7ebec; }
+.galleryAdminItem figure img { width: 100%; height: 100%; object-fit: cover; }
+.galleryAdminItem figure span { position: absolute; top: 8px; left: 8px; padding: 4px 6px; color: #fff; background: rgba(7, 21, 45, 0.82); font-size: 9px; font-weight: 700; }
+.galleryAdminFields { min-width: 0; display: grid; gap: 12px; }
+.galleryRemove { justify-self: start; color: var(--admin-error); border-color: #dbb8b8; }
 .imagePath {
   min-width: 0;
   min-height: 56px;
@@ -904,6 +949,9 @@
   .previewCard figure { height: 230px; min-height: 0; }
   .dangerActions { align-items: stretch; flex-direction: column; }
   .folderActions { align-items: stretch; flex-direction: column; }
+  .galleryToolbar { align-items: stretch; flex-direction: column; }
+  .galleryAdminItem { grid-template-columns: 1fr; }
+  .galleryAdminItem figure { min-height: 210px; }
   .dangerActions button,
   .folderActions button { min-height: 42px; }
 }

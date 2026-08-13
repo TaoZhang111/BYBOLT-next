@@ -1,9 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
-
 import Link from "@/components/navigation/static-link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { ProductGallery } from "@/components/products/product-gallery";
 import { ProductReveal } from "@/components/products/product-reveal";
 import { ProductSiteShell } from "@/components/products/product-site-shell";
 import styles from "@/components/products/product-site.module.css";
@@ -48,6 +47,13 @@ export default async function ProductDetailPage({ params }: Props) {
   }
   const base = `/${locale}`;
   const isMillProduct = millProductCategories.some((item) => item.slug === category.slug);
+  const galleryImages = [
+    { id: "primary", image: product.image || category.image, alt: product.alt || `${product.name} - ${category.alt}` },
+    ...product.gallery
+      .slice()
+      .sort((left, right) => left.sortOrder - right.sortOrder),
+  ];
+  const productFeatures = product.features.trim() || product.description;
 
   const specs = [
     ["Size range", product.size],
@@ -72,9 +78,7 @@ export default async function ProductDetailPage({ params }: Props) {
       <section className={styles.detailSection}>
         <div className={styles.container}>
           <ProductReveal className={styles.detailGrid}>
-            <figure className={styles.detailMedia}>
-              <img data-reveal-image src={product.image || category.image} alt={product.alt || `${product.name} - ${category.alt}`} decoding="async" />
-            </figure>
+            <ProductGallery images={galleryImages} />
             <div className={styles.detailPanel} data-reveal-copy>
               <p className={styles.modelEyebrow}>{product.eyebrow}</p>
               <h2>Technical specification</h2>
@@ -87,6 +91,13 @@ export default async function ProductDetailPage({ params }: Props) {
               </div>
             </div>
           </ProductReveal>
+          <section className={styles.featureSection} aria-labelledby="product-features-title">
+            <p className={styles.modelEyebrow}>{locale === "zh" ? "产品信息" : "Product information"}</p>
+            <h2 id="product-features-title">{locale === "zh" ? "产品特性" : "Product Features"}</h2>
+            <div className={styles.featureCopy}>
+              {productFeatures.split(/\n{2,}/).map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            </div>
+          </section>
         </div>
       </section>
       <section className={styles.actionSection}>

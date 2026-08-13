@@ -2,11 +2,9 @@
 
 import type { Metadata } from "next";
 
-import Link from "@/components/navigation/static-link";
 import { InformationSiteShell } from "@/components/marketing/information-site-shell";
 import styles from "@/components/marketing/information-site.module.css";
 import { localizeQualityCertificate, qualityCertificates } from "@/content/product-catalog";
-import { manufacturingStages } from "@/content/quality-process";
 import { isLocale } from "@/i18n/config";
 import { localizedAlternates } from "@/lib/seo";
 
@@ -14,8 +12,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   if (!isLocale(locale)) return {};
   return {
-    title: "Quality Process, Documentation and Certificates",
-    description: "Review BYBOLT manufacturing controls, material traceability, inspection records and available quality certificates.",
+    title: "Quality Documentation and Certificates",
+    description: "Review BYBOLT material traceability, inspection records and available quality certificates.",
     alternates: localizedAlternates(locale, "quality"),
   };
 }
@@ -30,39 +28,7 @@ export default async function QualityPage({ params }: { params: Promise<{ locale
       <section className={styles.hero}>
         <div className={`${styles.container} ${styles.heroGrid}`}>
           <div><p className={styles.kicker}>Quality and traceability</p><h1>Control from verified material to final records.</h1></div>
-          <p className={styles.heroCopy}>Each stage connects manufacturing activity with material identity, inspection scope and the documentation confirmed for the order.</p>
-        </div>
-      </section>
-
-      <section className={`${styles.section} ${styles.sectionWhite}`} aria-labelledby="quality-process-title">
-        <div className={styles.container}>
-          <div className={styles.sectionHeading}>
-            <div><p className={styles.kicker}>Manufacturing process</p><h2 id="quality-process-title">Eight controlled stages, one traceable route.</h2></div>
-            <p>Select any stage in the process image or directory to review its role in the production and quality sequence.</p>
-          </div>
-
-          <figure className={styles.processFigure}>
-            <img src="/assets/manufacturing-process-white.png" alt="Eight-stage BYBOLT manufacturing sequence from material verification through marking and packaging" width="1672" height="941" loading="eager" decoding="async" />
-            <div className={styles.processHotspots} aria-label="Manufacturing process stages">
-              {manufacturingStages.map((stage) => <Link href={`#process-${stage.id}`} aria-label={`View ${stage.number} ${stage.title}`} key={stage.id}><span>{stage.number} {stage.title}</span></Link>)}
-            </div>
-          </figure>
-
-          <nav className={styles.processDirectory} aria-label="Quality process directory">
-            {manufacturingStages.map((stage) => (
-              <Link href={`#process-${stage.id}`} key={stage.id}><span>{stage.number}</span><strong>{stage.title}</strong></Link>
-            ))}
-          </nav>
-
-          <div className={styles.processDetails}>
-            {manufacturingStages.map((stage) => (
-              <article className={styles.processStage} id={`process-${stage.id}`} key={stage.id}>
-                <span>{stage.number}</span>
-                <div><h2>{stage.title}</h2><p>{stage.summary}</p></div>
-                <div><small>Control point</small><p>{stage.control}</p></div>
-              </article>
-            ))}
-          </div>
+          <p className={styles.heroCopy}>Material identity, inspection scope and the documentation confirmed for the order remain connected throughout production.</p>
         </div>
       </section>
 
