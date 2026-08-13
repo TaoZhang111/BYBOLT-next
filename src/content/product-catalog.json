@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-12T02:00:00.000Z",
+  "updatedAt": "2026-08-13T13:26:07.598Z",
   "categories": [
     {
       "productRange": "range1",
@@ -27,8 +27,18 @@
           "standard": "ASME B18.2.1, DIN 931/933, ISO 4014/4017 or drawing",
           "configuration": "Full or partial thread",
           "threads": "Metric coarse/fine, UNC, UNF, UN8",
+          "features": "",
           "image": "/assets/products/nickel-alloy-hex-bolts.jpg",
           "alt": "Hex Bolts - Nickel-alloy industrial bolts with precision machined threads",
+          "gallery": [
+            {
+              "id": "image-msrjx2t6-3eb10e",
+              "image": "/uploads/products/hex-bolts-gallery-20260813132558-0e000cbb.webp",
+              "alt": "hheel product view 2",
+              "imagePosition": "50% 50%",
+              "sortOrder": 10
+            }
+          ],
           "status": "published",
           "sortOrder": 1,
           "translation": {
@@ -45,8 +55,10 @@
           "standard": "ASME B18.2.1, ASTM dimensional requirements or drawing",
           "configuration": "Full or partial thread",
           "threads": "Metric, UNC, UNF, UN8",
+          "features": "",
           "image": "/assets/products/nickel-alloy-hex-bolts.jpg",
           "alt": "Heavy Hex Bolts - Nickel-alloy industrial bolts with precision machined threads",
+          "gallery": [],
           "status": "published",
           "sortOrder": 2,
           "translation": {
@@ -63,8 +75,10 @@
           "standard": "DIN 6921, ISO 4162 or drawing",
           "configuration": "Serrated or plain flange by specification",
           "threads": "Metric coarse/fine, UNC, UNF",
+          "features": "",
           "image": "/assets/products/nickel-alloy-hex-bolts.jpg",
           "alt": "Flange Bolts - Nickel-alloy industrial bolts with precision machined threads",
+          "gallery": [],
           "status": "published",
           "sortOrder": 3,
           "translation": {
@@ -81,8 +95,10 @@
           "standard": "Customer drawing and agreed purchase specification",
           "configuration": "Machined, forged or combined route after review",
           "threads": "Standard or special thread forms",
+          "features": "",
           "image": "/assets/products/nickel-alloy-hex-bolts.jpg",
           "alt": "Custom Bolts - Nickel-alloy industrial bolts with precision machined threads",
+          "gallery": [],
           "status": "published",
           "sortOrder": 4,
           "translation": {
@@ -99,8 +115,10 @@
           "standard": "Customer drawing and agreed specification",
           "configuration": "Project-specific",
           "threads": "Standard or special thread forms",
+          "features": "",
           "image": "/assets/products/nickel-alloy-hex-bolts.jpg",
           "alt": "New BYBOLT alloy fastener product",
+          "gallery": [],
           "status": "published",
           "sortOrder": 999,
           "translation": {
@@ -117,8 +135,10 @@
           "standard": "Customer drawing and agreed specification",
           "configuration": "Project-specific",
           "threads": "Standard or special thread forms",
+          "features": "",
           "image": "/assets/products/nickel-alloy-hex-bolts.jpg",
           "alt": "New BYBOLT alloy fastener product",
+          "gallery": [],
           "status": "published",
           "sortOrder": 999,
           "translation": {
@@ -135,8 +155,10 @@
           "standard": "Customer drawing and agreed specification",
           "configuration": "Project-specific",
           "threads": "Standard or special thread forms",
+          "features": "",
           "image": "/assets/products/nickel-alloy-hex-bolts.jpg",
           "alt": "New BYBOLT alloy fastener product",
+          "gallery": [],
           "status": "draft",
           "sortOrder": 999,
           "translation": {
@@ -170,8 +192,10 @@
           "standard": "ASME B18.2.2, DIN 934, ISO 4032 or drawing",
           "configuration": "Finished hex nut",
           "threads": "Metric, UNC, UNF, UN8",
+          "features": "",
           "image": "/assets/products/nickel-alloy-hex-nuts.jpg",
           "alt": "Hex Nuts - Nickel-alloy industrial nuts with internal threads",
+          "gallery": [],
           "status": "published",
           "sortOrder": 1,
           "translation": {
@@ -188,8 +212,10 @@
           "standard": "ASME B18.2.2, ASTM project requirements or drawing",
           "configuration": "Heavy hex, chamfered faces",
           "threads": "Metric, UNC, UNF, UN8",
+          "features": "",
           "image": "/assets/products/nickel-alloy-hex-nuts.jpg",
           "alt": "Heavy Hex Nuts - Nickel-alloy industrial nuts with internal threads",
+          "gallery": [],
           "status": "published",
           "sortOrder": 2,
           "translation": {
@@ -206,8 +232,10 @@
           "standard": "ASME B18.2.2 or drawing",
           "configuration": "Thin hex pattern",
           "threads": "Metric, UNC, UNF",
+          "features": "",
           "image": "/assets/products/nickel-alloy-hex-nuts.jpg",
           "alt": "Jam Nuts - Nickel-alloy industrial nuts with internal threads",
+          "gallery": [],
           "status": "published",
           "sortOrder": 3,
           "translation": {
@@ -224,8 +252,10 @@
           "standard": "Customer drawing and agreed specification",
           "configuration": "Special external form or locking feature",
           "threads": "Standard or special internal threads",
+          "features": "",
           "image": "/assets/products/nickel-alloy-hex-nuts.jpg",
           "alt": "Special Nuts - Nickel-alloy industrial nuts with internal threads",
+          "gallery": [],
           "status": "published",
           "sortOrder": 4,
           "translation": {
@@ -259,8 +289,10 @@
           "standard": "ASME B16.5 project dimensions, ASTM requirements or drawing",
           "configuration": "Continuous thread with chamfered ends",
           "threads": "Metric, UNC, UNF, UN8",
+          "features": "",
           "image": "/assets/products/nickel-alloy-stud-bolts.jpg",
           "alt": "Stud Bolts - Nickel-alloy threaded studs for industrial flange connections",
+          "gallery": [],
           "status": "published",
           "sortOrder": 1,
           "translation": {
@@ -277,8 +309,10 @@
           "standard": "DIN 976, ASTM project requirements or drawing",
           "configuration": "Full thread",
           "threads": "Metric, UNC, UNF, UN8",
+          "features": "",
           "image": "/assets/products/nickel-alloy-stud-bolts.jpg",
           "alt": "Fully Threaded Studs - Nickel-alloy threaded studs for industrial flange connections",
+          "gallery": [],
           "status": "published",
           "sortOrder": 2,
           "translation": {
@@ -295,8 +329,10 @@
           "standard": "DIN 939 or drawing",
           "configuration": "Equal or unequal thread lengths",
           "threads": "Metric, UNC, UNF",
+          "features": "",
           "image": "/assets/products/nickel-alloy-stud-bolts.jpg",
           "alt": "Double-End Studs - Nickel-alloy threaded studs for industrial flange connections",
+          "gallery": [],
           "status": "published",
           "sortOrder": 3,
           "translation": {
@@ -313,8 +349,10 @@
           "standard": "DIN 976, ASTM project requirements or drawing",
           "configuration": "Full thread, cut ends",
           "threads": "Metric, UNC, UNF, UN8",
+          "features": "",
           "image": "/assets/products/nickel-alloy-stud-bolts.jpg",
           "alt": "Threaded Rods - Nickel-alloy threaded studs for industrial flange connections",
+          "gallery": [],
           "status": "published",
           "sortOrder": 4,
           "translation": {
@@ -331,8 +369,10 @@
           "standard": "ASME B18.31.2 or drawing",
           "configuration": "Tap end and nut end",
           "threads": "Same or mixed thread series by drawing",
+          "features": "",
           "image": "/assets/products/nickel-alloy-stud-bolts.jpg",
           "alt": "Tap-End Studs - Nickel-alloy threaded studs for industrial flange connections",
+          "gallery": [],
           "status": "published",
           "sortOrder": 5,
           "translation": {
@@ -349,8 +389,10 @@
           "standard": "Customer drawing and agreed specification",
           "configuration": "Custom thread zones and end details",
           "threads": "Standard or special thread forms",
+          "features": "",
           "image": "/assets/products/nickel-alloy-stud-bolts.jpg",
           "alt": "Custom Studs - Nickel-alloy threaded studs for industrial flange connections",
+          "gallery": [],
           "status": "published",
           "sortOrder": 6,
           "translation": {
@@ -384,8 +426,10 @@
           "standard": "ASME B18.21.1, DIN 125, ISO 7089 or drawing",
           "configuration": "Standard, large OD or close tolerance",
           "threads": "Not applicable",
+          "features": "",
           "image": "/assets/products/nickel-alloy-flat-washers.jpg",
           "alt": "Flat Washers - Precision nickel-alloy washers for load distribution",
+          "gallery": [],
           "status": "published",
           "sortOrder": 1,
           "translation": {
@@ -402,8 +446,10 @@
           "standard": "ASTM F436 dimensional basis or drawing",
           "configuration": "Circular, clipped or bevelled by requirement",
           "threads": "Not applicable",
+          "features": "",
           "image": "/assets/products/nickel-alloy-flat-washers.jpg",
           "alt": "Hardened Washers - Precision nickel-alloy washers for load distribution",
+          "gallery": [],
           "status": "published",
           "sortOrder": 2,
           "translation": {
@@ -420,8 +466,10 @@
           "standard": "DIN 2093 or drawing",
           "configuration": "Single, nested or stacked arrangement",
           "threads": "Not applicable",
+          "features": "",
           "image": "/assets/products/nickel-alloy-flat-washers.jpg",
           "alt": "Belleville Washers - Precision nickel-alloy washers for load distribution",
+          "gallery": [],
           "status": "published",
           "sortOrder": 3,
           "translation": {
@@ -438,8 +486,10 @@
           "standard": "Customer drawing and agreed specification",
           "configuration": "Stamped, laser-cut or machined after review",
           "threads": "Not applicable",
+          "features": "",
           "image": "/assets/products/nickel-alloy-flat-washers.jpg",
           "alt": "Custom Washers - Precision nickel-alloy washers for load distribution",
+          "gallery": [],
           "status": "published",
           "sortOrder": 4,
           "translation": {
@@ -473,8 +523,10 @@
           "standard": "ASME B18.3, DIN 912, ISO 4762 or drawing",
           "configuration": "Full or partial thread",
           "threads": "Metric, UNC, UNF",
+          "features": "",
           "image": "/assets/product-fasteners.jpg",
           "alt": "Socket Head Cap Screws - Precision threaded screw fasteners in a clean inspection setting",
+          "gallery": [],
           "status": "published",
           "sortOrder": 1,
           "translation": {
@@ -491,8 +543,10 @@
           "standard": "ASME B18.6.3, DIN/ISO form or drawing",
           "configuration": "Slotted, cross recess, hex socket or six-lobe",
           "threads": "Metric, UNC, UNF",
+          "features": "",
           "image": "/assets/product-fasteners.jpg",
           "alt": "Machine Screws - Precision threaded screw fasteners in a clean inspection setting",
+          "gallery": [],
           "status": "published",
           "sortOrder": 2,
           "translation": {
@@ -509,8 +563,10 @@
           "standard": "ASME B18.3, DIN 913-916 or drawing",
           "configuration": "Cup, cone, flat, dog or custom point",
           "threads": "Metric, UNC, UNF",
+          "features": "",
           "image": "/assets/product-fasteners.jpg",
           "alt": "Set Screws - Precision threaded screw fasteners in a clean inspection setting",
+          "gallery": [],
           "status": "published",
           "sortOrder": 3,
           "translation": {
@@ -527,8 +583,10 @@
           "standard": "Customer drawing and agreed specification",
           "configuration": "Machined or cold-formed route after review",
           "threads": "Standard or special thread forms",
+          "features": "",
           "image": "/assets/product-fasteners.jpg",
           "alt": "Custom Screws - Precision threaded screw fasteners in a clean inspection setting",
+          "gallery": [],
           "status": "published",
           "sortOrder": 4,
           "translation": {
@@ -562,8 +620,10 @@
           "standard": "Customer drawing and purchase specification",
           "configuration": "Bolt, stud, nut, washer or hybrid geometry",
           "threads": "Standard, modified or proprietary",
+          "features": "",
           "image": "/assets/products/custom-alloy-fastener-components.jpg",
           "alt": "Drawing-Based Fasteners - Custom machined alloy fastener components produced from technical drawings",
+          "gallery": [],
           "status": "published",
           "sortOrder": 1,
           "translation": {
@@ -580,8 +640,10 @@
           "standard": "Specified thread profile and inspection method",
           "configuration": "Internal, external, left-hand or multi-start",
           "threads": "Drawing-defined",
+          "features": "",
           "image": "/assets/products/custom-alloy-fastener-components.jpg",
           "alt": "Special Thread Parts - Custom machined alloy fastener components produced from technical drawings",
+          "gallery": [],
           "status": "published",
           "sortOrder": 2,
           "translation": {
@@ -598,8 +660,10 @@
           "standard": "Customer drawing and agreed specification",
           "configuration": "Turned, milled, drilled or combined features",
           "threads": "As required",
+          "features": "",
           "image": "/assets/products/custom-alloy-fastener-components.jpg",
           "alt": "Machined Components - Custom machined alloy fastener components produced from technical drawings",
+          "gallery": [],
           "status": "published",
           "sortOrder": 3,
           "translation": {
@@ -616,8 +680,10 @@
           "standard": "Bill of materials, drawing and purchase specification",
           "configuration": "Matched bolt, nut, washer and special components",
           "threads": "Verified as a mating set",
+          "features": "",
           "image": "/assets/products/custom-alloy-fastener-components.jpg",
           "alt": "Custom Assemblies - Custom machined alloy fastener components produced from technical drawings",
+          "gallery": [],
           "status": "published",
           "sortOrder": 4,
           "translation": {
@@ -651,8 +717,10 @@
           "standard": "ASTM B446 / ASME SB-446 or purchase specification",
           "configuration": "Hot-finished, cold-drawn, peeled or centerless-ground",
           "threads": "Bright, ground or machined surface; tolerance by order",
+          "features": "",
           "image": "/assets/bars/ground-alloy-round-bars.webp",
           "alt": "Precision-ground Inconel 625 solid round bars",
+          "gallery": [],
           "status": "published",
           "sortOrder": 1,
           "translation": {
@@ -669,8 +737,10 @@
           "standard": "ASTM B637 / ASME SB-637 or purchase specification",
           "configuration": "Solution-treated or age-hardened condition as specified",
           "threads": "Peeled, cold-drawn or centerless-ground finish",
+          "features": "",
           "image": "/assets/bars/alloy-round-bar-ends.webp",
           "alt": "Solid Inconel 718 round bars with precision-machined ends",
+          "gallery": [],
           "status": "published",
           "sortOrder": 2,
           "translation": {
@@ -690,7 +760,9 @@
       "intro": "Alloy grade, thickness, condition, dimensions, testing and surface requirements are reviewed together before plate supply is confirmed.",
       "status": "published",
       "sortOrder": 2,
-      "translation": { "zh": {} },
+      "translation": {
+        "zh": {}
+      },
       "models": [
         {
           "slug": "hastelloy-c276-round-bar",
@@ -702,11 +774,15 @@
           "standard": "ASTM B575 / ASME SB-575 or purchase specification",
           "configuration": "Solution-annealed plate",
           "threads": "Hot-rolled, pickled or ground surface; tolerance by order",
+          "features": "",
           "image": "/assets/bars/alloy-round-bar-stock.webp",
           "alt": "Hastelloy C-276 nickel-alloy plate mill product",
+          "gallery": [],
           "status": "published",
           "sortOrder": 1,
-          "translation": { "zh": {} }
+          "translation": {
+            "zh": {}
+          }
         },
         {
           "slug": "monel-400-round-bar",
@@ -718,11 +794,15 @@
           "standard": "ASTM B127 / ASME SB-127 or purchase specification",
           "configuration": "Hot-rolled or annealed plate",
           "threads": "Pickled, ground or project-specified surface",
+          "features": "",
           "image": "/assets/bars/ground-alloy-round-bars.webp",
           "alt": "Monel 400 nickel-copper alloy plate",
+          "gallery": [],
           "status": "published",
           "sortOrder": 2,
-          "translation": { "zh": {} }
+          "translation": {
+            "zh": {}
+          }
         }
       ]
     },
@@ -737,7 +817,9 @@
       "intro": "Alloy, diameter, temper, coil format, surface and testing requirements are reviewed together before wire supply is confirmed.",
       "status": "published",
       "sortOrder": 3,
-      "translation": { "zh": {} },
+      "translation": {
+        "zh": {}
+      },
       "models": [
         {
           "slug": "alloy-20-round-bar",
@@ -749,11 +831,15 @@
           "standard": "Applicable ASTM wire specification or purchase specification",
           "configuration": "Annealed, cold-drawn or temper-controlled wire",
           "threads": "Bright, pickled or project-specified surface",
+          "features": "",
           "image": "/assets/bars/alloy-round-bar-ends.webp",
           "alt": "Alloy 20 nickel-alloy wire mill product",
+          "gallery": [],
           "status": "published",
           "sortOrder": 1,
-          "translation": { "zh": {} }
+          "translation": {
+            "zh": {}
+          }
         }
       ]
     },
@@ -768,7 +854,9 @@
       "intro": "Alloy, thickness, width, temper, edge condition and coil requirements are reviewed together before strip supply is confirmed.",
       "status": "published",
       "sortOrder": 4,
-      "translation": { "zh": {} },
+      "translation": {
+        "zh": {}
+      },
       "models": [
         {
           "slug": "nickel-200-round-bar",
@@ -780,11 +868,15 @@
           "standard": "ASTM B162 / ASME SB-162 or purchase specification",
           "configuration": "Cold-rolled or annealed strip",
           "threads": "Bright, matte or project-specified finish and edge condition",
+          "features": "",
           "image": "/assets/bars/alloy-round-bar-stock.webp",
           "alt": "Nickel 200 commercially pure nickel strip",
+          "gallery": [],
           "status": "published",
           "sortOrder": 1,
-          "translation": { "zh": {} }
+          "translation": {
+            "zh": {}
+          }
         }
       ]
     },
@@ -813,8 +905,10 @@
           "standard": "Customer drawing and agreed specification",
           "configuration": "Project-specific",
           "threads": "Standard or special thread forms",
+          "features": "",
           "image": "/assets/product-fasteners.jpg",
           "alt": "New BYBOLT alloy fastener product",
+          "gallery": [],
           "status": "published",
           "sortOrder": 999,
           "translation": {
@@ -1172,7 +1266,9 @@
       "status": "published",
       "pinned": true,
       "sortOrder": 1,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "slug": "drawing-details-that-reduce-quotation-delays",
@@ -1184,7 +1280,9 @@
       "status": "published",
       "pinned": true,
       "sortOrder": 2,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "slug": "documentation-requirements-on-an-rfq",
@@ -1196,7 +1294,9 @@
       "status": "published",
       "pinned": true,
       "sortOrder": 3,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "slug": "inconel-625-and-718-selection",
@@ -1208,7 +1308,9 @@
       "status": "published",
       "pinned": false,
       "sortOrder": 4,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "slug": "thread-information-for-fastener-rfqs",
@@ -1220,7 +1322,9 @@
       "status": "published",
       "pinned": false,
       "sortOrder": 5,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "slug": "when-to-request-pmi",
@@ -1232,7 +1336,9 @@
       "status": "published",
       "pinned": false,
       "sortOrder": 6,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "slug": "heat-treatment-records-for-alloy-fasteners",
@@ -1244,7 +1350,9 @@
       "status": "published",
       "pinned": false,
       "sortOrder": 7,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "slug": "traceability-from-material-to-packaging",
@@ -1256,7 +1364,9 @@
       "status": "published",
       "pinned": false,
       "sortOrder": 8,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "slug": "planning-third-party-inspection",
@@ -1268,7 +1378,9 @@
       "status": "published",
       "pinned": false,
       "sortOrder": 9,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "slug": "round-bar-condition-and-machining",
@@ -1280,7 +1392,9 @@
       "status": "published",
       "pinned": false,
       "sortOrder": 10,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "slug": "packaging-requirements-for-export-fasteners",
@@ -1292,7 +1406,61 @@
       "status": "published",
       "pinned": false,
       "sortOrder": 11,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
+    }
+  ],
+  "faqs": [
+    {
+      "id": "rfq-information",
+      "question": "What information should be included in an RFQ?",
+      "answer": "Include the product form, alloy grade, standard or drawing, dimensions, quantity, required testing, documentation and delivery destination.",
+      "status": "published",
+      "sortOrder": 1,
+      "translation": {
+        "zh": {}
+      }
+    },
+    {
+      "id": "drawing-review",
+      "question": "Can BYBOLT review a customer drawing?",
+      "answer": "Yes. The custom workflow is structured around drawing review, including geometry, tolerances, threads, material condition and inspection requirements.",
+      "status": "published",
+      "sortOrder": 2,
+      "translation": {
+        "zh": {}
+      }
+    },
+    {
+      "id": "material-certificates",
+      "question": "Are material certificates available?",
+      "answer": "Material certification and other records can be included when they are specified and confirmed as part of the order scope.",
+      "status": "published",
+      "sortOrder": 3,
+      "translation": {
+        "zh": {}
+      }
+    },
+    {
+      "id": "alloy-grades",
+      "question": "Which alloy grades can be considered?",
+      "answer": "The current catalogue includes Inconel 625, Inconel 718, Hastelloy C-276, Monel K-500, A-286 and other project-specific alloy options.",
+      "status": "published",
+      "sortOrder": 4,
+      "translation": {
+        "zh": {}
+      }
+    },
+    {
+      "id": "combined-quotation",
+      "question": "Can standard and custom products be quoted together?",
+      "answer": "Yes. List each line item clearly and attach the relevant drawings so standard and drawing-based products can be reviewed in one RFQ.",
+      "status": "published",
+      "sortOrder": 5,
+      "translation": {
+        "zh": {}
+      }
     }
   ],
   "certificates": [
@@ -1305,7 +1473,9 @@
       "imagePosition": "0% 0%",
       "status": "published",
       "sortOrder": 1,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "id": "chemical-analysis-records",
@@ -1316,7 +1486,9 @@
       "imagePosition": "50% 0%",
       "status": "published",
       "sortOrder": 2,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "id": "mechanical-test-reports",
@@ -1327,7 +1499,9 @@
       "imagePosition": "100% 0%",
       "status": "published",
       "sortOrder": 3,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "id": "dimensional-inspection-records",
@@ -1338,7 +1512,9 @@
       "imagePosition": "0% 100%",
       "status": "published",
       "sortOrder": 4,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "id": "pmi-hardness-records",
@@ -1349,7 +1525,9 @@
       "imagePosition": "50% 100%",
       "status": "published",
       "sortOrder": 5,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "id": "third-party-inspection-files",
@@ -1360,49 +1538,9 @@
       "imagePosition": "100% 100%",
       "status": "published",
       "sortOrder": 6,
-      "translation": { "zh": {} }
-    }
-  ],
-  "faqs": [
-    {
-      "id": "rfq-information",
-      "question": "What information should be included in an RFQ?",
-      "answer": "Include the product form, alloy grade, standard or drawing, dimensions, quantity, required testing, documentation and delivery destination.",
-      "status": "published",
-      "sortOrder": 1,
-      "translation": { "zh": {} }
-    },
-    {
-      "id": "drawing-review",
-      "question": "Can BYBOLT review a customer drawing?",
-      "answer": "Yes. The custom workflow is structured around drawing review, including geometry, tolerances, threads, material condition and inspection requirements.",
-      "status": "published",
-      "sortOrder": 2,
-      "translation": { "zh": {} }
-    },
-    {
-      "id": "material-certificates",
-      "question": "Are material certificates available?",
-      "answer": "Material certification and other records can be included when they are specified and confirmed as part of the order scope.",
-      "status": "published",
-      "sortOrder": 3,
-      "translation": { "zh": {} }
-    },
-    {
-      "id": "alloy-grades",
-      "question": "Which alloy grades can be considered?",
-      "answer": "The current catalogue includes Inconel 625, Inconel 718, Hastelloy C-276, Monel K-500, A-286 and other project-specific alloy options.",
-      "status": "published",
-      "sortOrder": 4,
-      "translation": { "zh": {} }
-    },
-    {
-      "id": "combined-quotation",
-      "question": "Can standard and custom products be quoted together?",
-      "answer": "Yes. List each line item clearly and attach the relevant drawings so standard and drawing-based products can be reviewed in one RFQ.",
-      "status": "published",
-      "sortOrder": 5,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     }
   ],
   "processes": [
@@ -1418,7 +1556,9 @@
       "imagePosition": "0% 50%",
       "status": "published",
       "sortOrder": 1,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "slug": "cutting",
@@ -1432,7 +1572,9 @@
       "imagePosition": "14% 50%",
       "status": "published",
       "sortOrder": 2,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "slug": "forming",
@@ -1446,7 +1588,9 @@
       "imagePosition": "28% 50%",
       "status": "published",
       "sortOrder": 3,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "slug": "heat-treatment",
@@ -1460,7 +1604,9 @@
       "imagePosition": "42% 50%",
       "status": "published",
       "sortOrder": 4,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "slug": "cnc-turning",
@@ -1474,7 +1620,9 @@
       "imagePosition": "57% 50%",
       "status": "published",
       "sortOrder": 5,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "slug": "cleaning",
@@ -1488,7 +1636,9 @@
       "imagePosition": "71% 50%",
       "status": "published",
       "sortOrder": 6,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "slug": "inspection",
@@ -1502,7 +1652,9 @@
       "imagePosition": "85% 50%",
       "status": "published",
       "sortOrder": 7,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     },
     {
       "slug": "marking-packaging",
@@ -1516,7 +1668,9 @@
       "imagePosition": "100% 50%",
       "status": "published",
       "sortOrder": 8,
-      "translation": { "zh": {} }
+      "translation": {
+        "zh": {}
+      }
     }
   ],
   "contact": [
