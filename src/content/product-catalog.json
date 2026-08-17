@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "updatedAt": "2026-08-13T13:26:07.598Z",
+  "updatedAt": "2026-08-17T13:12:18.000Z",
   "categories": [
     {
       "productRange": "range1",
@@ -19,7 +19,7 @@
       "models": [
         {
           "slug": "hex-bolts",
-          "name": "hheel",
+          "name": "Hex Bolts",
           "eyebrow": "General-purpose alloy bolt",
           "description": "External hex-drive bolts for industrial assemblies and elevated-temperature service.",
           "size": "M6-M64; 1/4-2 1/2 in",
@@ -34,7 +34,7 @@
             {
               "id": "image-msrjx2t6-3eb10e",
               "image": "/uploads/products/hex-bolts-gallery-20260813132558-0e000cbb.webp",
-              "alt": "hheel product view 2",
+              "alt": "Hex Bolts product view 2",
               "imagePosition": "50% 50%",
               "sortOrder": 10
             }
@@ -101,66 +101,6 @@
           "gallery": [],
           "status": "published",
           "sortOrder": 4,
-          "translation": {
-            "zh": {}
-          }
-        },
-        {
-          "slug": "new-product-238330",
-          "name": "hheel",
-          "eyebrow": "Drawing-based fastener",
-          "description": "Add a concise description of this product and its intended industrial service.",
-          "size": "Drawing-defined",
-          "length": "Drawing-defined",
-          "standard": "Customer drawing and agreed specification",
-          "configuration": "Project-specific",
-          "threads": "Standard or special thread forms",
-          "features": "",
-          "image": "/assets/products/nickel-alloy-hex-bolts.jpg",
-          "alt": "New BYBOLT alloy fastener product",
-          "gallery": [],
-          "status": "published",
-          "sortOrder": 999,
-          "translation": {
-            "zh": {}
-          }
-        },
-        {
-          "slug": "new-product-845204",
-          "name": "ddddd",
-          "eyebrow": "Drawing-based fastener",
-          "description": "Add a concise description of this product and its intended industrial service.",
-          "size": "Drawing-defined",
-          "length": "Drawing-defined",
-          "standard": "Customer drawing and agreed specification",
-          "configuration": "Project-specific",
-          "threads": "Standard or special thread forms",
-          "features": "",
-          "image": "/assets/products/nickel-alloy-hex-bolts.jpg",
-          "alt": "New BYBOLT alloy fastener product",
-          "gallery": [],
-          "status": "published",
-          "sortOrder": 999,
-          "translation": {
-            "zh": {}
-          }
-        },
-        {
-          "slug": "new-product-949265",
-          "name": "adlqd",
-          "eyebrow": "Drawing-based fastener",
-          "description": "Add a concise description of this product and its intended industrial service.",
-          "size": "Drawing-defined",
-          "length": "Drawing-defined",
-          "standard": "Customer drawing and agreed specification",
-          "configuration": "Project-specific",
-          "threads": "Standard or special thread forms",
-          "features": "",
-          "image": "/assets/products/nickel-alloy-hex-bolts.jpg",
-          "alt": "New BYBOLT alloy fastener product",
-          "gallery": [],
-          "status": "draft",
-          "sortOrder": 999,
           "translation": {
             "zh": {}
           }
@@ -874,43 +814,6 @@
           "gallery": [],
           "status": "published",
           "sortOrder": 1,
-          "translation": {
-            "zh": {}
-          }
-        }
-      ]
-    },
-    {
-      "productRange": "range1",
-      "slug": "new-category-628974",
-      "name": "test category",
-      "index": "08",
-      "image": "/assets/product-fasteners.jpg",
-      "alt": "BYBOLT alloy fastener category",
-      "summary": "Add a concise summary for this product category.",
-      "intro": "Add the category introduction shown above its complete product range.",
-      "status": "published",
-      "sortOrder": 8,
-      "translation": {
-        "zh": {}
-      },
-      "models": [
-        {
-          "slug": "new-product-960284",
-          "name": "New Product",
-          "eyebrow": "Drawing-based fastener",
-          "description": "Add a concise description of this product and its intended industrial service.",
-          "size": "Drawing-defined",
-          "length": "Drawing-defined",
-          "standard": "Customer drawing and agreed specification",
-          "configuration": "Project-specific",
-          "threads": "Standard or special thread forms",
-          "features": "",
-          "image": "/assets/product-fasteners.jpg",
-          "alt": "New BYBOLT alloy fastener product",
-          "gallery": [],
-          "status": "published",
-          "sortOrder": 999,
           "translation": {
             "zh": {}
           }
