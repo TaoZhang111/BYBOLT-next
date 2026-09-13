@@ -16,6 +16,12 @@
       "allowed_sender_addresses": ["rfq@bybolt.com"]
     }
   ],
+  "d1_databases": [
+    { "binding": "DB", "database_name": "bybolt-business" }
+  ],
+  "r2_buckets": [
+    { "binding": "DRAWINGS", "bucket_name": "bybolt-drawings" }
+  ],
   "observability": {
     "enabled": true,
     "logs": { "head_sampling_rate": 1 }

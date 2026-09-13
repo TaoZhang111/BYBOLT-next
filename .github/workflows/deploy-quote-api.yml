@@ -18,6 +18,9 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -26,10 +29,8 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: node scripts/prepare-cloudflare-business-resources.mjs workers/quote-api/wrangler.jsonc
       - run: mkdir -p workers/quote-api/.wrangler
       - run: pnpm exec wrangler types workers/quote-api/.wrangler/types.d.ts --config workers/quote-api/wrangler.jsonc
       - run: pnpm exec tsc --noEmit --project workers/quote-api/tsconfig.json
       - run: pnpm exec wrangler deploy --config workers/quote-api/wrangler.jsonc
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

@@ -1,15 +1,6 @@
 import { productCatalogSchema } from "../../../src/lib/products/schema";
-
-type Env = {
-  ADMIN_ORIGIN: string;
-  GITHUB_OWNER: string;
-  GITHUB_REPO: string;
-  GITHUB_BRANCH: string;
-  ALLOWED_GITHUB_LOGINS: string;
-  GITHUB_CLIENT_ID: string;
-  GITHUB_CLIENT_SECRET: string;
-  SESSION_SECRET: string;
-};
+import { handleBusinessRequest } from "./business";
+import type { AdminEnv } from "./env";
 
 type Session = { token: string; login: string; avatarUrl: string; exp: number };
 type StatePayload = { returnTo: string; exp: number };
@@ -23,12 +14,15 @@ const MAX_BODY_BYTES = 18 * 1024 * 1024;
 const MAX_FILE_BYTES = 5 * 1024 * 1024;
 
 const worker = {
-  async fetch(request: Request, env: Env): Promise<Response> {
+  async fetch(request: Request, env: AdminEnv): Promise<Response> {
     const url = new URL(request.url);
     if (request.method === "OPTIONS") return corsResponse(request, env, new Response(null, { status: 204 }));
 
     try {
-      if (url.pathname === "/health") return json({ ok: true, repository: `${env.GITHUB_OWNER}/${env.GITHUB_REPO}` });
+      if (url.pathname === "/health") {
+        const database = await env.DB.prepare("SELECT 1 AS ok").first<{ ok: number }>();
+        return json({ ok: true, database: database?.ok === 1, repository: `${env.GITHUB_OWNER}/${env.GITHUB_REPO}` });
+      }
       if (url.pathname === "/auth/login") return beginLogin(request, env);
       if (url.pathname === "/auth/callback") return completeLogin(request, env);
       if (url.pathname === "/auth/logout") return logout(request, env);
@@ -40,19 +34,21 @@ const worker = {
         if (!session) return corsResponse(request, env, json({ error: "Authentication required." }, 401));
         if (url.pathname === "/api/catalog" && request.method === "GET") return corsResponse(request, env, await readCatalog(env, session));
         if (url.pathname === "/api/publish" && request.method === "POST") return corsResponse(request, env, await publishCatalog(request, env, session));
+        if (url.pathname.startsWith("/api/business/")) return corsResponse(request, env, await handleBusinessRequest(request, env, session));
       }
       return json({ error: "Not found." }, 404);
     } catch (error) {
-      const status = error instanceof ApiError ? error.status : 500;
+      const candidateStatus = error && typeof error === "object" && "status" in error ? error.status : undefined;
+      const status = error instanceof ApiError ? error.status : typeof candidateStatus === "number" ? candidateStatus : 500;
       const message = error instanceof Error ? error.message : "Unexpected admin API error.";
       return corsResponse(request, env, json({ error: message }, status));
     }
   },
 };
 
-export default worker;
+export default worker satisfies ExportedHandler<AdminEnv>;
 
-async function beginLogin(request: Request, env: Env): Promise<Response> {
+async function beginLogin(request: Request, env: AdminEnv): Promise<Response> {
   assertConfiguration(env);
   const url = new URL(request.url);
   const returnTo = safeReturnTo(url.searchParams.get("returnTo"), env);
@@ -72,7 +68,7 @@ async function beginLogin(request: Request, env: Env): Promise<Response> {
   });
 }
 
-async function completeLogin(request: Request, env: Env): Promise<Response> {
+async function completeLogin(request: Request, env: AdminEnv): Promise<Response> {
   assertConfiguration(env);
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
@@ -107,7 +103,7 @@ async function completeLogin(request: Request, env: Env): Promise<Response> {
   });
 }
 
-function logout(request: Request, env: Env): Response {
+function logout(request: Request, env: AdminEnv): Response {
   const url = new URL(request.url);
   return new Response(null, {
     status: 302,
@@ -119,14 +115,14 @@ function logout(request: Request, env: Env): Response {
   });
 }
 
-async function sessionResponse(request: Request, env: Env): Promise<Response> {
+async function sessionResponse(request: Request, env: AdminEnv): Promise<Response> {
   enforceOrigin(request, env);
   const session = await readSession(request, env);
   if (!session) return json({ authenticated: false });
   return json({ authenticated: true, login: session.login, avatarUrl: session.avatarUrl, repository: `${env.GITHUB_OWNER}/${env.GITHUB_REPO}` });
 }
 
-async function readCatalog(env: Env, session: Session): Promise<Response> {
+async function readCatalog(env: AdminEnv, session: Session): Promise<Response> {
   const result = await github<{ content: string; encoding: string; sha: string }>(env, session.token, `/repos/${env.GITHUB_OWNER}/${env.GITHUB_REPO}/contents/${CATALOG_PATH}?ref=${encodeURIComponent(env.GITHUB_BRANCH)}`);
   if (result.encoding !== "base64") throw new ApiError(502, "GitHub returned an unsupported catalog encoding.");
   const catalog = productCatalogSchema.parse(JSON.parse(decodeUtf8(result.content.replace(/\s/g, ""))));
@@ -139,7 +135,7 @@ async function readCatalog(env: Env, session: Session): Promise<Response> {
   });
 }
 
-async function publishCatalog(request: Request, env: Env, session: Session): Promise<Response> {
+async function publishCatalog(request: Request, env: AdminEnv, session: Session): Promise<Response> {
   const contentLength = Number(request.headers.get("content-length") ?? 0);
   if (contentLength > MAX_BODY_BYTES) throw new ApiError(413, "Publish payload is too large.");
   const raw = await request.text();
@@ -190,15 +186,15 @@ function parseFiles(value: unknown): Array<{ path: string; contentBase64: string
   });
 }
 
-async function getHead(env: Env, token: string) {
+async function getHead(env: AdminEnv, token: string) {
   return github<{ object: { sha: string } }>(env, token, `/repos/${env.GITHUB_OWNER}/${env.GITHUB_REPO}/git/ref/heads/${encodeURIComponent(env.GITHUB_BRANCH)}`);
 }
 
-function createBlob(env: Env, token: string, content: string) {
+function createBlob(env: AdminEnv, token: string, content: string) {
   return github<{ sha: string }>(env, token, `/repos/${env.GITHUB_OWNER}/${env.GITHUB_REPO}/git/blobs`, { method: "POST", body: JSON.stringify({ content, encoding: "base64" }) });
 }
 
-async function github<T>(env: Env, token: string, path: string, init: RequestInit = {}): Promise<T> {
+async function github<T>(env: AdminEnv, token: string, path: string, init: RequestInit = {}): Promise<T> {
   const response = await fetch(`https://api.github.com${path}`, {
     ...init,
     headers: {
@@ -215,7 +211,7 @@ async function github<T>(env: Env, token: string, path: string, init: RequestIni
   return payload as T;
 }
 
-async function readSession(request: Request, env: Env): Promise<Session | null> {
+async function readSession(request: Request, env: AdminEnv): Promise<Session | null> {
   const authorization = request.headers.get("Authorization");
   const encrypted = authorization?.startsWith("Bearer ") ? authorization.slice(7) : readCookie(request, SESSION_COOKIE);
   if (!encrypted) return null;
@@ -224,7 +220,7 @@ async function readSession(request: Request, env: Env): Promise<Session | null> 
   return session;
 }
 
-function isAllowedGitHubLogin(login: string, env: Env): boolean {
+function isAllowedGitHubLogin(login: string, env: AdminEnv): boolean {
   const normalizedLogin = login.trim().toLowerCase();
   return env.ALLOWED_GITHUB_LOGINS
     .split(",")
@@ -258,26 +254,26 @@ async function encryptionKey(secret: string): Promise<CryptoKey> {
   return crypto.subtle.importKey("raw", digest, "AES-GCM", false, ["encrypt", "decrypt"]);
 }
 
-function corsResponse(request: Request, env: Env, response: Response): Response {
+function corsResponse(request: Request, env: AdminEnv, response: Response): Response {
   const origin = request.headers.get("Origin");
   if (origin === env.ADMIN_ORIGIN) {
     response.headers.set("Access-Control-Allow-Origin", origin);
     response.headers.set("Access-Control-Allow-Credentials", "true");
     response.headers.set("Access-Control-Allow-Headers", "Authorization, Content-Type");
-    response.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+    response.headers.set("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
     response.headers.set("Vary", "Origin");
   }
   response.headers.set("Cache-Control", "no-store");
   return response;
 }
 
-function enforceOrigin(request: Request, env: Env) {
+function enforceOrigin(request: Request, env: AdminEnv) {
   if (request.headers.get("Origin") !== env.ADMIN_ORIGIN) throw new ApiError(403, "Origin is not allowed.");
 }
 
-function safeReturnTo(value: string | null, env: Env): string {
+function safeReturnTo(value: string | null, env: AdminEnv): string {
   try {
-    const result = new URL(value || `${env.ADMIN_ORIGIN}/admin/`);
+    const result = new URL(value || "/admin/", env.ADMIN_ORIGIN);
     if (result.origin !== env.ADMIN_ORIGIN) throw new Error();
     return result.toString();
   } catch {
@@ -285,7 +281,7 @@ function safeReturnTo(value: string | null, env: Env): string {
   }
 }
 
-function assertConfiguration(env: Env) {
+function assertConfiguration(env: AdminEnv) {
   if (!env.GITHUB_CLIENT_ID || !env.GITHUB_CLIENT_SECRET || !env.SESSION_SECRET) throw new ApiError(500, "Admin API secrets are not configured.");
 }
 

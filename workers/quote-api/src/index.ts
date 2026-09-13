@@ -81,7 +81,10 @@ export default {
     const origin = request.headers.get("Origin");
     const allowed = new Set(env.ALLOWED_ORIGINS.split(",").map((value) => value.trim()).filter(Boolean));
     if (request.method === "OPTIONS") return new Response(null, { status: origin && allowed.has(origin) ? 204 : 403, headers: corsHeaders(origin, env) });
-    if (request.method === "GET" && new URL(request.url).pathname === "/health") return json({ ok: true, service: "bybolt-quote-api", recipientConfigured: Boolean(env.RECIPIENT_EMAIL) }, 200, origin, env);
+    if (request.method === "GET" && new URL(request.url).pathname === "/health") {
+      const database = await env.DB.prepare("SELECT 1 AS ok").first<{ ok: number }>();
+      return json({ ok: true, database: database?.ok === 1, service: "bybolt-quote-api", recipientConfigured: Boolean(env.RECIPIENT_EMAIL) }, 200, origin, env);
+    }
     if (request.method !== "POST" || !["/", "/api/quote"].includes(new URL(request.url).pathname)) return json({ error: "Not found." }, 404, origin, env);
     if (!origin || !allowed.has(origin)) return json({ error: "Origin is not allowed." }, 403, origin, env);
 
@@ -89,9 +92,10 @@ export default {
     if (!contentLength) return json({ error: "Content-Length is required." }, 411, origin, env);
     if (contentLength > MAX_BODY_BYTES) return json({ error: "Request is too large." }, 413, origin, env);
 
+    let inquiry = "";
     try {
       const form = await request.formData();
-      const inquiry = `BYB-${new Date().toISOString().slice(0, 10).replaceAll("-", "")}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+      inquiry = `BYB-${new Date().toISOString().slice(0, 10).replaceAll("-", "")}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
       if (text(form, "website", 240)) return json({ inquiry }, 200, origin, env);
 
       const name = text(form, "name", 120, true);
@@ -124,6 +128,15 @@ export default {
       const testing = form.getAll("testing").map(String).map((value) => value.slice(0, 120));
       if (testingOther) testing.push(testingOther);
       const confidential = Boolean(form.get("confidentiality"));
+      const preparedFiles = await Promise.all(files.map(async (file) => ({ file, content: await file.arrayBuffer(), key: `inquiries/${inquiry}/${crypto.randomUUID()}-${file.name.replace(/[^A-Za-z0-9._-]+/g, "-").slice(-160)}` })));
+      for (const attachment of preparedFiles) await env.DRAWINGS.put(attachment.key, attachment.content, { httpMetadata: { contentType: attachment.file.type || "application/octet-stream" } });
+      const now = new Date().toISOString();
+      const databaseStatements = [
+        env.DB.prepare("INSERT INTO quotes (id,status,company,contact_name,email,whatsapp,country,destination,application,target_delivery,currency,bom,testing,notes,confidentiality,source,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)").bind(inquiry, "new", company, name, email, whatsapp, country, destination, application, targetDelivery, "USD", bom, testing.join(", "), notes, confidential ? 1 : 0, "website", now, now),
+        ...items.map((item, index) => env.DB.prepare("INSERT INTO quote_items (id,quote_id,product_name,material,requested_size,standard,quantity,quantity_unit,notes,sort_order) VALUES (?,?,?,?,?,?,?,?,?,?)").bind(`qit-${crypto.randomUUID()}`, inquiry, item.productName, item.material, item.requestedSize, item.standard, Number(item.quantity), item.quantityUnit, item.notes, index)),
+        ...preparedFiles.map((attachment, index) => env.DB.prepare("INSERT INTO drawings (id,drawing_no,quote_id,project_name,owner_type,product_name,version,filename,object_key,content_type,size_bytes,status,notes,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)").bind(`drw-${crypto.randomUUID()}`, `${inquiry}-${String(index + 1).padStart(2, "0")}`, inquiry, application, "customer", "RFQ attachment", "1", attachment.file.name, attachment.key, attachment.file.type || "application/octet-stream", attachment.file.size, "active", "Uploaded with website RFQ", now, now)),
+      ];
+      try { await env.DB.batch(databaseStatements); } catch (error) { for (const attachment of preparedFiles) await env.DRAWINGS.delete(attachment.key); throw error; }
       const safeCompany = company.replace(/[\r\n]/g, " ").slice(0, 80);
       const details = [
         ["Inquiry", inquiry], ["Buyer", name], ["Company", company], ["Email", email], ["WhatsApp / phone", whatsapp || "—"], ["Country", country], ["Destination", destination], ["Application / project", application || "—"], ["Target delivery", targetDelivery || "—"], ["Testing", testing.join(", ") || "—"], ["Confidentiality", confidential ? "Requested" : "Not requested"],
@@ -139,12 +152,15 @@ export default {
         subject: `[BYBOLT RFQ ${inquiry}] ${safeCompany}`,
         text: plain,
         html,
-        attachments: await Promise.all(files.map(async (file) => ({ disposition: "attachment" as const, filename: file.name.replace(/[\r\n]/g, " ").slice(0, 180), type: file.type || "application/octet-stream", content: await file.arrayBuffer() }))),
+        attachments: preparedFiles.map(({ file, content }) => ({ disposition: "attachment" as const, filename: file.name.replace(/[\r\n]/g, " ").slice(0, 180), type: file.type || "application/octet-stream", content })),
       });
       console.log(JSON.stringify({ event: "rfq_sent", inquiry, itemCount: items.length, attachmentCount: files.length }));
       return json({ inquiry }, 200, origin, env);
     } catch (error) {
       const status = error instanceof RequestError ? error.status : 500;
+      if (inquiry) {
+        try { await env.DB.prepare("UPDATE quotes SET status = 'delivery_failed', updated_at = ? WHERE id = ?").bind(new Date().toISOString(), inquiry).run(); } catch { /* Preserve the original failure response. */ }
+      }
       console.error(JSON.stringify({ event: "rfq_failed", status, message: error instanceof Error ? error.message : "Unknown error" }));
       return json({ error: status < 500 && error instanceof Error ? error.message : "The RFQ could not be delivered." }, status, origin, env);
     }

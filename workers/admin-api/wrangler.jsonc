@@ -2,12 +2,20 @@
   "$schema": "../../node_modules/wrangler/config-schema.json",
   "name": "bybolt-admin-api",
   "main": "src/index.ts",
-  "compatibility_date": "2026-07-23",
+  "compatibility_date": "2026-09-13",
+  "compatibility_flags": ["nodejs_compat"],
   "vars": {
     "ADMIN_ORIGIN": "https://bybolt-next-preview.pages.dev",
     "GITHUB_OWNER": "TaoZhang111",
     "GITHUB_REPO": "BYBOLT-next",
     "GITHUB_BRANCH": "main",
     "ALLOWED_GITHUB_LOGINS": "TaoZhang111,Jenyrulve"
-  }
+  },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "bybolt-business", "migrations_dir": "migrations" }
+  ],
+  "r2_buckets": [
+    { "binding": "DRAWINGS", "bucket_name": "bybolt-drawings" }
+  ],
+  "observability": { "enabled": true, "logs": { "head_sampling_rate": 1 } }
 }

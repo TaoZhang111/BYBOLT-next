@@ -12,6 +12,7 @@ import {
   CircleAlert,
   CloudUpload,
   Copy,
+  Database,
   Eye,
   EyeOff,
   ExternalLink,
@@ -35,6 +36,7 @@ import {
   X,
 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 
 import { productCatalogDocument } from "@/content/product-catalog";
 import {
@@ -695,6 +697,7 @@ export function AdminApp() {
         </div>
         <div className={styles.topbarActions}>
           {isDirty && <span className={styles.unsaved}>Unsaved changes</span>}
+          <Link className={styles.githubButton} href="/admin/business/"><Database /> Business OS</Link>
           <button className={styles.iconButton} type="button" title="Discard local changes" disabled={!isDirty} onClick={resetDraft}><RotateCcw /></button>
           <button className={styles.secondaryButton} type="button" onClick={saveLocalDraft}><Save /> Save draft</button>
           <button className={styles.publishButton} type="button" disabled={publishing || !isDirty} onClick={() => void publish()}>
