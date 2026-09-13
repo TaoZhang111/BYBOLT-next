@@ -26,6 +26,7 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: mkdir -p workers/quote-api/.wrangler
       - run: pnpm exec wrangler types workers/quote-api/.wrangler/types.d.ts --config workers/quote-api/wrangler.jsonc
       - run: pnpm exec tsc --noEmit --project workers/quote-api/tsconfig.json
       - run: pnpm exec wrangler deploy --config workers/quote-api/wrangler.jsonc
