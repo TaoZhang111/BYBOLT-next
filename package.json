@@ -11,6 +11,7 @@
     "deploy:preview": "pnpm build && wrangler pages deploy out --project-name bybolt-next-preview --branch preview",
     "deploy:production": "pnpm build && wrangler pages deploy out --project-name bybolt-next-preview --branch main",
     "deploy:admin-api": "wrangler deploy --config workers/admin-api/wrangler.jsonc",
+    "deploy:quote-api": "wrangler deploy --config workers/quote-api/wrangler.jsonc",
     "qa:admin": "node scripts/qa-admin.mjs",
     "start": "next start",
     "lint": "eslint"

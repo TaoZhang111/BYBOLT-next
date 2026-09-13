@@ -16,6 +16,7 @@ const eslintConfig = defineConfig([
     "public/**",
     "src/content/*.html",
     "next-env.d.ts",
+    "workers/**/worker-configuration.d.ts",
   ]),
 ]);
 

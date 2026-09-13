@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 
 import { siteConfig } from "@/config/site";
+import { QuoteListProvider } from "@/components/quote-list/quote-list-context";
 import { isLocale, locales } from "@/i18n/config";
 
 import "../globals.css";
@@ -64,7 +65,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body className="prototype-page">{children}</body>
+      <body className="prototype-page"><QuoteListProvider>{children}</QuoteListProvider></body>
     </html>
   );
 }

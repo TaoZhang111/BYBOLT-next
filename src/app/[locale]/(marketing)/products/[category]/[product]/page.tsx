@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import { ProductGallery } from "@/components/products/product-gallery";
 import { ProductReveal } from "@/components/products/product-reveal";
 import { ProductSiteShell } from "@/components/products/product-site-shell";
+import { AddToQuoteButton } from "@/components/quote-list/add-to-quote-button";
+import { createCatalogQuoteItem } from "@/components/quote-list/quote-list-item";
 import styles from "@/components/products/product-site.module.css";
 import { localizeProductCategory, millProductCategories, productCategories, resolveProductCategory, sharedProductProperties } from "@/content/product-catalog";
 import { isLocale } from "@/i18n/config";
@@ -86,8 +88,8 @@ export default async function ProductDetailPage({ params }: Props) {
               {specs.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
               </dl>
               <div className={styles.detailActions}>
-                <Link className={styles.primaryButton} href={`${base}/request-a-quote?product=${encodeURIComponent(product.name)}`}>Request this product</Link>
-                <Link className={styles.outlineButton} href={`${base}/products/${category.slug}`}>Back to {category.name}</Link>
+                <AddToQuoteButton className={styles.primaryButton} locale={locale} item={createCatalogQuoteItem({ categoryName: category.name, productName: product.name, categorySlug: category.slug, productSlug: product.slug, description: product.description, image: product.image || category.image, catalogSize: product.size, catalogStandard: product.standard, threads: product.threads })} />
+                <Link className={styles.outlineButton} href={`${base}/quote-list/`}>View Quote List</Link>
               </div>
             </div>
           </ProductReveal>
@@ -103,7 +105,7 @@ export default async function ProductDetailPage({ params }: Props) {
       <section className={styles.actionSection}>
         <div className={`${styles.container} ${styles.actionInner}`}>
           <h2>Send the drawing. We will review the route.</h2>
-          <Link className={styles.primaryButton} href={`${base}/request-a-quote?product=${encodeURIComponent(product.name)}`}>Upload RFQ Details</Link>
+          <Link className={styles.primaryButton} href={`${base}/request-a-quote/?product=${encodeURIComponent(product.name)}`}>Upload RFQ Details</Link>
         </div>
       </section>
     </ProductSiteShell>

@@ -17,7 +17,7 @@ export function RfqPage({ locale }: { locale: Locale }) {
             <div>
               <p className="eyebrow">STANDARD OR CUSTOM REQUIREMENTS</p>
               <h1 id="quote-title">Request a Quote</h1>
-              <p>Submit a standard fastener requirement or upload drawings for a custom component review.</p>
+              <p>Build one enquiry from several products, a pasted BOM and supporting drawings. This is a quotation workflow—no online payment is required.</p>
             </div>
             <div className="response-promise" aria-label="Response commitment"><span>Response target</span><strong>Within one business day</strong></div>
           </div>
@@ -26,7 +26,7 @@ export function RfqPage({ locale }: { locale: Locale }) {
         <section className="quote-workspace">
           <div className="container quote-layout">
             <aside className="quote-aside quote-contact-card">
-              <div><p className="eyebrow dark">Contact</p><h2>Contact Us</h2><p>Speak with BYBOLT about alloy selection, drawings, testing and delivery requirements.</p></div>
+              <div><p className="eyebrow dark">B2B quotation</p><h2>Technical review before price.</h2><p>Send products, quantities, delivery targets and project files together. BYBOLT will review alloy selection, testing and manufacturability before responding.</p></div>
               <address className="quote-contact-list">
                 {contactDetails.map((method) => {
                   const href = method.type === "email" ? `mailto:${method.value}` : method.type === "phone" ? `tel:${method.value.replace(/\s/g, "")}` : null;

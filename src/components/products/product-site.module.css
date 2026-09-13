@@ -582,6 +582,8 @@
   padding: 0 25px;
   font-size: 14px;
   font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
 }
 
 .primaryButton {

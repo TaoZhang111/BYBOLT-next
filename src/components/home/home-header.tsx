@@ -4,6 +4,7 @@ import Link from "@/components/navigation/static-link";
 import { useEffect, useState } from "react";
 
 import { CatalogDropdown } from "@/components/navigation/catalog-dropdown";
+import { QuoteListNavLink } from "@/components/quote-list/quote-list-nav-link";
 import type { Locale } from "@/i18n/config";
 
 type HeaderSection = "products" | "materials" | "custom" | "quality" | "resources" | "about";
@@ -62,6 +63,7 @@ export function HomeHeader({ locale, solid = false, quoteCurrent = false, curren
         <Link href={`${base}/quality`} aria-current={current === "quality" ? "page" : undefined} onClick={() => setIsOpen(false)}>Quality</Link>
         <Link href={`${base}/resources`} aria-current={current === "resources" ? "page" : undefined} onClick={() => setIsOpen(false)}>Resources</Link>
         <Link href={`${base}/about`} aria-current={current === "about" ? "page" : undefined} onClick={() => setIsOpen(false)}>About</Link>
+        <QuoteListNavLink locale={locale} onNavigate={() => setIsOpen(false)} />
         <Link className="nav-cta" href={`${base}/request-a-quote`} aria-current={quoteCurrent ? "page" : undefined} onClick={() => setIsOpen(false)}>Request a Quote</Link>
       </nav>
     </header>

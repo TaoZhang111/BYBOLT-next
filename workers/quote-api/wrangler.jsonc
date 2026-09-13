@@ -1,0 +1,23 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "bybolt-quote-api",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-13",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "ALLOWED_ORIGINS": "https://bybolt-next-preview.pages.dev,http://localhost:3000,http://127.0.0.1:3000",
+    "RECIPIENT_EMAIL": "shiawithnoy@gmail.com",
+    "SENDER_EMAIL": "rfq@bybolt.com"
+  },
+  "send_email": [
+    {
+      "name": "EMAIL",
+      "destination_address": "shiawithnoy@gmail.com",
+      "allowed_sender_addresses": ["rfq@bybolt.com"]
+    }
+  ],
+  "observability": {
+    "enabled": true,
+    "logs": { "head_sampling_rate": 1 }
+  }
+}
