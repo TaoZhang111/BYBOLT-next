@@ -4,6 +4,7 @@ import Link from "@/components/navigation/static-link";
 import { useEffect, useState } from "react";
 
 import { CatalogDropdown } from "@/components/navigation/catalog-dropdown";
+import { LanguageSelector } from "@/components/navigation/language-selector";
 import { QuoteListNavLink } from "@/components/quote-list/quote-list-nav-link";
 import type { Locale } from "@/i18n/config";
 
@@ -14,6 +15,11 @@ export function HomeHeader({ locale, solid = false, quoteCurrent = false, curren
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLight, setIsLight] = useState(false);
   const base = `/${locale}`;
+  const navCopy = locale === "zh"
+    ? { quality: "质量", resources: "资料", about: "关于", quote: "提交询价" }
+    : locale === "ar"
+      ? { quality: "الجودة", resources: "الموارد", about: "من نحن", quote: "طلب عرض سعر" }
+      : { quality: "Quality", resources: "Resources", about: "About", quote: "Request a Quote" };
 
   useEffect(() => {
     const updateHeader = () => {
@@ -60,11 +66,12 @@ export function HomeHeader({ locale, solid = false, quoteCurrent = false, curren
         <CatalogDropdown kind="products" locale={locale} surface="home" current={current === "products"} onNavigate={() => setIsOpen(false)} />
         <CatalogDropdown kind="materials" locale={locale} surface="home" current={current === "materials"} onNavigate={() => setIsOpen(false)} />
         <CatalogDropdown kind="custom" locale={locale} surface="home" current={current === "custom"} onNavigate={() => setIsOpen(false)} />
-        <Link href={`${base}/quality`} aria-current={current === "quality" ? "page" : undefined} onClick={() => setIsOpen(false)}>Quality</Link>
-        <Link href={`${base}/resources`} aria-current={current === "resources" ? "page" : undefined} onClick={() => setIsOpen(false)}>Resources</Link>
-        <Link href={`${base}/about`} aria-current={current === "about" ? "page" : undefined} onClick={() => setIsOpen(false)}>About</Link>
+        <Link href={`${base}/quality`} aria-current={current === "quality" ? "page" : undefined} onClick={() => setIsOpen(false)}>{navCopy.quality}</Link>
+        <Link href={`${base}/resources`} aria-current={current === "resources" ? "page" : undefined} onClick={() => setIsOpen(false)}>{navCopy.resources}</Link>
+        <Link href={`${base}/about`} aria-current={current === "about" ? "page" : undefined} onClick={() => setIsOpen(false)}>{navCopy.about}</Link>
         <QuoteListNavLink locale={locale} onNavigate={() => setIsOpen(false)} />
-        <Link className="nav-cta" href={`${base}/request-a-quote`} aria-current={quoteCurrent ? "page" : undefined} onClick={() => setIsOpen(false)}>Request a Quote</Link>
+        <LanguageSelector locale={locale} />
+        <Link className="nav-cta" href={`${base}/request-a-quote`} aria-current={quoteCurrent ? "page" : undefined} onClick={() => setIsOpen(false)}>{navCopy.quote}</Link>
       </nav>
     </header>
   );

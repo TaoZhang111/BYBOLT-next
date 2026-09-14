@@ -14,7 +14,7 @@ export function getAlloyMaterial(slug: string) {
 }
 
 export function localizeAlloyMaterial(material: AlloyMaterial, locale: Locale): AlloyMaterial {
-  if (locale === "en") return material;
+  if (locale !== "zh") return material;
   return { ...material, ...material.translation.zh, translation: material.translation };
 }
 

@@ -26,7 +26,16 @@ export function CatalogDropdown({ kind, locale, surface, current, onNavigate }: 
         millProducts: "\u9ad8\u6e29\u5408\u91d1\u68d2\u6750",
         compare: "\u5bf9\u6bd4\u6750\u6599",
       }
-    : {
+    : locale === "ar"
+      ? {
+          products: "المنتجات",
+          materials: "المواد",
+          custom: "حسب الطلب",
+          fasteners: "فئات المثبتات",
+          millProducts: "منتجات السبائك عالية الحرارة",
+          compare: "مقارنة المواد",
+        }
+      : {
         products: "Products",
         materials: "Materials",
         custom: "Custom",

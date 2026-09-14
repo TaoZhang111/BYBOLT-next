@@ -9,6 +9,7 @@ export function localizedAlternates(locale: Locale, path = ""): Metadata["altern
     languages: {
       en: `/en${normalizedPath}/`,
       zh: `/zh${normalizedPath}/`,
+      ar: `/ar${normalizedPath}/`,
       "x-default": `/en${normalizedPath}/`,
     },
   };

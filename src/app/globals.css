@@ -88,6 +88,11 @@ select {
   margin: 0 auto;
 }
 
+html[lang="ar"] main,
+html[lang="ar"] footer {
+  direction: ltr;
+}
+
 .site-header {
   position: fixed;
   inset: 0 0 auto;
@@ -205,6 +210,52 @@ select {
 .site-header.is-solid .nav-cta {
   color: #1d1210;
   background: #f2f2f2;
+}
+
+.language-switcher {
+  position: relative;
+  display: inline-flex;
+  min-width: 82px;
+  height: 36px;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: var(--radius);
+  transition: color 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.language-switcher:hover,
+.language-switcher:focus-within {
+  color: var(--white);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.48);
+}
+
+.language-switcher select {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.language-switcher-globe,
+.language-switcher-chevron {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+
+.language-switcher-globe { left: 11px; }
+.language-switcher-chevron { right: 9px; }
+
+.language-switcher-current {
+  margin: 0 25px 0 31px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
 }
 
 .site-header .nav-cta:hover,
@@ -1808,6 +1859,12 @@ textarea[aria-invalid="true"] {
 
   .site-nav a {
     padding: 14px;
+  }
+
+  .site-nav .language-switcher {
+    width: 100%;
+    height: 48px;
+    margin: 4px 0;
   }
 
   .site-nav a:not(.nav-cta)::after {

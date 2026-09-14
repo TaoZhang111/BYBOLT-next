@@ -2,11 +2,10 @@ import Link from "@/components/navigation/static-link";
 
 import { Container } from "@/components/ui/container";
 import { primaryNavigation, siteConfig } from "@/config/site";
+import { LanguageSelector } from "@/components/navigation/language-selector";
 import type { Locale } from "@/i18n/config";
 
 export function SiteHeader({ locale }: { locale: Locale }) {
-  const alternateLocale: Locale = locale === "en" ? "zh" : "en";
-
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-industrial text-white shadow-[0_8px_24px_rgba(0,0,0,0.12)]">
       <Container className="flex min-h-20 items-center justify-between gap-8 py-4">
@@ -32,17 +31,12 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         </nav>
 
         <div className="flex shrink-0 items-center gap-3 text-sm">
-          <Link
-            className="border border-white/25 px-3 py-2 text-white/80 transition hover:border-white hover:text-white"
-            href={`/${alternateLocale}`}
-          >
-            {alternateLocale === "en" ? "EN" : "中文"}
-          </Link>
+          <LanguageSelector locale={locale} />
           <Link
             className="bg-accent px-4 py-2 font-semibold text-white transition hover:bg-accent-strong"
             href={`/${locale}/request-a-quote`}
           >
-            {locale === "en" ? "Request a Quote" : "提交询价"}
+            {locale === "zh" ? "提交询价" : locale === "ar" ? "طلب عرض سعر" : "Request a Quote"}
           </Link>
         </div>
       </Container>

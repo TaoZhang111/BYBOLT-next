@@ -18,7 +18,7 @@ type PageCopy = {
   description: string;
 };
 
-const content: Record<Locale, Record<PageKey, PageCopy>> = {
+const content: Record<"en" | "zh", Record<PageKey, PageCopy>> = {
   en: {
     alloys: {
       eyebrow: "Material portfolio",
@@ -136,5 +136,5 @@ const content: Record<Locale, Record<PageKey, PageCopy>> = {
 };
 
 export function getPageCopy(locale: Locale, key: PageKey): PageCopy {
-  return content[locale][key];
+  return content[locale === "zh" ? "zh" : "en"][key];
 }

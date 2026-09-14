@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       type: "website",
       url: `/${currentLocale}`,
       siteName: siteConfig.workingName,
-      locale: currentLocale === "zh" ? "zh_CN" : "en_US",
+      locale: currentLocale === "zh" ? "zh_CN" : currentLocale === "ar" ? "ar_SA" : "en_US",
       title,
       description: "Engineered alloy fasteners for heat, pressure and corrosion-critical industrial applications.",
       images: [{ url: "/assets/images/fastener-hero-poster.jpg", width: 1672, height: 941, alt: "BYBOLT high-temperature alloy fastener" }],
@@ -64,7 +64,7 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={locale}>
+    <html lang={locale} dir={locale === "ar" ? "rtl" : "ltr"}>
       <body className="prototype-page"><QuoteListProvider>{children}</QuoteListProvider></body>
     </html>
   );
